@@ -1,16 +1,31 @@
 # SISTEMA HOSPITALARIO
 
 ---
-
+<div aling="center">
 **SARA SOFÍA DÍAZ RODRÍGUEZ**
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 **S1**
+&nbsp;
+&nbsp;
 **PEDRO FELIPE GÓMEZ BONILLA**
-
+&nbsp;
+&nbsp;
 CAMPUSLANDS
+&nbsp;
+&nbsp;
 RUTA NODEJS
+&nbsp;
+&nbsp;
 BUCARAMANGA
+&nbsp;
+&nbsp;
 2025
-
+</div>
 ---
 
 ## Tabla de Contenidos
@@ -137,8 +152,7 @@ config:
 ---
 
 flowchart TD
-    A(["Start"]) --> B{"Decision"}
-    B --> C["Option A"] & D["Option B"]
+    
     Hospital["Hospital"] --> HId(("id")) & HNombre(("nombre")) & HDireccion(("direccion")) & HTelefono(("telefono"))
     Administrativos["Administrativos"] --> AId(("id")) & AIdHospital(("id_hospital")) & ANombre(("nombre")) & ADatos(("datos")) & AGenero(("genero")) & ARol(("rol"))
     Hospital -- tiene --> Administrativos
@@ -162,3 +176,4 @@ flowchart TD
     Areas --> ArCodigo(("codigo")) & ArTipoArea(("tipo_area")) & ArDescripcion(("descripcion")) & ArSubareas(("subareas")) & ArPersonal(("personal")) & ArEstado(("estado")) & ArIdHospital(("id_hospital"))
     Hospital -- contiene --> Areas
 ```
+
