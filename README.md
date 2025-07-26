@@ -1,33 +1,39 @@
-# SISTEMA HOSPITALARIO
 
----
-<div aling="center">
-**SARA SOFÍA DÍAZ RODRÍGUEZ**
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-**S1**
-&nbsp;
-&nbsp;
-**PEDRO FELIPE GÓMEZ BONILLA**
-&nbsp;
-&nbsp;
-CAMPUSLANDS
-&nbsp;
-&nbsp;
-RUTA NODEJS
-&nbsp;
-&nbsp;
-BUCARAMANGA
-&nbsp;
-&nbsp;
-2025
+<div align="center">
+<h1> SISTEMA HOSPITALARIO </h1>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>SARA SOFÍA DÍAZ RODRÍGUEZ</h1>
+<h1>S1</h1>
+<h1>PEDRO FELIPE GÓMEZ BONILLA</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2>CAMPUSLANDS</h2>
+
+<h2>RUTA NODEJS</h2>
+
+<h2>BUCARAMANGA</h2>
+
+<h2>2025</h2>
+
 </div>
----
 
+<br>
+<br>
 ## Tabla de Contenidos
 
 * [Introducción](#introducción)
@@ -74,9 +80,9 @@ BUCARAMANGA
 * [Referencias](#referencias)
 
 ---
-
-## Introducción
-
+<div align="center">
+ <h2>Introducción</h2>
+</div>
 En este documento se halla la especificación del desarrollo de la **base de datos** realizada para un **sistema hospitalario** de Colombia, el cual busca permitir la gestión eficiente de todas las operaciones relacionadas con la administración de este sistema.
 
 Entre los problemas más destacados se encuentran la gestión deficiente de clientes y repuestos, la ineficiencia en la cadena de suministro y las dificultades en el análisis de ventas y compras.
