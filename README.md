@@ -1175,52 +1175,276 @@ erDiagram
 
 # Relaciones y Cardinalidades 
 ### Se realizó las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos: 
-</br>
-# Relaciones y Cardinalidades  
-### Se realizaron las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos:  
+# Normalización 1FN – Modelo Hospitalario
 
-1. Hospital - Administrativos:  
-❖ Un hospital puede tener varios administrativos y cada administrativo puede estar asociado a uno o más hospitales. N-N (muchos a muchos).  
+## Las Entidades y Atributos
 
-2. Hospital - Médicos:  
-❖ Un hospital puede emplear varios médicos, pero cada médico pertenece a un solo hospital. 1-N (uno a muchos).  
+### 1. Hospital  
+❖ Se encuentra en 1FN, ya que cuenta con una clave primaria única (`id`) y cada columna contiene valores atómicos y no repetitivos.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `direccion`: string  
+- `telefono`: string  
+- `codigo_habilitacion`: string  
+- `tipo_institucion`: string  
+- `nivel_complejidad`: string  
 
-3. Hospital - Enfermeros:  
-❖ Un hospital puede emplear varios enfermeros, y cada enfermero pertenece a un solo hospital. 1-N (uno a muchos).  
+---
 
-4. Hospital - Mantenimiento:  
-❖ Un hospital puede tener varios trabajadores de mantenimiento, cada uno asignado a un solo hospital. 1-N (uno a muchos).  
+### 2. Administrativos  
+❖ En 1FN, gracias a la clave primaria `id` y a que cada campo almacena un único dato por celda.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `telefono`: string  
+- `correo`: string  
+- `rol`: string  
+- `horario`: string  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
 
-5. Hospital - Pacientes:  
-❖ Un hospital puede atender a muchos pacientes, pero cada paciente está registrado en un solo hospital. 1-N (uno a muchos).  
+---
 
-6. Hospital - Proveedores:  
-❖ Un hospital puede estar relacionado con varios proveedores, y un proveedor puede suministrar a varios hospitales. N-N (muchos a muchos).  
+### 3. AdministrativoHospital  
+❖ Cumple con 1FN: todas las celdas contienen valores simples y la relación entre hospital y administrativo está correctamente normalizada.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_administrativo`: ObjectId FOREIGN KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
 
-7. Hospital - Áreas:  
-❖ Un hospital puede contener varias áreas, y cada área pertenece a un solo hospital. 1-N (uno a muchos).  
+---
 
-8. Hospital - Medicamentos:  
-❖ Un hospital puede almacenar múltiples medicamentos, gestionados en su inventario. 1-N (uno a muchos).  
+### 4. Medicos  
+❖ Cumple con 1FN: datos atómicos, clave primaria definida.  
+- `id`: ObjectId PRIMARY KEY  
+- `rol`: string  
+- `fecha_ingreso`: date  
+- `correo`: string  
+- `telefono`: string  
+- `numero_colegiatura`: string  
+- `area_asignada`: string  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `estado`: string  
+- `id_horario`: ObjectId FOREIGN KEY  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
 
-9. Médicos - Visitas Médicas:  
-❖ Un médico puede realizar muchas visitas médicas, pero cada visita médica es realizada por un solo médico. 1-N (uno a muchos).  
+---
 
-10. Pacientes - Visitas Médicas:  
-❖ Un paciente puede recibir muchas visitas médicas, pero cada visita médica corresponde a un solo paciente. 1-N (uno a muchos).  
+### 5. Horario  
+❖ En 1FN: campos simples y sin valores multivaluados.  
+- `id`: ObjectId PRIMARY KEY  
+- `horario_tipo`: string  
+- `dias`: string  
 
-11. Visitas Médicas - Tratamientos:  
-❖ Una visita médica puede prescribir un tratamiento, y un tratamiento puede ser recetado por muchas visitas médicas. 1-N (uno a muchos).  
+---
 
-12. Tratamientos - Medicamentos:  
-❖ Un tratamiento puede incluir varios medicamentos, y un medicamento puede estar en varios tratamientos. N-N (muchos a muchos).  
+### 6. Enfermeros  
+❖ Cumple con 1FN: todos los campos son atómicos.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `rol`: string  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+- `fecha_ingreso`: date  
+- `numero_colegiatura`: string  
+- `correo`: string  
+- `telefono`: string  
+- `area_asignada`: string  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `estado`: string  
+- `horario`: string  
 
-13. Áreas - Médicos:  
-❖ Un área puede tener varios médicos asignados, y un médico puede estar relacionado con una sola área. 1-N (uno a muchos).  
+---
 
-14. Medicamentos - Inventario:  
-❖ Un medicamento puede estar en el inventario de varios hospitales, y un hospital tiene su propio stock de cada medicamento. N-N (muchos a muchos).  
-</br>
+### 7. Mantenimiento  
+❖ En 1FN: cada campo representa un dato único, sin listas ni repeticiones.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `correo`: string  
+- `telefono`: string  
+- `servicios`: ObjectId FOREIGN KEY  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `fecha_ingreso`: date  
+- `estado`: string  
+- `horario`: string  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+
+---
+
+### 8. ServiciosMantenimineto  
+❖ Cumple con 1FN: campos simples, sin repetición.  
+- `id`: ObjectId PRIMARY KEY  
+- `tipo_ambiente`: string  
+- `nombre_servicio`: string  
+
+---
+
+### 9. Pacientes  
+❖ En 1FN: todos los atributos son atómicos, identificador único.  
+- `id`: ObjectId PRIMARY KEY  
+- `hospital_registro_id`: ObjectId FOREIGN KEY  
+- `nombre`: string  
+- `tipo_identificacion`: string  
+- `numero_identificacion`: string  
+- `fecha_nacimiento`: date  
+- `genero`: string  
+- `direccion`: string  
+- `telefono_contacto`: string  
+- `fecha_registro`: date  
+- `estado_paciente`: string  
+- `nivel_atencion`: string  
+- `eps_actual`: string  
+- `seguro_medico`: string  
+
+---
+
+### 10. HistoriaClinica  
+❖ Cumple con 1FN: todos los campos son atómicos y no hay repeticiones.  
+- `id`: ObjectId PRIMARY KEY  
+- `paciente`: ObjectId FOREIGN KEY  
+- `tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 11. VisitasMedicas  
+❖ En 1FN: los datos son atómicos, bien definidos.  
+- `id`: ObjectId PRIMARY KEY  
+- `fecha_visita`: date  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+- `id_medico`: ObjectId FOREIGN KEY  
+- `id_paciente`: ObjectId FOREIGN KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `tipo_visita`: string  
+- `estado_visita`: string  
+- `observaciones`: string  
+
+---
+
+### 12. Sintomas  
+❖ Cumple con 1FN: datos simples, sin campos multivaluados.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `observaciones`: string  
+- `fehca_encontrada`: date  
+
+---
+
+### 13. Enfermedades  
+❖ En 1FN: cada campo representa un valor único.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `tipo`: string  
+- `clasificacion`: string  
+- `id_sintoma`: ObjectId  
+
+---
+
+### 14. Tratamientos  
+❖ Cumple con 1FN: datos simples y normalizados.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `descripcion`: string  
+- `costo`: decimal  
+- `duracion`: string  
+- `area_relacionada`: ObjectId FOREIGN KEY  
+- `via_administracion`: string  
+- `FrecuenciaAplicacion`: int  
+
+---
+
+### 15. Beneficios  
+❖ En 1FN: cada fila representa un beneficio único y ligado a un tratamiento.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 16. Requerimientos  
+❖ Cumple con 1FN: valores simples y normalizados.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 17. Medicamentos  
+❖ En 1FN: todos los atributos son atómicos.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `principio_activo`: string  
+- `concentracion`: string  
+- `tipo`: string  
+- `lote`: string  
+- `disponibilidad`: boolean  
+- `fabricante`: string  
+
+---
+
+### 18. Presentaciones  
+❖ Cumple con 1FN: campos únicos por fila, sin listas.  
+- `id`: ObjectId PRIMARY KEY  
+- `tipo_presentacion`: string  
+- `id_medicamento`: ObjectId FOREIGN KEY  
+
+---
+
+### 19. Inventario  
+❖ En 1FN: sin datos repetitivos, bien identificados.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `id_medicamento`: ObjectId FOREIGN KEY  
+- `stock`: int  
+- `fecha_ultima_actualizacion`: date  
+
+---
+
+### 20. Proveedores  
+❖ Cumple con 1FN: cada proveedor tiene un conjunto único de datos.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre_empresa`: string  
+- `nit`: string  
+- `tipo`: string  
+- `fecha`: date  
+- `terminos_pago`: string  
+
+---
+
+### 21. Areas  
+❖ En 1FN: campos bien definidos, sin estructuras repetidas.  
+- `codigo`: ObjectId PRIMARY KEY  
+- `tipo_area`: string  
+- `descripcion`: string  
+- `estado`: string  
+- `id_hospital`: ObjectId FOREIGN KEY  
+
+---
+
+### 22. AreaEspecializacion  
+❖ Cumple con 1FN: campos simples y relaciones normalizadas.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_area`: ObjectId FOREIGN KEY  
+- `fecha_asignacion`: date  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `estado`: string  
+
+---
+
+### 23. Subareas  
+❖ En 1FN: datos atómicos, sin duplicación.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre_subarea`: string  
+- `id_area`: ObjectId FOREIGN KEY  
+- `descripcion`: string  
+- `estado`: string  
+- `tipo`: string  
+
+---
+
+### 24. TiposPersonal  
+❖ Cumple con 1FN: todos los datos son simples.  
+- `id`: ObjectId PRIMARY KEY  
+- `codigo`: string  
+- `nombre`: string  
+- `descripcion`: string  
+- `salario_base`: decimal  
+
 </br>
 </br>
 
@@ -1236,8 +1460,937 @@ Una tabla está en **2FN** si cumple con los siguientes criterios:
 La Segunda Forma Normal es el segundo nivel de normalización en el diseño de una base de datos. Se aplica a las tablas que ya cumplen con la Primera Forma Normal (1FN) y busca eliminar **dependencias parciales** dentro de una tabla.
 
 ---
+``` mermaid
+---
+config:
+  theme: redux-color
+title: Sample title
+---
+erDiagram
+	direction TB
+	Hospital {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string direccion  ""  
+		string telefono  ""  
+		string codigo_habilitacion  ""  
+		string tipo_institucion  ""  
+		string nivel_complejidad  ""  
+	}
+	Administrativos {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string telefono  ""  
+		string correo  ""  
+		string rol  ""  
+		string horario  ""  
+		ObjectId id_tipo_personal FK ""  
+	}
+	AdministrativoHospital {
+		ObjectId id PK ""  
+		ObjectId id_administrativo FK ""  
+		ObjectId id_hospital FK ""  
+	}
+	Medicos {
+		ObjectId id PK ""  
+	
+		string rol  ""  
+ 
+		date fecha_ingreso  ""  
+		string correo  ""  
+		string telefono  ""  
+		string numero_colegiatura  ""  
+		string area_asignada  ""  
+		ObjectId hospital_id FK ""  
+		string estado  ""  
+		ObjectId id_horario FK ""  
+		ObjectId id_tipo_personal FK ""  
+	}
+	Horario {
+		ObjectId id PK ""  
+		string horario_tipo  ""  
+		string dias  ""  
+	}
+	Enfermeros {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string rol  ""  
+		ObjectId id_tipo_personal FK ""  
+		date fecha_ingreso  ""  
+		string numero_colegiatura  ""  
+		string correo  ""  
+		string telefono  ""  
+		string area_asignada  ""  
+		ObjectId hospital_id FK ""  
+		string estado  ""  
+		string horario FK ""  
+	}
+	Mantenimiento {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string correo  ""  
+		string telefono  ""  
+		objectid servicios FK ""  
+		ObjectId hospital_id FK ""  
+		date fecha_ingreso  ""  
+		string estado  ""  
+		string horario  ""  
+		ObjectId id_tipo_personal FK ""  
+	}
+	ServiciosMantenimineto {
+		ObjectId id PK ""  
+		string tipo_ambiente  ""  
+		string nombre_servicio  ""  
+	}
+	Pacientes {
+		ObjectId id PK ""  
+		ObjectId hospital_registro_id FK ""  
+		string nombre  ""  
+		string tipo_identificacion  ""  
+		string numero_identificacion  ""  
+		date fecha_nacimiento  ""  
+		string genero  ""  
+		string direccion  ""  
+		string telefono_contacto  ""  
+		date fecha_registro  ""  
+		string estado_paciente  ""  
+		string nivel_atencion  ""  
+		string eps_actual  "" 
+        string seguro_medico 
+	}
+	HistoriaClinica {
+		ObjectId id PK ""  
+		ObjectId paciente FK ""  
+		ObjectId tratamiento FK ""  
+	}
 
-### Descripción Técnica
+	
+	VisitasMedicas {
+		ObjectId id PK ""  
+		date fecha_visita  ""  
+		ObjectId id_tratamiento FK ""  
+		ObjectId id_medico FK ""  
+		ObjectId id_paciente FK ""  
+		ObjectId id_hospital FK ""  
+		string tipo_visita  ""  
+		string estado_visita  ""  
+		string observaciones  ""  
+	}
+	Sintomas {
+		ObjectId id PK ""  
+		string descripcion  ""  
+		string observaciones  ""  
+		date fehca_encontrada  ""  
+	}
+	Enfermedades {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string tipo  ""  
+		string clasificacion  ""  
+		objectid id_sintoma  ""  
+	}
+	Tratamientos {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string descripcion  ""  
+		decimal costo  ""  
+		string duracion  ""  
+		ObjectId area_relacionada FK ""  
+
+		string via_administracion  ""  
+        int FrecuenciaAplicacion
+	}
+	Beneficios {
+		ObjectId id PK ""  
+		string descripcion  ""  
+		ObjectId id_tratamiento FK ""  
+	}
+	Requerimientos {
+		ObjectId id PK ""  
+		string descripcion  ""  
+		ObjectId id_tratamiento FK ""  
+	}
+	
+
+	Medicamentos {
+		ObjectId id PK ""  
+		string nombre  ""  
+		string principio_activo  ""  
+		string concentracion  ""  
+		string tipo  ""  
+		string lote  ""  
+		boolean disponibilidad  ""  
+		string fabricante  ""  
+	}
+	Presentaciones {
+		ObjectId id PK ""  
+		string tipo_presentacion  ""  
+		ObjectId id_medicamento FK ""  
+	}
+	Inventario {
+		ObjectId id PK ""  
+		ObjectId id_hospital FK ""  
+		ObjectId id_medicamento FK ""  
+		int stock  ""  
+		date fecha_ultima_actualizacion  ""  
+	}
+	Proveedores {
+		ObjectId id PK ""  
+		string nombre_empresa  ""  
+		string nit  ""  
+		string tipo  ""  
+		date fecha  ""  
+		string terminos_pago  ""  
+	}
+	Areas {
+		ObjectId codigo PK ""  
+		string tipo_area  ""  
+		string descripcion  ""  
+		string estado  ""  
+		ObjectId id_hospital FK ""  
+	}
+	AreaEspecializacion {
+		ObjectId id PK ""  
+		ObjectId id_area FK ""  
+		date fecha_asignacion  ""  
+		ObjectId id_hospital FK ""  
+		string estado  ""  
+	}
+	Subareas {
+		ObjectId id PK ""  
+		string nombre_subarea  ""  
+		ObjectId id_area FK ""  
+		string descripcion  ""  
+		string estado  ""  
+		string tipo  ""  
+	}
+	TiposPersonal {
+		ObjectId id PK ""  
+		string codigo  ""  
+		string nombre  ""  
+		string descripcion  ""  
+		decimal salario_base  ""  
+	}
+	Hospital||--o{AdministrativoHospital:"contiene"
+	AdministrativoHospital}o--||Administrativos:"asigna"
+	Hospital||--o{TiposPersonal:"emplea"
+	TiposPersonal||--o{Enfermeros:"emplea"
+	TiposPersonal||--o{Mantenimiento:"emplea"
+	Hospital||--o{Pacientes:"atiende"
+	Hospital||--o{Areas:"contiene"
+	Areas||--o{Subareas:"subdivide"
+	Areas||--o{AreaEspecializacion:"maneja"
+	Medicos||--o{VisitasMedicas:"realiza"
+   
+	TiposPersonal||--o{Medicos:"clasifica"
+	TiposPersonal||--o{Enfermeros:"clasifica"
+	TiposPersonal||--o{Administrativos:"clasifica"
+	Pacientes||--o{VisitasMedicas:"recibe"
+	VisitasMedicas||--||Tratamientos:"prescribe"
+	Tratamientos||--o{Medicamentos:"utiliza"
+	
+	Medicamentos||--o{Inventario:"disponible_en"
+	Inventario}o--||Hospital:"tiene_stock"
+	Medicamentos||--o{Presentaciones:"tiene"
+	Hospital||--o{Proveedores:"abastece"
+	Pacientes||--o{HistoriaClinica:"posee"
+	HistoriaClinica}o--||Tratamientos:"relacionados"
+	
+	Pacientes||--o{Enfermedades:"diagnostica"
+	Enfermedades||--o{Sintomas:"presenta"
+	VisitasMedicas||--o{Enfermedades:"detecta"
+	VisitasMedicas||--o{Sintomas:"observa"
+	Tratamientos||--o{Beneficios:"ofrece"
+	Tratamientos||--o{Requerimientos:"necesita"
+	
+	
+	Medicos||--||Horario:"turno"
+	Enfermeros||--||Horario:"turno"
+	Mantenimiento||--||ServiciosMantenimineto:"presta"
+	Mantenimiento||--||Horario:"turno"
+
+``` 
+
+# Normalización 2FN – Sistema Hospitalario
+
+## Las Entidades y Atributos
+
+### 1. Hospital :  
+❖ Se encuentra en 2FN, ya que cuenta con una clave primaria única (`id`) y todos sus atributos dependen totalmente de ella.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `direccion`: string  
+- `telefono`: string  
+- `codigo_habilitacion`: string  
+- `tipo_institucion`: string  
+- `nivel_complejidad`: string  
+
+---
+
+### 2. Administrativos :  
+❖ En 2FN, todos los atributos dependen por completo de la clave primaria `id`, y no hay dependencias parciales.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `telefono`: string  
+- `correo`: string  
+- `rol`: string  
+- `horario`: ObjectId FOREIGN KEY  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+
+---
+
+### 3. AdministrativoHospital :  
+❖ Se encuentra en 2FN, ya que sus campos dependen completamente del identificador `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_administrativo`: ObjectId FOREIGN KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
+
+---
+
+### 4. Medicos :  
+❖ En 2FN, ya que la clave primaria es simple (`id`) y todos los atributos dependen funcionalmente de esta.  
+- `id`: ObjectId PRIMARY KEY  
+- `rol`: string  
+- `fecha_ingreso`: date  
+- `correo`: string  
+- `telefono`: string  
+- `numero_colegiatura`: string  
+- `area_asignada`: string  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `estado`: string  
+- `id_horario`: ObjectId FOREIGN KEY  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+
+---
+
+### 5. Enfermeros :  
+❖ Cumple 2FN, ya que cada campo depende completamente del identificador `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `rol`: string  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+- `fecha_ingreso`: date  
+- `numero_colegiatura`: string  
+- `correo`: string  
+- `telefono`: string  
+- `area_asignada`: string  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `estado`: string  
+- `horario`: ObjectId FOREIGN KEY  
+
+---
+
+### 6. Mantenimiento :  
+❖ En 2FN, todos los atributos dependen totalmente de la clave primaria `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `correo`: string  
+- `telefono`: string  
+- `servicios`: ObjectId FOREIGN KEY  
+- `hospital_id`: ObjectId FOREIGN KEY  
+- `fecha_ingreso`: date  
+- `estado`: string  
+- `horario`: ObjectId FOREIGN KEY  
+- `id_tipo_personal`: ObjectId FOREIGN KEY  
+
+---
+
+### 7. Pacientes :  
+❖ Se encuentra en 2FN, ya que cada campo depende exclusivamente de la clave primaria `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `hospital_registro_id`: ObjectId FOREIGN KEY  
+- `nombre`: string  
+- `tipo_identificacion`: string  
+- `numero_identificacion`: string  
+- `fecha_nacimiento`: date  
+- `genero`: string  
+- `direccion`: string  
+- `telefono_contacto`: string  
+- `fecha_registro`: date  
+- `estado_paciente`: string  
+- `nivel_atencion`: string  
+- `id_eps`: ObjectId FOREIGN KEY  
+- `id_seguro`: ObjectId FOREIGN KEY  
+
+---
+
+### 8. VisitasMedicas :  
+❖ Cumple 2FN, todos los campos dependen únicamente de la clave `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `fecha_visita`: date  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+- `id_medico`: ObjectId FOREIGN KEY  
+- `id_paciente`: ObjectId FOREIGN KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `tipo_visita`: string  
+- `estado_visita`: string  
+- `observaciones`: string  
+
+---
+
+### 9. Tratamientos :  
+❖ Se encuentra en 2FN, todos los atributos dependen de la clave `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `descripcion`: string  
+- `costo`: decimal  
+- `duracion`: string  
+- `area_relacionada`: ObjectId FOREIGN KEY  
+- `via_administracion`: string  
+- `FrecuenciaAplicacion`: int  
+
+---
+
+### 10. HistoriaClinica :  
+❖ En 2FN, los campos `paciente` y `tratamiento` están correctamente separados en claves foráneas.  
+- `id`: ObjectId PRIMARY KEY  
+- `paciente`: ObjectId FOREIGN KEY  
+- `tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 11. EPS :  
+❖ En 2FN, ya que todos los campos dependen totalmente del `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `nit`: string  
+- `tipo`: string  
+- `nivel`: string  
+- `telefono`: string  
+- `correo`: string  
+
+---
+
+### 12. Seguros :  
+❖ Se encuentra en 2FN, sin dependencias parciales.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `compañia`: string  
+- `tipo`: string  
+- `nivel_cobertura`: string  
+- `plan`: string  
+- `telefono`: string  
+
+---
+
+### 13. Enfermedades :  
+❖ Cumple 2FN: cada atributo depende completamente del `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `tipo`: string  
+- `clasificacion`: string  
+- `id_sintoma`: ObjectId FOREIGN KEY  
+
+---
+
+### 14. Sintomas :  
+❖ En 2FN, atributos simples que dependen completamente de `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `observaciones`: string  
+- `fecha_encontrada`: date  
+
+---
+
+### 15. Beneficios :  
+❖ Todos los atributos dependen del identificador `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 16. Requerimientos :  
+❖ En 2FN, sin redundancia ni dependencia parcial.  
+- `id`: ObjectId PRIMARY KEY  
+- `descripcion`: string  
+- `id_tratamiento`: ObjectId FOREIGN KEY  
+
+---
+
+### 17. Medicamentos :  
+❖ Todos los campos están normalizados a 2FN.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre`: string  
+- `principio_activo`: string  
+- `concentracion`: string  
+- `tipo`: string  
+- `lote`: string  
+- `disponibilidad`: boolean  
+- `fabricante`: string  
+
+---
+
+### 18. Presentaciones :  
+❖ Cumple con 2FN, no hay atributos parcialmente dependientes.  
+- `id`: ObjectId PRIMARY KEY  
+- `tipo_presentacion`: string  
+- `id_medicamento`: ObjectId FOREIGN KEY  
+
+---
+
+### 19. Inventario :  
+❖ En 2FN: la dependencia de la clave primaria `id` es total.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `id_medicamento`: ObjectId FOREIGN KEY  
+- `stock`: int  
+- `fecha_ultima_actualizacion`: date  
+
+---
+
+### 20. Proveedores :  
+❖ Cumple con 2FN, atributos directamente dependientes del `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre_empresa`: string  
+- `nit`: string  
+- `tipo`: string  
+- `fecha`: date  
+- `terminos_pago`: string  
+
+---
+
+### 21. ServiciosMantenimiento :  
+❖ Está en 2FN, sin redundancia y con dependencia funcional total.  
+- `id`: ObjectId PRIMARY KEY  
+- `tipo_ambiente`: string  
+- `nombre_servicio`: string  
+
+---
+
+### 22. Horario :  
+❖ En 2FN, ya que no hay dependencia parcial de ningún atributo.  
+- `id`: ObjectId PRIMARY KEY  
+- `horario_tipo`: string  
+- `dias`: string  
+
+---
+
+### 23. TiposPersonal :  
+❖ Se encuentra en 2FN, con estructura clara y sin repetición.  
+- `id`: ObjectId PRIMARY KEY  
+- `codigo`: string  
+- `nombre`: string  
+- `descripcion`: string  
+- `salario_base`: decimal  
+
+---
+
+### 24. Areas :  
+❖ Cumple con 2FN, cada columna depende únicamente del `codigo`.  
+- `codigo`: ObjectId PRIMARY KEY  
+- `tipo_area`: string  
+- `descripcion`: string  
+- `estado`: string  
+- `id_hospital`: ObjectId FOREIGN KEY  
+
+---
+
+### 25. AreaEspecializacion :  
+❖ Está en 2FN, sin dependencias parciales sobre la clave.  
+- `id`: ObjectId PRIMARY KEY  
+- `id_area`: ObjectId FOREIGN KEY  
+- `fecha_asignacion`: date  
+- `id_hospital`: ObjectId FOREIGN KEY  
+- `estado`: string  
+
+---
+
+### 26. Subareas :  
+❖ En 2FN, los atributos son atómicos y dependen solo del `id`.  
+- `id`: ObjectId PRIMARY KEY  
+- `nombre_subarea`: string  
+- `id_area`: ObjectId FOREIGN KEY  
+- `descripcion`: string  
+- `estado`: string  
+- `tipo`: string  
+
+---
+
+
+# Tercera Forma Normal (3FN)
+### Una tabla está en 3FN si cumple con los siguientes criterios:
+-  Está en 2FN.
+-  No hay dependencias transitivas: ningún atributo no clave depende de otro atributo no clave.
+
+## Descripción
+La Tercera Forma Normal (3FN) es el tercer nivel de normalización en el diseño de bases de datos. Se aplica a tablas que ya cumplen con la Segunda Forma Normal (2FN) y su objetivo principal es la eliminación de dependencias transitivas. Esto significa que se busca evitar que un atributo no clave dentro de una tabla dependa de otro atributo no clave, en lugar de depender directamente de la clave primaria.
+
+Descripción Técnica
+# Normalización a Tercera Forma Normal (3FN)  
+**Sistema Hospitalario – Modelo de Datos**
+
+---
+
+## Justificación por Entidad
+
+### 1. Hospital  
+❖ Se encuentra en 3FN, ya que está en la 2FN y en cada columna no hay dependencias transitivas con la clave primaria.
+
+### 2. Administrativos  
+❖ Se encuentra en 3FN, ya que cada atributo depende únicamente de la clave primaria y no existen dependencias transitivas entre atributos.
+
+### 3. AdministrativoHospital  
+❖ Se encuentra en 3FN, ya que sus columnas representan exclusivamente las claves externas que identifican la relación, sin atributos redundantes.
+
+### 4. Medicos  
+❖ Se encuentra en 3FN, dado que no existen atributos que dependan de otro campo que no sea la clave primaria.
+
+### 5. Enfermeros  
+❖ Se encuentra en 3FN, ya que todos sus atributos dependen directamente de la clave primaria y no entre ellos.
+
+### 6. Mantenimiento  
+❖ Se encuentra en 3FN, puesto que cada campo depende únicamente del identificador y no existen dependencias transitivas.
+
+### 7. Pacientes  
+❖ Se encuentra en 3FN, ya que sus datos personales, de contacto y afiliaciones están normalizados y no dependen unos de otros, sino de la clave primaria.
+
+### 8. VisitasMedicas  
+❖ Se encuentra en 3FN, pues todas las columnas están relacionadas directamente con la visita identificada por su ID, sin relaciones transitivas.
+
+### 9. Tratamientos  
+❖ Se encuentra en 3FN, ya que los atributos del tratamiento dependen de su ID, y no entre sí.
+
+### 10. HistoriaClinica  
+❖ Se encuentra en 3FN, ya que no hay dependencia transitiva entre paciente y tratamiento, cada uno depende directamente de la clave principal de la historia.
+
+### 11. EPS  
+❖ Se encuentra en 3FN, ya que no hay campos dependientes entre sí, solo de la clave primaria.
+
+### 12. Seguros  
+❖ Se encuentra en 3FN, dado que no hay redundancias ni dependencias transitivas; todos los campos describen directamente al seguro.
+
+### 13. Enfermedades  
+❖ Se encuentra en 3FN, ya que todos los atributos dependen directamente del identificador de la enfermedad.
+
+### 14. Sintomas  
+❖ Se encuentra en 3FN, los datos del síntoma no dependen entre sí, solo de su identificador.
+
+### 15. Beneficios  
+❖ Se encuentra en 3FN, ya que la descripción del beneficio está relacionada directamente con la clave primaria y no depende del tratamiento.
+
+### 16. Requerimientos  
+❖ Se encuentra en 3FN, dado que cada requerimiento está vinculado de forma directa a su ID y su tratamiento asociado.
+
+### 17. Medicamentos  
+❖ Se encuentra en 3FN, ya que todos los atributos son independientes entre sí y están relacionados directamente con la clave.
+
+### 18. Presentaciones  
+❖ Se encuentra en 3FN, porque el tipo de presentación depende exclusivamente del medicamento referenciado por su ID.
+
+### 19. Inventario  
+❖ Se encuentra en 3FN, ya que los datos del inventario dependen de la combinación hospital–medicamento y no entre columnas.
+
+### 20. Proveedores  
+❖ Se encuentra en 3FN, todos los campos se relacionan directamente con el proveedor, sin redundancia.
+
+### 21. ServiciosMantenimiento  
+❖ Se encuentra en 3FN, ya que cada atributo describe directamente al servicio sin depender de otro campo.
+
+### 22. Horario  
+❖ Se encuentra en 3FN, ya que los atributos están correctamente separados y dependen únicamente del ID del horario.
+
+### 23. TiposPersonal  
+❖ Se encuentra en 3FN, ya que el salario, código y descripción se relacionan directamente con el tipo de personal sin dependencias entre ellos.
+
+### 24. Areas  
+❖ Se encuentra en 3FN, todos los campos dependen directamente del código del área como identificador único.
+
+### 25. AreaEspecializacion  
+❖ Se encuentra en 3FN, ya que no hay dependencias transitivas: cada atributo se relaciona directamente con el ID de la especialización.
+
+### 26. Subareas  
+❖ Se encuentra en 3FN, los atributos como nombre, descripción y estado dependen directamente del identificador de la subárea.
+
+
+``` mermaid
+---
+config:
+  theme: redux-color
+title: Modelo 3FN - Sistema Hospitalario
+---
+erDiagram
+
+%% ========= ENTIDADES PRINCIPALES =========
+
+Hospital {
+	ObjectId id PK
+	string nombre
+	string direccion
+	string telefono
+	string codigo_habilitacion
+	string tipo_institucion
+	string nivel_complejidad
+}
+
+Administrativos {
+	ObjectId id PK
+	string nombre
+	string telefono
+	string correo
+	string rol
+	ObjectId horario
+	ObjectId id_tipo_personal FK
+}
+
+AdministrativoHospital {
+	ObjectId id PK
+	ObjectId id_administrativo FK
+	ObjectId id_hospital FK
+}
+
+Medicos {
+	ObjectId id PK
+	string rol
+	date fecha_ingreso
+	string correo
+	string telefono
+	string numero_colegiatura
+	string area_asignada
+	ObjectId hospital_id FK
+	string estado
+	ObjectId id_horario FK
+	ObjectId id_tipo_personal FK
+}
+
+Enfermeros {
+	ObjectId id PK
+	string nombre
+	string rol
+	ObjectId id_tipo_personal FK
+	date fecha_ingreso
+	string numero_colegiatura
+	string correo
+	string telefono
+	string area_asignada
+	ObjectId hospital_id FK
+	string estado
+	ObjectId horario FK
+}
+
+Mantenimiento {
+	ObjectId id PK
+	string nombre
+	string correo
+	string telefono
+	ObjectId servicios FK
+	ObjectId hospital_id FK
+	date fecha_ingreso
+	string estado
+	ObjectId horario FK
+	ObjectId id_tipo_personal FK
+}
+
+Pacientes {
+	ObjectId id PK
+	ObjectId hospital_registro_id FK
+	string nombre
+	string tipo_identificacion
+	string numero_identificacion
+	date fecha_nacimiento
+	string genero
+	string direccion
+	string telefono_contacto
+	date fecha_registro
+	string estado_paciente
+	string nivel_atencion
+	ObjectId id_eps FK
+	ObjectId id_seguro FK
+}
+
+VisitasMedicas {
+	ObjectId id PK
+	date fecha_visita
+	ObjectId id_tratamiento FK
+	ObjectId id_medico FK
+	ObjectId id_paciente FK
+	ObjectId id_hospital FK
+	string tipo_visita
+	string estado_visita
+	string observaciones
+}
+
+Tratamientos {
+	ObjectId id PK
+	string nombre
+	string descripcion
+	decimal costo
+	string duracion
+	ObjectId area_relacionada FK
+	string via_administracion
+	int FrecuenciaAplicacion
+}
+
+HistoriaClinica {
+	ObjectId id PK
+	ObjectId paciente FK
+	ObjectId tratamiento FK
+}
+
+EPS {
+	ObjectId id PK
+	string nombre
+	string nit
+	string tipo
+	string nivel
+	string telefono
+	string correo
+}
+
+Seguros {
+	ObjectId id PK
+	string nombre
+	string compañia
+	string tipo
+	string nivel_cobertura
+	string plan
+	string telefono
+}
+
+Enfermedades {
+	ObjectId id PK
+	string nombre
+	string tipo
+	string clasificacion
+	ObjectId id_sintoma FK
+}
+
+Sintomas {
+	ObjectId id PK
+	string descripcion
+	string observaciones
+	date fecha_encontrada
+}
+
+Beneficios {
+	ObjectId id PK
+	string descripcion
+	ObjectId id_tratamiento FK
+}
+
+Requerimientos {
+	ObjectId id PK
+	string descripcion
+	ObjectId id_tratamiento FK
+}
+
+Medicamentos {
+	ObjectId id PK
+	string nombre
+	string principio_activo
+	string concentracion
+	string tipo
+	string lote
+	boolean disponibilidad
+	string fabricante
+}
+
+Presentaciones {
+	ObjectId id PK
+	string tipo_presentacion
+	ObjectId id_medicamento FK
+}
+
+Inventario {
+	ObjectId id PK
+	ObjectId id_hospital FK
+	ObjectId id_medicamento FK
+	int stock
+	date fecha_ultima_actualizacion
+}
+
+Proveedores {
+	ObjectId id PK
+	string nombre_empresa
+	string nit
+	string tipo
+	date fecha
+	string terminos_pago
+}
+
+ServiciosMantenimiento {
+	ObjectId id PK
+	string tipo_ambiente
+	string nombre_servicio
+}
+
+Horario {
+	ObjectId id PK
+	string horario_tipo
+	string dias
+}
+
+TiposPersonal {
+	ObjectId id PK
+	string codigo
+	string nombre
+	string descripcion
+	decimal salario_base
+}
+
+Areas {
+	ObjectId codigo PK
+	string tipo_area
+	string descripcion
+	string estado
+	ObjectId id_hospital FK
+}
+
+AreaEspecializacion {
+	ObjectId id PK
+	ObjectId id_area FK
+	date fecha_asignacion
+	ObjectId id_hospital FK
+	string estado
+}
+
+Subareas {
+	ObjectId id PK
+	string nombre_subarea
+	ObjectId id_area FK
+	string descripcion
+	string estado
+	string tipo
+}
+
+%% ========= RELACIONES =========
+
+Hospital ||--o{ AdministrativoHospital : "contiene"
+AdministrativoHospital }o--|| Administrativos : "asigna"
+Hospital ||--o{ TiposPersonal : "emplea"
+TiposPersonal ||--o{ Enfermeros : "clasifica"
+TiposPersonal ||--o{ Medicos : "clasifica"
+TiposPersonal ||--o{ Administrativos : "clasifica"
+TiposPersonal ||--o{ Mantenimiento : "clasifica"
+Hospital ||--o{ Pacientes : "atiende"
+Hospital ||--o{ Areas : "contiene"
+Areas ||--o{ Subareas : "subdivide"
+Areas ||--o{ AreaEspecializacion : "maneja"
+AreaEspecializacion ||--o{ Medicos : "especializa"
+Medicos ||--o{ VisitasMedicas : "realiza"
+Pacientes ||--o{ VisitasMedicas : "recibe"
+VisitasMedicas ||--|| Tratamientos : "prescribe"
+Tratamientos ||--o{ Medicamentos : "utiliza"
+Medicamentos ||--o{ Inventario : "disponible_en"
+Inventario }o--|| Hospital : "tiene_stock"
+Medicamentos ||--o{ Presentaciones : "tiene"
+Hospital ||--o{ Proveedores : "abastece"
+Pacientes ||--o{ HistoriaClinica : "posee"
+HistoriaClinica }o--|| Tratamientos : "relacionados"
+Pacientes ||--o{ Enfermedades : "diagnostica"
+Enfermedades ||--o{ Sintomas : "presenta"
+VisitasMedicas ||--o{ Enfermedades : "detecta"
+VisitasMedicas ||--o{ Sintomas : "observa"
+Tratamientos ||--o{ Beneficios : "ofrece"
+Tratamientos ||--o{ Requerimientos : "necesita"
+Medicos ||--|| Horario : "turno"
+Enfermeros ||--|| Horario : "turno"
+Mantenimiento ||--|| Horario : "turno"
+Mantenimiento ||--|| ServiciosMantenimiento : "presta"
+Pacientes }o--|| EPS : "afiliado_a"
+Pacientes }o--|| Seguros : "posee"
+
+``` 
 
 
 
