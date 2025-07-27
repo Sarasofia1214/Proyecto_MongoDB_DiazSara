@@ -305,7 +305,7 @@ El diseño del modelo conceptual cuenta con estos elementos, donde las entidades
 - **estado:** Estado actual del área.
 - **id_hospital:** Relación con el hospital al que pertenece.
 
-
+</br>
 
 # Construcción del Modelo Lógico
 
@@ -321,7 +321,7 @@ Durante la construcción del modelo lógico, se añaden detalles para documentar
 erDiagram
 
     Hospital {
-        string id
+        ObjectId id PK
         string nombre
         string direccion
         string telefono
@@ -331,8 +331,9 @@ erDiagram
     }
 
     Administrativos {
-        string id
-        string[] hospitales
+        ObjectId id PK
+        ObjectId[] hospitales FK
+        string ambientes
         string nombre
         string telefono
         string correo
@@ -342,23 +343,23 @@ erDiagram
     }
 
     Medicos {
-        string id
+        ObjectId id PK
         string nombre
         string rol
-        string especialidad
+        string especialidad 
         float salario
         date fecha_ingreso
         string correo
         string telefono
         string numero_colegiatura
         string area_asignada
-        string hospital_id
+        ObjectId hospital_id FK
         string estado
         string horario
     }
 
     Enfermeros {
-        string id
+        ObjectId id PK
         string nombre
         string rol
         string especialidad
@@ -368,26 +369,26 @@ erDiagram
         string correo
         string telefono
         string area_asignada
-        string hospital_id
+        ObjectId hospital_id FK
         string estado
         string horario
     }
 
     Mantenimiento {
-        string id
+        ObjectId id PK
         string nombre
         string correo
         string telefono
         string servicios
-        string hospital_id
+        ObjectId hospital_id FK
         date fecha_ingreso
         string estado
         string horario
     }
 
     Pacientes {
-        string _id
-        string hospital_registro_id
+        ObjectId _id PK
+        ObjectId hospital_registro_id FK
         string historia_clinica
         string nombre
         string tipo_identificacion
@@ -404,14 +405,14 @@ erDiagram
     }
 
     VisitasMedicas {
-        string id
+        ObjectId id PK
         date fecha_visita
         string sintomas
-        string id_tratamiento
-        string id_medico
-        string id_paciente
+        ObjectId id_tratamiento FK
+        ObjectId id_medico FK
+        ObjectId id_paciente FK
         string nombre_paciente
-        string hospital_id
+        ObjectId hospital_id FK
         string enfermedad
         string tipo_visita
         string estado_visita
@@ -419,7 +420,7 @@ erDiagram
     }
 
     Tratamientos {
-        string id
+        ObjectId id PK
         string nombre
         string descripcion
         float costo
@@ -429,11 +430,11 @@ erDiagram
         string area_relacionada
         string frecuencia_aplicacion
         string vía_administración
-        Medicamento[] medicamentos_asociados
+        ObjectId[] medicamentos_asociados FK
     }
 
-     Medicamentos {
-        string id
+    Medicamentos {
+        ObjectId id PK
         string nombre
         string principio_activo
         string concentracion
@@ -442,36 +443,35 @@ erDiagram
         string presentaciones
         boolean disponibilidad
         string fabricante
-        Inventario[] inventario_hospitales
+        ObjectId[] inventario_hospitales FK
     }
 
     Inventario {
-        string hospital_id
+        ObjectId hospital_id PK
         string hospital_nombre
         int stock
         date fecha_ultima_actualizacion
     }
 
-
     Proveedores {
-        string id
+        ObjectId id PK
         string nombre_empresa
         string nit
         string datos_contacto
         string tipo
-        string[] hospitales_asociados
+        ObjectId[] hospitales_asociados FK
         date fecha
         string terminos_pago
     }
 
     Areas {
-        string codigo
+        ObjectId codigo PK
         string tipo_area
         string descripcion
         string subareas
         string personal
         string estado
-        string id_hospital
+        ObjectId id_hospital FK
     }
 
     %% Relaciones entre entidades
@@ -488,181 +488,546 @@ erDiagram
     Pacientes ||--o{ VisitasMedicas : recibe
     VisitasMedicas ||--o{ Tratamientos : prescribe
     Tratamientos ||--o{ Medicamentos : contiene
-    Tratamientos ||--o{ Areas : se_asocia_con
+    Areas ||--o{ Medicos : tiene
 
-      Medicamentos ||--o{ Inventario : tiene_stock_en
+    Medicamentos ||--o{ Inventario : tiene_stock_en
+
+
+
 ```
 
-#  Documentación: Entidades y Atributos del Modelo ER
 
-## 1. Hospital
-
-- `id`: `STRING` **PRIMARY KEY** → Identificador único del hospital  
-- `nombre`: `VARCHAR(100)` **NOT NULL** → Nombre del hospital  
-- `direccion`: `VARCHAR(150)` → Dirección física  
-- `telefono`: `VARCHAR(20)` → Teléfono de contacto  
-- `codigo_habilitacion`: `VARCHAR(50)` → Código oficial de habilitación  
-- `tipo_institucion`: `VARCHAR(50)` → Pública / Privada  
-- `nivel_complejidad`: `VARCHAR(30)` → Nivel (I, II, III, etc.)
-
----
-
-## 2. Administrativos
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `hospitales`: `STRING[]` → IDs de hospitales donde trabaja  
-- `nombre`: `VARCHAR(100)`  
-- `telefono`: `VARCHAR(20)`  
-- `correo`: `VARCHAR(100)`  
-- `genero`: `VARCHAR(10)`  
-- `rol`: `VARCHAR(50)` → Ej: Coordinador, Director, etc.  
-- `horario`: `VARCHAR(50)`
-
----
-
-## 3. Médicos
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `nombre`: `VARCHAR(100)`  
-- `rol`: `VARCHAR(30)`  
-- `especialidad`: `VARCHAR(50)`  
-- `salario`: `FLOAT`  
-- `fecha_ingreso`: `DATE`  
-- `correo`: `VARCHAR(100)`  
-- `telefono`: `VARCHAR(20)`  
-- `numero_colegiatura`: `VARCHAR(30)`  
-- `area_asignada`: `VARCHAR(50)`  
-- `hospital_id`: `STRING` (FK a Hospital)  
-- `estado`: `VARCHAR(20)`  
-- `horario`: `VARCHAR(50)`
-
----
-
-## 4. Enfermeros
-
-*(Igual a Médicos, adaptado al personal de enfermería)*  
-**Mismos campos que la entidad Médicos.**
-
----
-
-## 5. Mantenimiento
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `nombre`: `VARCHAR(100)`  
-- `correo`: `VARCHAR(100)`  
-- `telefono`: `VARCHAR(20)`  
-- `servicios`: `VARCHAR(100)` → Tipos de mantenimiento  
-- `hospital_id`: `STRING` (FK)  
-- `fecha_ingreso`: `DATE`  
-- `estado`: `VARCHAR(20)`  
-- `horario`: `VARCHAR(50)`
-
----
-
-## 6. Pacientes
-
-- `_id`: `STRING` **PRIMARY KEY**  
-- `hospital_registro_id`: `STRING` (FK a Hospital)  
-- `historia_clinica`: `VARCHAR(100)`  
-- `nombre`: `VARCHAR(100)`  
-- `tipo_identificacion`: `VARCHAR(20)`  
-- `numero_identificacion`: `VARCHAR(30)`  
-- `fecha_nacimiento`: `DATE`  
-- `genero`: `VARCHAR(10)`  
-- `direccion`: `VARCHAR(150)`  
-- `telefono_contacto`: `VARCHAR(20)`  
-- `seguros_medicos`: `VARCHAR(100)`  
-- `fecha_registro`: `DATE`  
-- `estado_paciente`: `VARCHAR(20)`  
-- `nivel_atencion`: `VARCHAR(20)`  
-- `eps_actual`: `VARCHAR(50)`
-
----
-
-## 7. Visitas Médicas
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `fecha_visita`: `DATE`  
-- `sintomas`: `VARCHAR(150)`  
-- `id_tratamiento`: `STRING` (FK)  
-- `id_medico`: `STRING` (FK)  
-- `id_paciente`: `STRING` (FK)  
-- `nombre_paciente`: `VARCHAR(100)`  
-- `hospital_id`: `STRING` (FK)  
-- `enfermedad`: `VARCHAR(100)`  
-- `tipo_visita`: `VARCHAR(50)`  
-- `estado_visita`: `VARCHAR(30)`  
-- `observaciones`: `TEXT`
-
----
-
-## 8. Tratamientos
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `nombre`: `VARCHAR(100)`  
-- `descripcion`: `TEXT`  
-- `costo`: `FLOAT`  
-- `duracion`: `VARCHAR(50)`  
-- `beneficios`: `TEXT`  
-- `requerimientos`: `TEXT`  
-- `area_relacionada`: `VARCHAR(50)`  
-- `frecuencia_aplicacion`: `VARCHAR(50)`  
-- `vía_administración`: `VARCHAR(50)`  
-- `medicamentos_asociados`: `ARRAY` de IDs
-
----
-
-## 9. Medicamentos
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `nombre`: `VARCHAR(100)`  
-- `principio_activo`: `VARCHAR(100)`  
-- `concentracion`: `VARCHAR(50)`  
-- `tipo`: `VARCHAR(50)`  
-- `lote`: `VARCHAR(50)`  
-- `presentaciones`: `VARCHAR(100)`  
-- `disponibilidad`: `BOOLEAN`  
-- `fabricante`: `VARCHAR(100)`  
-- `inventario_hospitales`: `ARRAY` de objetos tipo Inventario
-
----
-
-## 10. Inventario (Interno en Medicamentos)
-
-- `hospital_id`: `STRING` (FK)  
-- `hospital_nombre`: `VARCHAR(100)`  
-- `stock`: `INT`  
-- `fecha_ultima_actualizacion`: `DATE`
-
----
-
-## 11. Proveedores
-
-- `id`: `STRING` **PRIMARY KEY**  
-- `nombre_empresa`: `VARCHAR(100)`  
-- `nit`: `VARCHAR(30)`  
-- `datos_contacto`: `VARCHAR(100)`  
-- `tipo`: `VARCHAR(50)`  
-- `hospitales_asociados`: `ARRAY` de IDs  
-- `fecha`: `DATE`  
-- `terminos_pago`: `TEXT`
-
----
-
-## 12. Áreas
-
-- `codigo`: `STRING` **PRIMARY KEY**  
-- `tipo_area`: `VARCHAR(50)`  
-- `descripcion`: `TEXT`  
-- `subareas`: `VARCHAR(100)`  
-- `personal`: `VARCHAR(100)`  
-- `estado`: `VARCHAR(20)`  
-- `id_hospital`: `STRING` (FK)
+# Descripción 
+## Las Entidades y Atributos 
 
 
+### 1. hospital  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ direccion: VARCHAR(150)  
+❖ telefono: VARCHAR(20)  
+❖ codigo_habilitacion: VARCHAR(50)  
+❖ tipo_institucion: VARCHAR(50)  
+❖ nivel_complejidad: VARCHAR(30)  
+
+### 2. administrativos  
+❖ id: ObjectId PRIMARY KEY  
+❖ hospitales: ARRAY<ObjectId> FOREIGN KEY  
+❖ nombre: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ correo: VARCHAR(100)  
+❖ genero: VARCHAR(20)  
+❖ rol: VARCHAR(50)  
+❖ horario: VARCHAR(100)  
+
+### 3. medicos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ rol: VARCHAR(50)  
+❖ especialidad: VARCHAR(100)  
+❖ salario: FLOAT  
+❖ fecha_ingreso: DATE  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ numero_colegiatura: VARCHAR(50)  
+❖ area_asignada: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 4. enfermeros  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ rol: VARCHAR(50)  
+❖ especialidad: VARCHAR(100)  
+❖ salario: FLOAT  
+❖ fecha_ingreso: DATE  
+❖ numero_colegiatura: VARCHAR(50)  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ area_asignada: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 5. mantenimiento  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ servicios: VARCHAR(150)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ fecha_ingreso: DATE  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 6. pacientes  
+❖ _id: ObjectId PRIMARY KEY  
+❖ hospital_registro_id: ObjectId FOREIGN KEY  
+❖ historia_clinica: VARCHAR(50)  
+❖ nombre: VARCHAR(100)  
+❖ tipo_identificacion: VARCHAR(30)  
+❖ numero_identificacion: VARCHAR(50)  
+❖ fecha_nacimiento: DATE  
+❖ genero: VARCHAR(20)  
+❖ direccion: VARCHAR(150)  
+❖ telefono_contacto: VARCHAR(20)  
+❖ seguros_medicos: VARCHAR(100)  
+❖ fecha_registro: DATE  
+❖ estado_paciente: VARCHAR(30)  
+❖ nivel_atencion: VARCHAR(30)  
+❖ eps_actual: VARCHAR(50)  
+
+### 7. visitas_medicas  
+❖ id: ObjectId PRIMARY KEY  
+❖ fecha_visita: DATE  
+❖ sintomas: TEXT  
+❖ id_tratamiento: ObjectId FOREIGN KEY  
+❖ id_medico: ObjectId FOREIGN KEY  
+❖ id_paciente: ObjectId FOREIGN KEY  
+❖ nombre_paciente: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ enfermedad: VARCHAR(100)  
+❖ tipo_visita: VARCHAR(50)  
+❖ estado_visita: VARCHAR(30)  
+❖ observaciones: TEXT  
+
+### 8. tratamientos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ descripcion: TEXT  
+❖ costo: FLOAT  
+❖ duracion: VARCHAR(50)  
+❖ beneficios: TEXT  
+❖ requerimientos: TEXT  
+❖ area_relacionada: VARCHAR(100)  
+❖ frecuencia_aplicacion: VARCHAR(50)  
+❖ vía_administración: VARCHAR(50)  
+❖ medicamentos_asociados: ARRAY<ObjectId> FOREIGN KEY  
+
+### 9. medicamentos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ principio_activo: VARCHAR(100)  
+❖ concentracion: VARCHAR(50)  
+❖ tipo: VARCHAR(50)  
+❖ lote: VARCHAR(50)  
+❖ presentaciones: TEXT  
+❖ disponibilidad: BOOLEAN  
+❖ fabricante: VARCHAR(100)  
+❖ inventario_hospitales: ARRAY<ObjectId> FOREIGN KEY  
+
+### 10. inventario  
+❖ hospital_id: ObjectId PRIMARY KEY  
+❖ hospital_nombre: VARCHAR(100)  
+❖ stock: INT  
+❖ fecha_ultima_actualizacion: DATE  
+
+### 11. proveedores  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre_empresa: VARCHAR(100)  
+❖ nit: VARCHAR(50)  
+❖ datos_contacto: TEXT  
+❖ tipo: VARCHAR(50)  
+❖ hospitales_asociados: ARRAY<ObjectId> FOREIGN KEY  
+❖ fecha: DATE  
+❖ terminos_pago: TEXT  
+
+### 12. areas  
+❖ codigo: ObjectId PRIMARY KEY  
+❖ tipo_area: VARCHAR(50)  
+❖ descripcion: TEXT  
+❖ subareas: TEXT  
+❖ personal: TEXT  
+❖ estado: VARCHAR(20)  
+❖ id_hospital: ObjectId FOREIGN KEY  
+
+</br>
+
+# Relaciones y Cardinalidades 
+### Se realizó las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos: 
+</br>
+# Relaciones y Cardinalidades  
+### Se realizaron las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos:  
+
+1. Hospital - Administrativos:  
+❖ Un hospital puede tener varios administrativos y cada administrativo puede estar asociado a uno o más hospitales. N-N (muchos a muchos).  
+
+2. Hospital - Médicos:  
+❖ Un hospital puede emplear varios médicos, pero cada médico pertenece a un solo hospital. 1-N (uno a muchos).  
+
+3. Hospital - Enfermeros:  
+❖ Un hospital puede emplear varios enfermeros, y cada enfermero pertenece a un solo hospital. 1-N (uno a muchos).  
+
+4. Hospital - Mantenimiento:  
+❖ Un hospital puede tener varios trabajadores de mantenimiento, cada uno asignado a un solo hospital. 1-N (uno a muchos).  
+
+5. Hospital - Pacientes:  
+❖ Un hospital puede atender a muchos pacientes, pero cada paciente está registrado en un solo hospital. 1-N (uno a muchos).  
+
+6. Hospital - Proveedores:  
+❖ Un hospital puede estar relacionado con varios proveedores, y un proveedor puede suministrar a varios hospitales. N-N (muchos a muchos).  
+
+7. Hospital - Áreas:  
+❖ Un hospital puede contener varias áreas, y cada área pertenece a un solo hospital. 1-N (uno a muchos).  
+
+8. Hospital - Medicamentos:  
+❖ Un hospital puede almacenar múltiples medicamentos, gestionados en su inventario. 1-N (uno a muchos).  
+
+9. Médicos - Visitas Médicas:  
+❖ Un médico puede realizar muchas visitas médicas, pero cada visita médica es realizada por un solo médico. 1-N (uno a muchos).  
+
+10. Pacientes - Visitas Médicas:  
+❖ Un paciente puede recibir muchas visitas médicas, pero cada visita médica corresponde a un solo paciente. 1-N (uno a muchos).  
+
+11. Visitas Médicas - Tratamientos:  
+❖ Una visita médica puede prescribir un tratamiento, y un tratamiento puede ser recetado por muchas visitas médicas. 1-N (uno a muchos).  
+
+12. Tratamientos - Medicamentos:  
+❖ Un tratamiento puede incluir varios medicamentos, y un medicamento puede estar en varios tratamientos. N-N (muchos a muchos).  
+
+13. Áreas - Médicos:  
+❖ Un área puede tener varios médicos asignados, y un médico puede estar relacionado con una sola área. 1-N (uno a muchos).  
+
+14. Medicamentos - Inventario:  
+❖ Un medicamento puede estar en el inventario de varios hospitales, y un hospital tiene su propio stock de cada medicamento. N-N (muchos a muchos).  
+</br>
+</br>
+</br>
+# Normalización del Modelo Lógico
+
+Se realizó el proceso de la normalización de las tablas anteriormente visualizadas para organizar los datos de manera más eficiente, minimizando redundancias y dependencias transitivas en la base de datos en desarrollo.
+
+## Primera Forma Normal (1FN)
+
+Una tabla está en **1FN** si cumple con los siguientes criterios:
+
+❖ Todos los atributos contienen valores atómicos (indivisibles).  
+❖ No debe haber grupos repetitivos de columnas.  
+❖ Cada columna debe contener un solo valor en cada fila.  
 
 
+``` mermaid
+erDiagram
 
+    Hospital {
+        ObjectId id PK
+        string nombre
+        string direccion
+        string telefono
+        string codigo_habilitacion 
+        string tipo_institucion  
+        string nivel_complejidad
+    }
+
+    Administrativos {
+        ObjectId id PK
+        string nombre
+        string telefono
+        string correo
+        string rol
+        string horario
+        ObjectId id_tipo_personal FK  
+    }
+
+    AdministrativoHospital {
+        ObjectId id PK
+        ObjectId id_administrativo FK
+        ObjectId id_hospital FK
+    }
+
+
+    Medicos {
+        ObjectId id PK
+        string nombre
+        string rol
+        float salario
+        date fecha_ingreso
+        string correo
+        string telefono
+        string numero_colegiatura
+        string area_asignada
+        ObjectId hospital_id FK
+        string estado
+        ObjectId id_horario FK
+         ObjectId id_tipo_personal FK  
+    }
+  
+
+    Horario {
+        ObjectId id PK
+        string horario_tipo
+        string dias
+    }
+
+    Enfermeros {
+        ObjectId id PK
+        string nombre
+        string rol
+     ObjectId id_tipo_personal FK  
+        date fecha_ingreso
+        string numero_colegiatura
+        string correo
+        string telefono
+        string area_asignada
+        ObjectId hospital_id FK
+        string estado
+        string horario FK
+    }
+
+    Mantenimiento {
+        ObjectId id PK
+        string nombre
+        string correo
+        string telefono
+        objectid servicios FK
+        ObjectId hospital_id FK
+        date fecha_ingreso
+        string estado
+        string horario
+         ObjectId id_tipo_personal FK  
+    }
+
+    ServiciosMantenimineto {
+        ObjectId id PK
+        string tipo_ambiente
+        string nombre_servicio
+    }
+
+    Pacientes {
+        ObjectId id PK
+        ObjectId hospital_registro_id FK
+        string nombre
+        string tipo_identificacion
+        string numero_identificacion
+        date fecha_nacimiento
+        string genero
+        string direccion
+        string telefono_contacto
+        date fecha_registro
+        string estado_paciente
+        string nivel_atencion
+        string eps_actual
+       
+    }
+
+
+    HistoriaClinica {
+        ObjectId id PK
+        ObjectId paciente FK
+        ObjectId tratamiento FK
+    }
+
+    SegurosMedicos {
+        ObjectId id PK
+        string nombre
+    }
+
+    PacienteSeguroMedico {
+        ObjectId id PK
+        ObjectId id_paciente FK
+        ObjectId id_seguro_medico FK
+    }
+
+    VisitasMedicas {
+        ObjectId id PK
+        date fecha_visita
+        ObjectId id_tratamiento FK
+        ObjectId id_medico FK
+        ObjectId id_paciente FK
+        ObjectId id_hospital FK
+        string tipo_visita
+        string estado_visita
+        string observaciones
+    }
+
+    Sintomas {
+        ObjectId id PK
+        string descripcion
+        string observaciones
+        date fehca_encontrada
+    }
+
+  
+    Enfermedades {
+        ObjectId id PK
+        string nombre
+        string tipo
+        string clasificacion 
+        objectid id_sintoma
+    }
+
+ 
+
+    Tratamientos {
+        ObjectId id PK
+        string nombre
+        string descripcion
+        decimal costo
+        string duracion
+        ObjectId area_relacionada FK
+        ObjectId frecuencia_aplicacion FK
+        ObjectId via_administracion FK
+    }
+
+    Beneficios {
+        ObjectId id PK
+        string descripcion
+        ObjectId id_tratamiento FK
+    }
+
+    Requerimientos {
+        ObjectId id PK
+        string descripcion
+        ObjectId id_tratamiento FK
+    }
+
+    TratamientoMedicamento {
+        ObjectId id PK
+        ObjectId id_tratamiento FK
+        ObjectId id_medicamento FK
+    }
+
+    FrecuenciaAplicacion {
+        ObjectId id PK
+        string frecuencia
+    }
+
+    ViaAdministracion {
+        ObjectId id PK
+        string descripcion
+    }
+
+    Medicamentos {
+        ObjectId id PK
+        string nombre
+        string principio_activo
+        string concentracion
+        string tipo
+        string lote
+        boolean disponibilidad
+        string fabricante
+    }
+
+    Presentaciones {
+        ObjectId id PK
+        string tipo_presentacion
+        ObjectId id_medicamento FK
+    }
+
+    Inventario {
+        ObjectId id PK
+        ObjectId id_hospital FK
+        ObjectId id_medicamento FK
+        int stock
+        date fecha_ultima_actualizacion
+    }
+
+    Proveedores {
+        ObjectId id PK
+        string nombre_empresa
+        string nit
+        string tipo
+        date fecha
+        string terminos_pago
+    }
+
+   
+
+    Areas {
+        ObjectId codigo PK
+        string tipo_area
+        string descripcion
+        string estado
+        ObjectId id_hospital FK
+    }
+
+    AreaEspecializacion {
+        ObjectId id PK
+        ObjectId id_area FK
+        date fecha_asignacion
+        ObjectId id_hospital FK
+        string estado
+    }
+
+    Subareas {
+        ObjectId id PK
+        string nombre_subarea
+        ObjectId id_area FK
+        string descripcion
+        string estado
+        string tipo
+    }
+
+
+    TiposPersonal {
+    ObjectId id PK
+    string codigo
+    string nombre
+    string descripcion
+    decimal salario_base
+   }
+
+
+    Hospital ||--o{ AdministrativoHospital : contiene
+    AdministrativoHospital }o--|| Administrativos : asigna
+
+    Hospital ||--o{ Medicos : emplea
+    Hospital ||--o{ Enfermeros : emplea
+    Hospital ||--o{ Mantenimiento : emplea
+    Hospital ||--o{ Pacientes : atiende
+    Hospital ||--o{ Areas : contiene
+
+    Areas ||--o{ Subareas : subdivide
+    Areas ||--o{ AreaEspecializacion : maneja
+
+    Medicos ||--o{ VisitasMedicas : realiza
+    TiposPersonal ||--o{ Medicos : clasifica
+    TiposPersonal ||--o{ Enfermeros : clasifica
+    TiposPersonal ||--o{ Administrativos : clasifica
+
+    Pacientes ||--o{ VisitasMedicas : recibe
+    VisitasMedicas ||--|| Tratamientos : prescribe
+
+    Tratamientos ||--o{ TratamientoMedicamento : utiliza
+    TratamientoMedicamento }o--|| Medicamentos : pertenece
+
+    Medicamentos ||--o{ Inventario : disponible_en
+    Inventario }o--|| Hospital : tiene_stock
+    Medicamentos ||--o{ Presentaciones : tiene
+
+    Hospital ||--o{ Proveedores : abastece
+
+    Pacientes ||--o{ HistoriaClinica : posee
+    HistoriaClinica }o--|| Tratamientos : relacionados
+
+    Pacientes ||--o{ PacienteSeguroMedico : asegurado_por
+    SegurosMedicos ||--o{ PacienteSeguroMedico : ofrece
+
+    Pacientes ||--o{ Enfermedades : diagnostica
+    Enfermedades ||--o{ Sintomas : presenta
+
+    VisitasMedicas ||--o{ Enfermedades : detecta
+    VisitasMedicas ||--o{ Sintomas : observa
+
+    Tratamientos ||--o{ Beneficios : ofrece
+    Tratamientos ||--o{ Requerimientos : necesita
+    Tratamientos ||--|| FrecuenciaAplicacion : frecuencia
+    Tratamientos ||--|| ViaAdministracion : administrado_por
+
+    Medicos ||--|| Horario : turno
+    Enfermeros ||--|| Horario : turno
+    Mantenimiento ||--|| ServiciosMantenimineto: presta
+    Mantenimiento ||--|| Horario : turno
+
+
+``` 
+## Segunda Forma Normal (2FN)
+
+Una tabla está en **2FN** si cumple con los siguientes criterios:
+
+❖ Está en 1FN.  
+❖ Todos los atributos no clave (no pertenecientes a una clave primaria compuesta) dependen completamente de la clave primaria.  
 
 
 
