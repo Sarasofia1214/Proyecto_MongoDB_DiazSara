@@ -333,7 +333,6 @@ erDiagram
     Administrativos {
         ObjectId id PK
         ObjectId[] hospitales FK
-        string ambientes
         string nombre
         string telefono
         string correo
@@ -402,18 +401,18 @@ erDiagram
         string estado_paciente
         string nivel_atencion
         string eps_actual
+        string sintomas
+            string enfermedad
     }
 
     VisitasMedicas {
         ObjectId id PK
         date fecha_visita
-        string sintomas
         ObjectId id_tratamiento FK
         ObjectId id_medico FK
         ObjectId id_paciente FK
         string nombre_paciente
         ObjectId hospital_id FK
-        string enfermedad
         string tipo_visita
         string estado_visita
         string observaciones
@@ -496,8 +495,6 @@ erDiagram
 
 ```
 
-
-# Descripción 
 ## Las Entidades y Atributos 
 
 
@@ -642,9 +639,13 @@ erDiagram
 ❖ estado: VARCHAR(20)  
 ❖ id_hospital: ObjectId FOREIGN KEY  
 
+
+
+
+
 </br>
 
-# Relaciones y Cardinalidades 
+## Relaciones y Cardinalidades 
 ### Se realizó las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos: 
 </br>
 # Relaciones y Cardinalidades  
@@ -694,6 +695,7 @@ erDiagram
 </br>
 </br>
 </br>
+
 # Normalización del Modelo Lógico
 
 Se realizó el proceso de la normalización de las tablas anteriormente visualizadas para organizar los datos de manera más eficiente, minimizando redundancias y dependencias transitivas en la base de datos en desarrollo.
@@ -1022,6 +1024,206 @@ erDiagram
 
 
 ``` 
+
+
+# Descripción 
+## Las Entidades y Atributos 
+
+
+### 1. hospital  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ direccion: VARCHAR(150)  
+❖ telefono: VARCHAR(20)  
+❖ codigo_habilitacion: VARCHAR(50)  
+❖ tipo_institucion: VARCHAR(50)  
+❖ nivel_complejidad: VARCHAR(30)  
+
+### 2. administrativos  
+❖ id: ObjectId PRIMARY KEY  
+❖ hospitales: ARRAY<ObjectId> FOREIGN KEY  
+❖ nombre: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ correo: VARCHAR(100)  
+❖ genero: VARCHAR(20)  
+❖ rol: VARCHAR(50)  
+❖ horario: VARCHAR(100)  
+
+### 3. medicos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ rol: VARCHAR(50)  
+❖ especialidad: VARCHAR(100)  
+❖ salario: FLOAT  
+❖ fecha_ingreso: DATE  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ numero_colegiatura: VARCHAR(50)  
+❖ area_asignada: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 4. enfermeros  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ rol: VARCHAR(50)  
+❖ especialidad: VARCHAR(100)  
+❖ salario: FLOAT  
+❖ fecha_ingreso: DATE  
+❖ numero_colegiatura: VARCHAR(50)  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ area_asignada: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 5. mantenimiento  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ correo: VARCHAR(100)  
+❖ telefono: VARCHAR(20)  
+❖ servicios: VARCHAR(150)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ fecha_ingreso: DATE  
+❖ estado: VARCHAR(20)  
+❖ horario: VARCHAR(100)  
+
+### 6. pacientes  
+❖ _id: ObjectId PRIMARY KEY  
+❖ hospital_registro_id: ObjectId FOREIGN KEY  
+❖ historia_clinica: VARCHAR(50)  
+❖ nombre: VARCHAR(100)  
+❖ tipo_identificacion: VARCHAR(30)  
+❖ numero_identificacion: VARCHAR(50)  
+❖ fecha_nacimiento: DATE  
+❖ genero: VARCHAR(20)  
+❖ direccion: VARCHAR(150)  
+❖ telefono_contacto: VARCHAR(20)  
+❖ seguros_medicos: VARCHAR(100)  
+❖ fecha_registro: DATE  
+❖ estado_paciente: VARCHAR(30)  
+❖ nivel_atencion: VARCHAR(30)  
+❖ eps_actual: VARCHAR(50)  
+
+### 7. visitas_medicas  
+❖ id: ObjectId PRIMARY KEY  
+❖ fecha_visita: DATE  
+❖ sintomas: TEXT  
+❖ id_tratamiento: ObjectId FOREIGN KEY  
+❖ id_medico: ObjectId FOREIGN KEY  
+❖ id_paciente: ObjectId FOREIGN KEY  
+❖ nombre_paciente: VARCHAR(100)  
+❖ hospital_id: ObjectId FOREIGN KEY  
+❖ enfermedad: VARCHAR(100)  
+❖ tipo_visita: VARCHAR(50)  
+❖ estado_visita: VARCHAR(30)  
+❖ observaciones: TEXT  
+
+### 8. tratamientos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ descripcion: TEXT  
+❖ costo: FLOAT  
+❖ duracion: VARCHAR(50)  
+❖ beneficios: TEXT  
+❖ requerimientos: TEXT  
+❖ area_relacionada: VARCHAR(100)  
+❖ frecuencia_aplicacion: VARCHAR(50)  
+❖ vía_administración: VARCHAR(50)  
+❖ medicamentos_asociados: ARRAY<ObjectId> FOREIGN KEY  
+
+### 9. medicamentos  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre: VARCHAR(100)  
+❖ principio_activo: VARCHAR(100)  
+❖ concentracion: VARCHAR(50)  
+❖ tipo: VARCHAR(50)  
+❖ lote: VARCHAR(50)  
+❖ presentaciones: TEXT  
+❖ disponibilidad: BOOLEAN  
+❖ fabricante: VARCHAR(100)  
+❖ inventario_hospitales: ARRAY<ObjectId> FOREIGN KEY  
+
+### 10. inventario  
+❖ hospital_id: ObjectId PRIMARY KEY  
+❖ hospital_nombre: VARCHAR(100)  
+❖ stock: INT  
+❖ fecha_ultima_actualizacion: DATE  
+
+### 11. proveedores  
+❖ id: ObjectId PRIMARY KEY  
+❖ nombre_empresa: VARCHAR(100)  
+❖ nit: VARCHAR(50)  
+❖ datos_contacto: TEXT  
+❖ tipo: VARCHAR(50)  
+❖ hospitales_asociados: ARRAY<ObjectId> FOREIGN KEY  
+❖ fecha: DATE  
+❖ terminos_pago: TEXT  
+
+### 12. areas  
+❖ codigo: ObjectId PRIMARY KEY  
+❖ tipo_area: VARCHAR(50)  
+❖ descripcion: TEXT  
+❖ subareas: TEXT  
+❖ personal: TEXT  
+❖ estado: VARCHAR(20)  
+❖ id_hospital: ObjectId FOREIGN KEY  
+
+</br>
+
+# Relaciones y Cardinalidades 
+### Se realizó las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos: 
+</br>
+# Relaciones y Cardinalidades  
+### Se realizaron las relaciones y cardinalidades respectivas del modelo lógico con sus entidades para tener mejor visualización de la base de datos:  
+
+1. Hospital - Administrativos:  
+❖ Un hospital puede tener varios administrativos y cada administrativo puede estar asociado a uno o más hospitales. N-N (muchos a muchos).  
+
+2. Hospital - Médicos:  
+❖ Un hospital puede emplear varios médicos, pero cada médico pertenece a un solo hospital. 1-N (uno a muchos).  
+
+3. Hospital - Enfermeros:  
+❖ Un hospital puede emplear varios enfermeros, y cada enfermero pertenece a un solo hospital. 1-N (uno a muchos).  
+
+4. Hospital - Mantenimiento:  
+❖ Un hospital puede tener varios trabajadores de mantenimiento, cada uno asignado a un solo hospital. 1-N (uno a muchos).  
+
+5. Hospital - Pacientes:  
+❖ Un hospital puede atender a muchos pacientes, pero cada paciente está registrado en un solo hospital. 1-N (uno a muchos).  
+
+6. Hospital - Proveedores:  
+❖ Un hospital puede estar relacionado con varios proveedores, y un proveedor puede suministrar a varios hospitales. N-N (muchos a muchos).  
+
+7. Hospital - Áreas:  
+❖ Un hospital puede contener varias áreas, y cada área pertenece a un solo hospital. 1-N (uno a muchos).  
+
+8. Hospital - Medicamentos:  
+❖ Un hospital puede almacenar múltiples medicamentos, gestionados en su inventario. 1-N (uno a muchos).  
+
+9. Médicos - Visitas Médicas:  
+❖ Un médico puede realizar muchas visitas médicas, pero cada visita médica es realizada por un solo médico. 1-N (uno a muchos).  
+
+10. Pacientes - Visitas Médicas:  
+❖ Un paciente puede recibir muchas visitas médicas, pero cada visita médica corresponde a un solo paciente. 1-N (uno a muchos).  
+
+11. Visitas Médicas - Tratamientos:  
+❖ Una visita médica puede prescribir un tratamiento, y un tratamiento puede ser recetado por muchas visitas médicas. 1-N (uno a muchos).  
+
+12. Tratamientos - Medicamentos:  
+❖ Un tratamiento puede incluir varios medicamentos, y un medicamento puede estar en varios tratamientos. N-N (muchos a muchos).  
+
+13. Áreas - Médicos:  
+❖ Un área puede tener varios médicos asignados, y un médico puede estar relacionado con una sola área. 1-N (uno a muchos).  
+
+14. Medicamentos - Inventario:  
+❖ Un medicamento puede estar en el inventario de varios hospitales, y un hospital tiene su propio stock de cada medicamento. N-N (muchos a muchos).  
+</br>
+</br>
+</br>
+
 ## Segunda Forma Normal (2FN)
 
 Una tabla está en **2FN** si cumple con los siguientes criterios:
@@ -1029,6 +1231,13 @@ Una tabla está en **2FN** si cumple con los siguientes criterios:
 ❖ Está en 1FN.  
 ❖ Todos los atributos no clave (no pertenecientes a una clave primaria compuesta) dependen completamente de la clave primaria.  
 
+### Descripción
+
+La Segunda Forma Normal es el segundo nivel de normalización en el diseño de una base de datos. Se aplica a las tablas que ya cumplen con la Primera Forma Normal (1FN) y busca eliminar **dependencias parciales** dentro de una tabla.
+
+---
+
+### Descripción Técnica
 
 
 
