@@ -1,0 +1,3080 @@
+// Coleccion horario
+
+
+[
+    {
+      "horario_tipo": "Consulta Externa - Diurno",
+      "dias": "Lunes a Viernes"
+    },
+    {
+      "horario_tipo": "Urgencias - 24/7",
+      "dias": "Todos los días"
+    },
+    {
+      "horario_tipo": "Visitas - Mañana",
+      "dias": "Todos los días"
+    },
+    {
+      "horario_tipo": "Visitas - Tarde/Noche",
+      "dias": "Todos los días"
+    },
+    {
+      "horario_tipo": "Laboratorio Clínico - Mañana",
+      "dias": "Lunes a Sábado"
+    },
+    {
+      "horario_tipo": "Laboratorio Clínico - Tarde",
+      "dias": "Lunes a Viernes"
+    },
+    {
+      "horario_tipo": "Imagenología/Administrativo - Diurno",
+      "dias": "Lunes a Viernes"
+    },
+    {
+      "horario_tipo": "Rotativo - Personal",
+      "dias": "Todos los días"
+    },
+    {
+      "horario_tipo": "Nocturno - Personal",
+      "dias": "Todos los días"
+    },
+    {
+      "horario_tipo": "Fin de Semana - Personal",
+      "dias": "Sábado y Domingo"
+    }
+  ]
+
+  // Coleccion Tipo Personal
+
+  [
+    {
+      "_id": "ObjectId('tipop001')",
+      "codigo": "001",
+      "nombre": "Director General",
+      "descripcion": "Gestión general, estratégica y operativa del hospital. Responsable de la dirección y el cumplimiento de objetivos institucionales.",
+      "salario_base": 15000000.00
+    },
+    {
+      "_id": "ObjectId('tipop002')",
+      "codigo": "002",
+      "nombre": "Médico Especialista",
+      "descripcion": "Atiende pacientes, realiza diagnósticos, prescribe tratamientos y lleva a cabo procedimientos en su área de especialización.",
+      "salario_base": 8000000.00
+    },
+    {
+      "_id": "ObjectId('tipop003')",
+      "codigo": "003",
+      "nombre": "Enfermero/a",
+      "descripcion": "Asiste a médicos, administra medicamentos, cuida y monitorea a los pacientes, y educa sobre prácticas de salud.",
+      "salario_base": 3500000.00
+    },
+    {
+      "_id": "ObjectId('tipop004')",
+      "codigo": "004",
+      "nombre": "Personal Administrativo",
+      "descripcion": "Gestiona recursos, coordina citas, maneja la documentación, la facturación y la logística hospitalaria.",
+      "salario_base": 2200000.00
+    },
+    {
+      "_id": "ObjectId('tipop005')",
+      "codigo": "005",
+      "nombre": "Personal de Mantenimiento",
+      "descripcion": "Realiza el mantenimiento preventivo y correctivo de las instalaciones, equipos y asegura la limpieza y salubridad del entorno.",
+      "salario_base": 1500000.00
+    }
+  ]
+
+  // Servicios Mantenimiento
+
+  [
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Cocina"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Lavandería"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Almacén"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Mantenimiento General"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Maquinas"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Vestuarios"
+    },
+    {
+      "tipo_ambiente": "Administrativo",
+      "nombre_servicio": "Oficina de Coordinación"
+    },
+    {
+      "tipo_ambiente": "Administrativo",
+      "nombre_servicio": "Recepción secretaría WC"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Depósito de herramientas y equipos"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Taller mecánico"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Taller plomería"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Taller electricidad"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Taller pintura"
+    },
+    {
+      "tipo_ambiente": "Talleres",
+      "nombre_servicio": "Taller carpintería"
+    },
+    {
+      "tipo_ambiente": "Exteriores",
+      "nombre_servicio": "Depósito jardinería"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Vestuario personal Hombres y Mujeres (WC ducha)"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Aseo"
+    },
+    {
+      "tipo_ambiente": "Servicios Generales",
+      "nombre_servicio": "Basuras"
+    }
+  ]
+
+
+  // Coleccion EPS
+  [
+    {
+      "nombre": "Nueva EPS",
+      "nit": "900222128-1",
+      "tipo": "Contributivo",
+      "nivel": "Nacional",
+      "telefono": "018000954400",
+      "correo": "servicioalcliente@nuevaeps.com.co"
+    },
+    {
+      "nombre": "Nueva EPS",
+      "nit": "900222128-1",
+      "tipo": "Subsidiado",
+      "nivel": "Nacional",
+      "telefono": "018000954400",
+      "correo": "servicioalcliente@nuevaeps.com.co"
+    },
+    {
+      "nombre": "EPS Sanitas",
+      "nit": "860503109-1",
+      "tipo": "Contributivo",
+      "nivel": "Nacional",
+      "telefono": "018000919100",
+      "correo": "servicioalcliente@epssanitas.com"
+    },
+    {
+      "nombre": "Salud Total EPS",
+      "nit": "800007854-2",
+      "tipo": "Contributivo",
+      "nivel": "Nacional",
+      "telefono": "018000114524",
+      "correo": "atencionalusuario@saludtotal.com.co"
+    },
+    {
+      "nombre": "Coosalud EPS",
+      "nit": "800231332-6",
+      "tipo": "Subsidiado",
+      "nivel": "Nacional",
+      "telefono": "018000515600",
+      "correo": "atencionalafiliado@coosalud.com"
+    }
+  ]
+
+  // Seguros 
+  [
+    {
+      "nombre": "Plan Vital",
+      "compañia": "Colsanitas S.A. (Keralty)",
+      "tipo": "Medicina Prepagada",
+      "nivel_cobertura": "Básico",
+      "plan": "Plan Vital",
+      "telefono": "018000979020"
+    },
+    {
+      "nombre": "Plan Esencial",
+      "compañia": "Colsanitas S.A. (Keralty)",
+      "tipo": "Medicina Prepagada",
+      "nivel_cobertura": "Intermedio",
+      "plan": "Plan Esencial",
+      "telefono": "018000979020"
+    },
+    {
+      "nombre": "Plan Preferencial",
+      "compañia": "Colsanitas S.A. (Keralty)",
+      "tipo": "Medicina Prepagada",
+      "nivel_cobertura": "Premium",
+      "plan": "Plan Preferencial",
+      "telefono": "018000979020"
+    },
+    {
+      "nombre": "Plan de Salud Clásico",
+      "compañia": "Suramericana S.A. (Seguros Sura)",
+      "tipo": "Póliza de Salud",
+      "nivel_cobertura": "Básico",
+      "plan": "Plan de Salud Clásico",
+      "telefono": "018000518888"
+    },
+    {
+      "nombre": "Plan de Salud Global",
+      "compañia": "Suramericana S.A. (Seguros Sura)",
+      "tipo": "Póliza de Salud",
+      "nivel_cobertura": "Completo",
+      "plan": "Plan de Salud Global",
+      "telefono": "018000518888"
+    },
+    {
+      "nombre": "Plan Oro",
+      "compañia": "AXA Colpatria",
+      "tipo": "Medicina Prepagada",
+      "nivel_cobertura": "Premium",
+      "plan": "Plan Oro",
+      "telefono": "018000512620"
+    },
+    {
+      "nombre": "Plan Plata",
+      "compañia": "AXA Colpatria",
+      "tipo": "Medicina Prepagada",
+      "nivel_cobertura": "Intermedio",
+      "plan": "Plan Plata",
+      "telefono": "018000512620"
+    },
+    {
+      "nombre": "Póliza de Hospitalización y Cirugía",
+      "compañia": "Allianz Colombia",
+      "tipo": "Póliza de Salud",
+      "nivel_cobertura": "Básico",
+      "plan": "Póliza de Hospitalización y Cirugía",
+      "telefono": "018000513300"
+    }
+  ]
+
+  // Coleccion Sintomas
+
+  [
+    {
+      "descripcion": "Dolor de cabeza",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Fiebre",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Tos",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dificultad para respirar (Disnea)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor abdominal",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Náuseas",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Vómitos",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Diarrea",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Fatiga / Cansancio",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor en el pecho",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Mareos / Vértigo",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Erupción cutánea",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Hinchazón (Edema)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor de garganta",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Congestión nasal / Rinorrea",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Pérdida de apetito",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Debilidad muscular",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Cambios en el estado de ánimo",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Insomnio",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Sangrado inusual",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Visión borrosa",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor articular",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Entumecimiento / Hormigueo",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Pérdida de peso inexplicable",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Aumento de la sed (Polidipsia)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Aumento de la micción (Poliuria)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Ictericia (Coloración amarillenta de piel y ojos)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Confusión / Desorientación",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Convulsiones",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Parálisis o debilidad en un lado del cuerpo",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor al orinar (Disuria)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Orina con sangre (Hematuria)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Estreñimiento",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Hemorroides",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor de espalda",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor de cuello",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Hinchazón de ganglios linfáticos",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Úlceras en la boca",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Pérdida de audición",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Zumbido en los oídos (Tinnitus)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Dolor de muelas",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Sensibilidad a la luz (Fotofobia)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Escalofríos",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Sudoración excesiva",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Cambios en el color de la piel",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Vómito con sangre (Hematemesis)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    },
+    {
+      "descripcion": "Heces negras o con sangre (Melena/Hematoquecia)",
+      "observaciones": "",
+      "fecha_encontrada": null
+    }
+  ]
+
+  // Coleccion Medicamentos
+
+  [
+    {
+      "_id": "ObjectId('med001')",
+      "nombre": "Acetaminofén",
+      "principio_activo": "Paracetamol",
+      "concentracion": "500 mg",
+      "tipo": "Analgésico / Antipirético",
+      "lote": "LOTE2024001",
+      "disponibilidad": true,
+      "fabricante": "Laboratorios Genericos S.A."
+    },
+    {
+      "_id": "ObjectId('med002')",
+      "nombre": "Ibuprofeno",
+      "principio_activo": "Ibuprofeno",
+      "concentracion": "400 mg",
+      "tipo": "AINE / Analgésico",
+      "lote": "LOTE2024002",
+      "disponibilidad": true,
+      "fabricante": "Farmacéutica Global Ltda."
+    },
+    {
+      "_id": "ObjectId('med003')",
+      "nombre": "Amoxicilina",
+      "principio_activo": "Amoxicilina",
+      "concentracion": "500 mg",
+      "tipo": "Antibiótico",
+      "lote": "LOTE2024003",
+      "disponibilidad": true,
+      "fabricante": "MediPharma Corp."
+    },
+    {
+      "_id": "ObjectId('med004')",
+      "nombre": "Ceftriaxona",
+      "principio_activo": "Ceftriaxona",
+      "concentracion": "1 g",
+      "tipo": "Antibiótico",
+      "lote": "LOTE2024004",
+      "disponibilidad": true,
+      "fabricante": "BioGen Laboratorios"
+    },
+    {
+      "_id": "ObjectId('med005')",
+      "nombre": "Omeprazol",
+      "principio_activo": "Omeprazol",
+      "concentracion": "20 mg",
+      "tipo": "Inhibidor Bomba Protones",
+      "lote": "LOTE2024005",
+      "disponibilidad": true,
+      "fabricante": "Química Saludable"
+    },
+    {
+      "_id": "ObjectId('med006')",
+      "nombre": "Salbutamol",
+      "principio_activo": "Salbutamol",
+      "concentracion": "100 mcg/dosis",
+      "tipo": "Broncodilatador",
+      "lote": "LOTE2024006",
+      "disponibilidad": true,
+      "fabricante": "RespiCare Labs"
+    },
+    {
+      "_id": "ObjectId('med007')",
+      "nombre": "Losartán",
+      "principio_activo": "Losartán Potásico",
+      "concentracion": "50 mg",
+      "tipo": "Antihipertensivo",
+      "lote": "LOTE2024007",
+      "disponibilidad": true,
+      "fabricante": "CardioFarm"
+    },
+    {
+      "_id": "ObjectId('med008')",
+      "nombre": "Metformina",
+      "principio_activo": "Metformina Clorhidrato",
+      "concentracion": "850 mg",
+      "tipo": "Antidiabético Oral",
+      "lote": "LOTE2024008",
+      "disponibilidad": true,
+      "fabricante": "EndoMed"
+    },
+    {
+      "_id": "ObjectId('med009')",
+      "nombre": "Atorvastatina",
+      "principio_activo": "Atorvastatina Cálcica",
+      "concentracion": "20 mg",
+      "tipo": "Hipolipemiante",
+      "lote": "LOTE2024009",
+      "disponibilidad": true,
+      "fabricante": "HealthyLife Pharma"
+    },
+    {
+      "_id": "ObjectId('med010')",
+      "nombre": "Morfina",
+      "principio_activo": "Morfina Sulfato",
+      "concentracion": "10 mg/ml",
+      "tipo": "Analgésico Opioide",
+      "lote": "LOTE2024010",
+      "disponibilidad": true,
+      "fabricante": "FarmaDolor S.A."
+    },
+    {
+      "_id": "ObjectId('med011')",
+      "nombre": "Diazepam",
+      "principio_activo": "Diazepam",
+      "concentracion": "10 mg",
+      "tipo": "Ansiolítico / Sedante",
+      "lote": "LOTE2024011",
+      "disponibilidad": true,
+      "fabricante": "NeuroCare Labs"
+    },
+    {
+      "_id": "ObjectId('med012')",
+      "nombre": "Heparina",
+      "principio_activo": "Heparina Sódica",
+      "concentracion": "5000 UI/ml",
+      "tipo": "Anticoagulante",
+      "lote": "LOTE2024012",
+      "disponibilidad": true,
+      "fabricante": "CoagulaPharm"
+    },
+    {
+      "_id": "ObjectId('med013')",
+      "nombre": "Dexametasona",
+      "principio_activo": "Dexametasona",
+      "concentracion": "4 mg/ml",
+      "tipo": "Corticoide / Antiinflamatorio",
+      "lote": "LOTE2024013",
+      "disponibilidad": true,
+      "fabricante": "Steroidix"
+    },
+    {
+      "_id": "ObjectId('med014')",
+      "nombre": "Insulina Glargina",
+      "principio_activo": "Insulina Glargina",
+      "concentracion": "100 UI/ml",
+      "tipo": "Insulina",
+      "lote": "LOTE2024014",
+      "disponibilidad": true,
+      "fabricante": "DiabCare"
+    },
+    {
+      "_id": "ObjectId('med015')",
+      "nombre": "Ranitidina",
+      "principio_activo": "Ranitidina Clorhidrato",
+      "concentracion": "150 mg",
+      "tipo": "Antiácido / Antiulceroso",
+      "lote": "LOTE2024015",
+      "disponibilidad": true,
+      "fabricante": "GastroFarm"
+    },
+    {
+      "_id": "ObjectId('med016')",
+      "nombre": "Clopidogrel",
+      "principio_activo": "Clopidogrel Bisulfato",
+      "concentracion": "75 mg",
+      "tipo": "Antiagregante Plaquetario",
+      "lote": "LOTE2024016",
+      "disponibilidad": true,
+      "fabricante": "CardioPrevent"
+    },
+    {
+      "_id": "ObjectId('med017')",
+      "nombre": "Digoxina",
+      "principio_activo": "Digoxina",
+      "concentracion": "0.25 mg",
+      "tipo": "Cardiotónico",
+      "lote": "LOTE2024017",
+      "disponibilidad": true,
+      "fabricante": "HeartBeat Labs"
+    },
+    {
+      "_id": "ObjectId('med018')",
+      "nombre": "Furosemida",
+      "principio_activo": "Furosemida",
+      "concentracion": "40 mg",
+      "tipo": "Diurético",
+      "lote": "LOTE2024018",
+      "disponibilidad": true,
+      "fabricante": "HydroPharm"
+    },
+    {
+      "_id": "ObjectId('med019')",
+      "nombre": "Ciprofloxacino",
+      "principio_activo": "Ciprofloxacino",
+      "concentracion": "500 mg",
+      "tipo": "Antibiótico",
+      "lote": "LOTE2024019",
+      "disponibilidad": true,
+      "fabricante": "InfectioCare"
+    },
+    {
+      "_id": "ObjectId('med020')",
+      "nombre": "Vancomicina",
+      "principio_activo": "Vancomicina",
+      "concentracion": "500 mg",
+      "tipo": "Antibiótico",
+      "lote": "LOTE2024020",
+      "disponibilidad": true,
+      "fabricante": "GramPositive Labs"
+    },
+    {
+      "_id": "ObjectId('med021')",
+      "nombre": "Ondansetrón",
+      "principio_activo": "Ondansetrón",
+      "concentracion": "8 mg",
+      "tipo": "Antiemético",
+      "lote": "LOTE2024021",
+      "disponibilidad": true,
+      "fabricante": "VomitStop Pharma"
+    },
+    {
+      "_id": "ObjectId('med022')",
+      "nombre": "Tramadol",
+      "principio_activo": "Tramadol Clorhidrato",
+      "concentracion": "50 mg",
+      "tipo": "Analgésico Opioide",
+      "lote": "LOTE2024022",
+      "disponibilidad": true,
+      "fabricante": "DolorControl"
+    },
+    {
+      "_id": "ObjectId('med023')",
+      "nombre": "Propofol",
+      "principio_activo": "Propofol",
+      "concentracion": "10 mg/ml",
+      "tipo": "Anestésico Intravenoso",
+      "lote": "LOTE2024023",
+      "disponibilidad": true,
+      "fabricante": "Anestesia Segura S.A."
+    },
+    {
+      "_id": "ObjectId('med024')",
+      "nombre": "Midazolam",
+      "principio_activo": "Midazolam",
+      "concentracion": "5 mg/ml",
+      "tipo": "Sedante / Ansiolítico",
+      "lote": "LOTE2024024",
+      "disponibilidad": true,
+      "fabricante": "Sedation Pharma"
+    },
+    {
+      "_id": "ObjectId('med025')",
+      "nombre": "Sodio Cloruro 0.9%",
+      "principio_activo": "Cloruro de Sodio",
+      "concentracion": "0.9%",
+      "tipo": "Solución Intravenosa",
+      "lote": "LOTE2024025",
+      "disponibilidad": true,
+      "fabricante": "FluidLife Solutions"
+    },
+    {
+      "_id": "ObjectId('med026')",
+      "nombre": "Glucosa 5%",
+      "principio_activo": "Dextrosa",
+      "concentracion": "5%",
+      "tipo": "Solución Intravenosa / Nutrición",
+      "lote": "LOTE2024026",
+      "disponibilidad": true,
+      "fabricante": "NutriMed"
+    },
+    {
+      "_id": "ObjectId('med027')",
+      "nombre": "Potasio Cloruro",
+      "principio_activo": "Cloruro de Potasio",
+      "concentracion": "20 mEq/10ml",
+      "tipo": "Electrolito",
+      "lote": "LOTE2024027",
+      "disponibilidad": true,
+      "fabricante": "Electrolyte Plus"
+    },
+    {
+      "_id": "ObjectId('med028')",
+      "nombre": "Adrenalina",
+      "principio_activo": "Epinefrina",
+      "concentracion": "1 mg/ml",
+      "tipo": "Estimulante Adrenérgico / Emergencia",
+      "lote": "LOTE2024028",
+      "disponibilidad": true,
+      "fabricante": "EmergenCare"
+    },
+    {
+      "_id": "ObjectId('med029')",
+      "nombre": "Atropina",
+      "principio_activo": "Atropina Sulfato",
+      "concentracion": "1 mg/ml",
+      "tipo": "Anticolinérgico / Emergencia",
+      "lote": "LOTE2024029",
+      "disponibilidad": true,
+      "fabricante": "VitaMedic"
+    },
+    {
+      "_id": "ObjectId('med030')",
+      "nombre": "Verapamilo",
+      "principio_activo": "Verapamilo",
+      "concentracion": "80 mg",
+      "tipo": "Antiarrítmico / Antihipertensivo",
+      "lote": "LOTE2024030",
+      "disponibilidad": true,
+      "fabricante": "RhythmCare"
+    },
+    {
+      "_id": "ObjectId('med031')",
+      "nombre": "Amlodipino",
+      "principio_activo": "Amlodipino Besilato",
+      "concentracion": "5 mg",
+      "tipo": "Antihipertensivo",
+      "lote": "LOTE2024031",
+      "disponibilidad": true,
+      "fabricante": "TensioMed"
+    },
+    {
+      "_id": "ObjectId('med032')",
+      "nombre": "Simvastatina",
+      "principio_activo": "Simvastatina",
+      "concentracion": "20 mg",
+      "tipo": "Hipolipemiante",
+      "lote": "LOTE2024032",
+      "disponibilidad": true,
+      "fabricante": "Colesterol Control"
+    },
+    {
+      "_id": "ObjectId('med033')",
+      "nombre": "Warfarina",
+      "principio_activo": "Warfarina Sódica",
+      "concentracion": "5 mg",
+      "tipo": "Anticoagulante Oral",
+      "lote": "LOTE2024033",
+      "disponibilidad": true,
+      "fabricante": "CoagulaSafe"
+    },
+    {
+      "_id": "ObjectId('med034')",
+      "nombre": "Levofloxacino",
+      "principio_activo": "Levofloxacino",
+      "concentracion": "500 mg",
+      "tipo": "Antibiótico",
+      "lote": "LOTE2024034",
+      "disponibilidad": true,
+      "fabricante": "RespiraPharma"
+    },
+    {
+      "_id": "ObjectId('med035')",
+      "nombre": "Metronidazol",
+      "principio_activo": "Metronidazol",
+      "concentracion": "500 mg",
+      "tipo": "Antibiótico / Antiparasitario",
+      "lote": "LOTE2024035",
+      "disponibilidad": true,
+      "fabricante": "GastroGuard"
+    },
+    {
+      "_id": "ObjectId('med036')",
+      "nombre": "Fluconazol",
+      "principio_activo": "Fluconazol",
+      "concentracion": "150 mg",
+      "tipo": "Antifúngico",
+      "lote": "LOTE2024036",
+      "disponibilidad": true,
+      "fabricante": "FungoStop"
+    },
+    {
+      "_id": "ObjectId('med037')",
+      "nombre": "Aciclovir",
+      "principio_activo": "Aciclovir",
+      "concentracion": "200 mg",
+      "tipo": "Antiviral",
+      "lote": "LOTE2024037",
+      "disponibilidad": true,
+      "fabricante": "VirusShield"
+    },
+    {
+      "_id": "ObjectId('med038')",
+      "nombre": "Gabapentina",
+      "principio_activo": "Gabapentina",
+      "concentracion": "300 mg",
+      "tipo": "Anticonvulsivante / Neuropático",
+      "lote": "LOTE2024038",
+      "disponibilidad": true,
+      "fabricante": "NeuroRelief"
+    },
+    {
+      "_id": "ObjectId('med039')",
+      "nombre": "Pregabalina",
+      "principio_activo": "Pregabalina",
+      "concentracion": "75 mg",
+      "tipo": "Anticonvulsivante / Neuropático",
+      "lote": "LOTE2024039",
+      "disponibilidad": true,
+      "fabricante": "NerveCalm"
+    },
+    {
+      "_id": "ObjectId('med040')",
+      "nombre": "Escopolamina (Butilbromuro)",
+      "principio_activo": "Butilbromuro de Escopolamina",
+      "concentracion": "20 mg",
+      "tipo": "Antiespasmódico",
+      "lote": "LOTE2024040",
+      "disponibilidad": true,
+      "fabricante": "SpasmoFree"
+    },
+    {
+      "_id": "ObjectId('med041')",
+      "nombre": "Tramadol + Paracetamol",
+      "principio_activo": "Tramadol Clorhidrato + Paracetamol",
+      "concentracion": "37.5 mg / 325 mg",
+      "tipo": "Analgésico Combinado",
+      "lote": "LOTE2024041",
+      "disponibilidad": true,
+      "fabricante": "DolorTotal"
+    },
+    {
+      "_id": "ObjectId('med042')",
+      "nombre": "Vitamina K",
+      "principio_activo": "Fitomenadiona",
+      "concentracion": "10 mg/ml",
+      "tipo": "Vitamina / Coagulante",
+      "lote": "LOTE2024042",
+      "disponibilidad": true,
+      "fabricante": "Vitaminex"
+    },
+    {
+      "_id": "ObjectId('med043')",
+      "nombre": "Sulfato de Magnesio",
+      "principio_activo": "Sulfato de Magnesio",
+      "concentracion": "20%",
+      "tipo": "Electrolito / Anticonvulsivante",
+      "lote": "LOTE2024043",
+      "disponibilidad": true,
+      "fabricante": "MineralBalance"
+    },
+    {
+      "_id": "ObjectId('med044')",
+      "nombre": "Dopamina",
+      "principio_activo": "Dopamina Clorhidrato",
+      "concentracion": "40 mg/ml",
+      "tipo": "Vasopresor / Inotrópico",
+      "lote": "LOTE2024044",
+      "disponibilidad": true,
+      "fabricante": "CriticalCare Pharma"
+    },
+    {
+      "_id": "ObjectId('med045')",
+      "nombre": "Norepinefrina",
+      "principio_activo": "Norepinefrina Bitartrato",
+      "concentracion": "4 mg/4ml",
+      "tipo": "Vasopresor",
+      "lote": "LOTE2024045",
+      "disponibilidad": true,
+      "fabricante": "LifeSupport Labs"
+    },
+    {
+      "_id": "ObjectId('med046')",
+      "nombre": "Fentanilo",
+      "principio_activo": "Fentanilo Citrato",
+      "concentracion": "50 mcg/ml",
+      "tipo": "Analgésico Opioide / Anestésico",
+      "lote": "LOTE2024046",
+      "disponibilidad": true,
+      "fabricante": "PainRelief Strong"
+    },
+    {
+      "_id": "ObjectId('med047')",
+      "nombre": "Remifentanilo",
+      "principio_activo": "Remifentanilo Clorhidrato",
+      "concentracion": "2 mg",
+      "tipo": "Analgésico Opioide / Anestésico",
+      "lote": "LOTE2024047",
+      "disponibilidad": true,
+      "fabricante": "UltraFast Anesthesia"
+    },
+    {
+      "_id": "ObjectId('med048')",
+      "nombre": "Rocuronio",
+      "principio_activo": "Rocuronio Bromuro",
+      "concentracion": "10 mg/ml",
+      "tipo": "Relajante Muscular",
+      "lote": "LOTE2024048",
+      "disponibilidad": true,
+      "fabricante": "MuscleControl Pharma"
+    },
+    {
+      "_id": "ObjectId('med049')",
+      "nombre": "Succinoilcolina",
+      "principio_activo": "Cloruro de Succinilcolina",
+      "concentracion": "100 mg",
+      "tipo": "Relajante Muscular (Despolarizante)",
+      "lote": "LOTE2024049",
+      "disponibilidad": true,
+      "fabricante": "EmergencyRelax"
+    },
+    {
+      "_id": "ObjectId('med050')",
+      "nombre": "Lidocaína",
+      "principio_activo": "Lidocaína Clorhidrato",
+      "concentracion": "2%",
+      "tipo": "Anestésico Local / Antiarrítmico",
+      "lote": "LOTE2024050",
+      "disponibilidad": true,
+      "fabricante": "NumbSense Labs"
+    },
+    {
+      "_id": "ObjectId('med051')",
+      "nombre": "Bupivacaína",
+      "principio_activo": "Bupivacaína Clorhidrato",
+      "concentracion": "0.5%",
+      "tipo": "Anestésico Local",
+      "lote": "LOTE2024051",
+      "disponibilidad": true,
+      "fabricante": "RegionalBlock Pharma"
+    },
+    {
+      "_id": "ObjectId('med052')",
+      "nombre": "Oxitocina",
+      "principio_activo": "Oxitocina",
+      "concentracion": "10 UI/ml",
+      "tipo": "Uterotónico",
+      "lote": "LOTE2024052",
+      "disponibilidad": true,
+      "fabricante": "ObGyn Meds"
+    },
+    {
+      "_id": "ObjectId('med053')",
+      "nombre": "Misoprostol",
+      "principio_activo": "Misoprostol",
+      "concentracion": "200 mcg",
+      "tipo": "Uterotónico / Protector Gástrico",
+      "lote": "LOTE2024053",
+      "disponibilidad": true,
+      "fabricante": "Maternity Care"
+    },
+    {
+      "_id": "ObjectId('med054')",
+      "nombre": "Vitamina C",
+      "principio_activo": "Ácido Ascórbico",
+      "concentracion": "500 mg",
+      "tipo": "Vitamina",
+      "lote": "LOTE2024054",
+      "disponibilidad": true,
+      "fabricante": "VitaSupplements"
+    },
+    {
+      "_id": "ObjectId('med055')",
+      "nombre": "Clorfenamina",
+      "principio_activo": "Clorfenamina Maleato",
+      "concentracion": "4 mg",
+      "tipo": "Antihistamínico",
+      "lote": "LOTE2024055",
+      "disponibilidad": true,
+      "fabricante": "Allergy Relief"
+    },
+    {
+      "_id": "ObjectId('med056')",
+      "nombre": "Enalapril",
+      "principio_activo": "Enalapril Maleato",
+      "concentracion": "10 mg",
+      "tipo": "IECA / Antihipertensivo",
+      "lote": "LOTE2024056",
+      "disponibilidad": true,
+      "fabricante": "BloodPressure Pharma"
+    },
+    {
+      "_id": "ObjectId('med057')",
+      "nombre": "Hidroclorotiazida",
+      "principio_activo": "Hidroclorotiazida",
+      "concentracion": "25 mg",
+      "tipo": "Diurético Tiazídico",
+      "lote": "LOTE2024057",
+      "disponibilidad": true,
+      "fabricante": "WaterBalance Labs"
+    },
+    {
+      "_id": "ObjectId('med058')",
+      "nombre": "Sertralina",
+      "principio_activo": "Sertralina Clorhidrato",
+      "concentracion": "50 mg",
+      "tipo": "Antidepresivo ISRS",
+      "lote": "LOTE2024058",
+      "disponibilidad": true,
+      "fabricante": "MoodPlus Pharma"
+    },
+    {
+      "_id": "ObjectId('med059')",
+      "nombre": "Quetiapina",
+      "principio_activo": "Quetiapina Fumarato",
+      "concentracion": "100 mg",
+      "tipo": "Antipsicótico",
+      "lote": "LOTE2024059",
+      "disponibilidad": true,
+      "fabricante": "MindClear Labs"
+    },
+    {
+      "_id": "ObjectId('med060')",
+      "nombre": "Metoclopramida",
+      "principio_activo": "Metoclopramida Clorhidrato",
+      "concentracion": "10 mg",
+      "tipo": "Procinético / Antiemético",
+      "lote": "LOTE2024060",
+      "disponibilidad": true,
+      "fabricante": "Digestive Aid"
+    }
+  ]
+  
+  // Coleccion Pesentacion:
+  [
+    {
+      "_id": "ObjectId('pres001')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med001')"
+    },
+    {
+      "_id": "ObjectId('pres002')",
+      "tipo_presentacion": "Solución oral",
+      "id_medicamento": "ObjectId('med001')"
+    },
+    {
+      "_id": "ObjectId('pres003')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med002')"
+    },
+    {
+      "_id": "ObjectId('pres004')",
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": "ObjectId('med003')"
+    },
+    {
+      "_id": "ObjectId('pres005')",
+      "tipo_presentacion": "Polvo para solución inyectable",
+      "id_medicamento": "ObjectId('med004')"
+    },
+    {
+      "_id": "ObjectId('pres006')",
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": "ObjectId('med005')"
+    },
+    {
+      "_id": "ObjectId('pres007')",
+      "tipo_presentacion": "Solución para nebulizar",
+      "id_medicamento": "ObjectId('med006')"
+    },
+    {
+      "_id": "ObjectId('pres008')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med007')"
+    },
+    {
+      "_id": "ObjectId('pres009')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med008')"
+    },
+    {
+      "_id": "ObjectId('pres010')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med009')"
+    },
+    {
+      "_id": "ObjectId('pres011')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med010')"
+    },
+    {
+      "_id": "ObjectId('pres012')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med011')"
+    },
+    {
+      "_id": "ObjectId('pres013')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med012')"
+    },
+    {
+      "_id": "ObjectId('pres014')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med013')"
+    },
+    {
+      "_id": "ObjectId('pres015')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med014')"
+    },
+    {
+      "_id": "ObjectId('pres016')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med015')"
+    },
+    {
+      "_id": "ObjectId('pres017')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med016')"
+    },
+    {
+      "_id": "ObjectId('pres018')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med017')"
+    },
+    {
+      "_id": "ObjectId('pres019')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med018')"
+    },
+    {
+      "_id": "ObjectId('pres020')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med018')"
+    },
+    {
+      "_id": "ObjectId('pres021')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med019')"
+    },
+    {
+      "_id": "ObjectId('pres022')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med019')"
+    },
+    {
+      "_id": "ObjectId('pres023')",
+      "tipo_presentacion": "Polvo para solución inyectable",
+      "id_medicamento": "ObjectId('med020')"
+    },
+    {
+      "_id": "ObjectId('pres024')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med021')"
+    },
+    {
+      "_id": "ObjectId('pres025')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med021')"
+    },
+    {
+      "_id": "ObjectId('pres026')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med022')"
+    },
+    {
+      "_id": "ObjectId('pres027')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med023')"
+    },
+    {
+      "_id": "ObjectId('pres028')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med024')"
+    },
+    {
+      "_id": "ObjectId('pres029')",
+      "tipo_presentacion": "Solución intravenosa",
+      "id_medicamento": "ObjectId('med025')"
+    },
+    {
+      "_id": "ObjectId('pres030')",
+      "tipo_presentacion": "Solución intravenosa",
+      "id_medicamento": "ObjectId('med026')"
+    },
+    {
+      "_id": "ObjectId('pres031')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med027')"
+    },
+    {
+      "_id": "ObjectId('pres032')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med028')"
+    },
+    {
+      "_id": "ObjectId('pres033')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med029')"
+    },
+    {
+      "_id": "ObjectId('pres034')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med030')"
+    },
+    {
+      "_id": "ObjectId('pres035')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med031')"
+    },
+    {
+      "_id": "ObjectId('pres036')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med032')"
+    },
+    {
+      "_id": "ObjectId('pres037')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med033')"
+    },
+    {
+      "_id": "ObjectId('pres038')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med034')"
+    },
+    {
+      "_id": "ObjectId('pres039')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med034')"
+    },
+    {
+      "_id": "ObjectId('pres040')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med035')"
+    },
+    {
+      "_id": "ObjectId('pres041')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med035')"
+    },
+    {
+      "_id": "ObjectId('pres042')",
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": "ObjectId('med036')"
+    },
+    {
+      "_id": "ObjectId('pres043')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med037')"
+    },
+    {
+      "_id": "ObjectId('pres044')",
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": "ObjectId('med038')"
+    },
+    {
+      "_id": "ObjectId('pres045')",
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": "ObjectId('med039')"
+    },
+    {
+      "_id": "ObjectId('pres046')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med040')"
+    },
+    {
+      "_id": "ObjectId('pres047')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med041')"
+    },
+    {
+      "_id": "ObjectId('pres048')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med042')"
+    },
+    {
+      "_id": "ObjectId('pres049')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med043')"
+    },
+    {
+      "_id": "ObjectId('pres050')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med044')"
+    },
+    {
+      "_id": "ObjectId('pres051')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med045')"
+    },
+    {
+      "_id": "ObjectId('pres052')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med046')"
+    },
+    {
+      "_id": "ObjectId('pres053')",
+      "tipo_presentacion": "Parche transdérmico",
+      "id_medicamento": "ObjectId('med046')"
+    },
+    {
+      "_id": "ObjectId('pres054')",
+      "tipo_presentacion": "Polvo para reconstituir a solución inyectable",
+      "id_medicamento": "ObjectId('med047')"
+    },
+    {
+      "_id": "ObjectId('pres055')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med048')"
+    },
+    {
+      "_id": "ObjectId('pres056')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med049')"
+    },
+    {
+      "_id": "ObjectId('pres057')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med050')"
+    },
+    {
+      "_id": "ObjectId('pres058')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med051')"
+    },
+    {
+      "_id": "ObjectId('pres059')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med052')"
+    },
+    {
+      "_id": "ObjectId('pres060')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med053')"
+    },
+    {
+      "_id": "ObjectId('pres061')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med054')"
+    },
+    {
+      "_id": "ObjectId('pres062')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med055')"
+    },
+    {
+      "_id": "ObjectId('pres063')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med056')"
+    },
+    {
+      "_id": "ObjectId('pres064')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med057')"
+    },
+    {
+      "_id": "ObjectId('pres065')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med058')"
+    },
+    {
+      "_id": "ObjectId('pres066')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med059')"
+    },
+    {
+      "_id": "ObjectId('pres067')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med060')"
+    },
+    {
+      "_id": "ObjectId('pres068')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med010')"
+    },
+    {
+      "_id": "ObjectId('pres069')",
+      "tipo_presentacion": "Tableta sublingual",
+      "id_medicamento": "ObjectId('med011')"
+    },
+    {
+      "_id": "ObjectId('pres070')",
+      "tipo_presentacion": "Jarabe",
+      "id_medicamento": "ObjectId('med011')"
+    },
+    {
+      "_id": "ObjectId('pres071')",
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": "ObjectId('med012')"
+    },
+    {
+      "_id": "ObjectId('pres072')",
+      "tipo_presentacion": "Parche transdérmico",
+      "id_medicamento": "ObjectId('med046')"
+    },
+    {
+      "_id": "ObjectId('pres073')",
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": "ObjectId('med046')"
+    },
+    {
+      "_id": "ObjectId('pres074')",
+      "tipo_presentacion": "Cápsula dura",
+      "id_medicamento": "ObjectId('med058')"
+    },
+    {
+      "_id": "ObjectId('pres075')",
+      "tipo_presentacion": "Tableta de liberación prolongada",
+      "id_medicamento": "ObjectId('med058')"
+    },
+    {
+      "_id": "ObjectId('pres076')",
+      "tipo_presentacion": "Polvo para reconstituir a solución inyectable",
+      "id_medicamento": "ObjectId('med047')"
+    },
+    {
+      "_id": "ObjectId('pres077')",
+      "tipo_presentacion": "Tableta de liberación modificada",
+      "id_medicamento": "ObjectId('med008')"
+    },
+    {
+      "_id": "ObjectId('pres078')",
+      "tipo_presentacion": "Cápsula de liberación modificada",
+      "id_medicamento": "ObjectId('med008')"
+    }
+  ]
+
+  //Colecciones Proveedores
+
+  [
+    {
+      "_id": "ObjectId('prov001')",
+      "nombre_empresa": "Enka de Colombia S.A.",
+      "nit": "890903474",
+      "tipo": "Suministros textiles",
+      "fecha": "2023-01-15T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov002')",
+      "nombre_empresa": "Bayer Cropscience S.A.",
+      "nit": "800243792",
+      "tipo": "Materiales de laboratorio",
+      "fecha": "2023-02-20T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov003')",
+      "nombre_empresa": "Laboratorios Baxter S.A.",
+      "nit": "890300292",
+      "tipo": "Soluciones intravenosas",
+      "fecha": "2023-03-10T00:00:00Z",
+      "terminos_pago": "Neto 60 días"
+    },
+    {
+      "_id": "ObjectId('prov004')",
+      "nombre_empresa": "Abbott Laboratorios de Colombia S.A.",
+      "nit": "860002134",
+      "tipo": "Diagnósticos y dispositivos",
+      "fecha": "2023-04-05T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov005')",
+      "nombre_empresa": "Dow Química de Colombia S.A.",
+      "nit": "860014659",
+      "tipo": "Productos de limpieza",
+      "fecha": "2023-05-12T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov006')",
+      "nombre_empresa": "Schering Colombiana S.A.",
+      "nit": "860003220",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2023-06-18T00:00:00Z",
+      "terminos_pago": "Neto 60 días"
+    },
+    {
+      "_id": "ObjectId('prov007')",
+      "nombre_empresa": "Bayer S.A.",
+      "nit": "860001942",
+      "tipo": "Farmacéuticos y OTC",
+      "fecha": "2023-07-22T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov008')",
+      "nombre_empresa": "Glaxosmithkline Colombia S.A.",
+      "nit": "830012969",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2023-08-01T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov009')",
+      "nombre_empresa": "Pro Nova Ltda S.A.",
+      "nit": "800077380",
+      "tipo": "Servicios de tecnología",
+      "fecha": "2023-09-09T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov010')",
+      "nombre_empresa": "Schering Plough S.A.",
+      "nit": "860002392",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2023-10-14T00:00:00Z",
+      "terminos_pago": "Neto 60 días"
+    },
+    {
+      "_id": "ObjectId('prov011')",
+      "nombre_empresa": "Griffin de Colombia S.A.",
+      "nit": "802006840",
+      "tipo": "Material de oficina",
+      "fecha": "2023-11-25T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov012')",
+      "nombre_empresa": "Procaps S.A.",
+      "nit": "890106527",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2023-12-01T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov013')",
+      "nombre_empresa": "W-L Llc S.A.",
+      "nit": "860005096",
+      "tipo": "Equipos médicos",
+      "fecha": "2024-01-08T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov014')",
+      "nombre_empresa": "Dupont de Colombia S.A.",
+      "nit": "890100454",
+      "tipo": "Químicos industriales",
+      "fecha": "2024-02-19T00:00:00Z",
+      "terminos_pago": "Neto 60 días"
+    },
+    {
+      "_id": "ObjectId('prov015')",
+      "nombre_empresa": "Flexo Spring S.A.",
+      "nit": "800218958",
+      "tipo": "Mantenimiento y repuestos",
+      "fecha": "2024-03-03T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov016')",
+      "nombre_empresa": "Boehringer Ingelheim S.A.",
+      "nit": "860000753",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2024-04-16T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov017')",
+      "nombre_empresa": "Laboratorios Genéricos Farmacéuticos S.A.",
+      "nit": "860022139",
+      "tipo": "Medicamentos genéricos",
+      "fecha": "2024-05-21T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov018')",
+      "nombre_empresa": "Aga Fano Fabrica Nacional de Oxigeno S.A.",
+      "nit": "860005114",
+      "tipo": "Gases medicinales",
+      "fecha": "2024-06-01T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov019')",
+      "nombre_empresa": "Merck S.A.",
+      "nit": "860000580",
+      "tipo": "Reactivos y químicos",
+      "fecha": "2024-07-07T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov020')",
+      "nombre_empresa": "Firmenich S.A.",
+      "nit": "860030605",
+      "tipo": "Insumos de aseo",
+      "fecha": "2024-08-11T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov021')",
+      "nombre_empresa": "Henkel Colombiana S.A.",
+      "nit": "860000751",
+      "tipo": "Productos de limpieza",
+      "fecha": "2024-09-02T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    },
+    {
+      "_id": "ObjectId('prov022')",
+      "nombre_empresa": "Aventis Pharma S.A.",
+      "nit": "830010337",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2024-10-10T00:00:00Z",
+      "terminos_pago": "Neto 60 días"
+    },
+    {
+      "_id": "ObjectId('prov023')",
+      "nombre_empresa": "Sanofi Synthelabo de Colombia S.A.",
+      "nit": "800246382",
+      "tipo": "Productos farmacéuticos",
+      "fecha": "2024-11-15T00:00:00Z",
+      "terminos_pago": "Neto 45 días"
+    },
+    {
+      "_id": "ObjectId('prov024')",
+      "nombre_empresa": "Reckitt Benckiser Colombia S.A.",
+      "nit": "890300684",
+      "tipo": "Productos de higiene y desinfección",
+      "fecha": "2024-12-20T00:00:00Z",
+      "terminos_pago": "Neto 30 días"
+    }
+  ]
+
+  // Coleccion hospitales:
+  [
+    {
+      "_id": "ObjectId('hos001')",
+      "nombre": "Hospital Universitario de Santander (HUS)",
+      "direccion": "Cra. 33 #28-126",
+      "telefono": "(607) 6912010",
+      "codigo_habilitacion": "6800100792-01",
+      "tipo_institucion": "Pública Departamental",
+      "nivel_complejidad": "Mediana y Alta Complejidad"
+    },
+    {
+      "_id": "ObjectId('hos002')",
+      "nombre": "Los Comuneros Hospital Universitario de Bucaramanga",
+      "direccion": "Ak 27 #30 -15",
+      "telefono": "(607) 6343536",
+      "codigo_habilitacion": "900240018",
+      "tipo_institucion": "Pública Universitaria",
+      "nivel_complejidad": "Alta Complejidad"
+    },
+    {
+      "_id": "ObjectId('hos003')",
+      "nombre": "Clínica Materno Infantil San Luis",
+      "direccion": "Cra. 26 #48-56",
+      "telefono": "(607) 6430026",
+      "codigo_habilitacion": "6800100201-01",
+      "tipo_institucion": "Privada",
+      "nivel_complejidad": "Alta Complejidad"
+    }
+  ]
+
+  // Coleccion Areas
+  [
+    {
+      "_id": "ObjectId('area001')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Servicios ambulatorios generales",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area002')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Servicios de urgencias",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area003')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Laboratorio clínico para diagnósticos",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area004')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Banco de sangre para transfusiones",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area005')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Radiología e imágenes diagnósticas",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area006')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Farmacia hospitalaria",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area007')",
+      "tipo_area": "Quirúrgico y Obstétrico",
+      "descripcion": "Cirugía general",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area008')",
+      "tipo_area": "Quirúrgico y Obstétrico",
+      "descripcion": "Obstetricia",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area009')",
+      "tipo_area": "Hospitalización",
+      "descripcion": "Hospitalización general",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area010')",
+      "tipo_area": "Hospitalización",
+      "descripcion": "Cuidados Intensivos",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area011')",
+      "tipo_area": "General",
+      "descripcion": "Cocina del hospital",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area012')",
+      "tipo_area": "General",
+      "descripcion": "Lavandería del hospital",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos001')"
+    },
+    {
+      "_id": "ObjectId('area013')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Servicios ambulatorios especializados",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area014')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Urgencias pediátricas",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area015')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Hemodinamia",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area016')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Gastroenterología y endoscopia diagnóstica",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area017')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Laboratorio de patología",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area018')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Nutrición y dietética",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area019')",
+      "tipo_area": "Quirúrgico y Obstétrico",
+      "descripcion": "Cirugía ambulatoria",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area020')",
+      "tipo_area": "Quirúrgico y Obstétrico",
+      "descripcion": "Central de esterilización",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area021')",
+      "tipo_area": "Hospitalización",
+      "descripcion": "Cuidado neonatal - perinatal",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area022')",
+      "tipo_area": "Hospitalización",
+      "descripcion": "Cuidados Intensivos Pediátricos",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area023')",
+      "tipo_area": "General",
+      "descripcion": "Almacén general",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area024')",
+      "tipo_area": "General",
+      "descripcion": "Mantenimiento general",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos002')"
+    },
+    {
+      "_id": "ObjectId('area025')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Consulta externa",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area026')",
+      "tipo_area": "Asistencial",
+      "descripcion": "Urgencias ginecológicas",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area027')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Archivo de historias clínicas",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area028')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Comunicaciones",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area029')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Terapias y rehabilitación",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area030')",
+      "tipo_area": "Apoyo",
+      "descripcion": "Unidad Renal",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area031')",
+      "tipo_area": "Hospitalización",
+      "descripcion": "Cuidados intermedios",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    },
+    {
+      "_id": "ObjectId('area032')",
+      "tipo_area": "General",
+      "descripcion": "Vestuarios del personal",
+      "estado": "Activo",
+      "id_hospital": "ObjectId('hos003')"
+    }
+  ]
+
+  // coleccion trataminetos
+
+  [
+    {
+      "_id": "ObjectId('trat021')",
+      "nombre": "Manejo de Cetoacidosis Diabética",
+      "descripcion": "Rehidratación intravenosa, insulinoterapia y corrección de desequilibrios electrolíticos en UCI.",
+      "costo": 1800.00,
+      "duracion": "2-5 días",
+      "area_relacionada": "ObjectId('area010')",
+      "via_administracion": "Intravenosa",
+      "FrecuenciaAplicacion": 24
+    },
+    {
+      "_id": "ObjectId('trat022')",
+      "nombre": "Colecistectomía Laparoscópica",
+      "descripcion": "Extirpación de la vesícula biliar mediante cirugía mínimamente invasiva.",
+      "costo": 2800.00,
+      "duracion": "1-2 horas",
+      "area_relacionada": "ObjectId('area007')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat023')",
+      "nombre": "Manejo de Sepsis y Choque Séptico",
+      "descripcion": "Administración de antibióticos de amplio espectro, fluidos y vasopresores en UCI.",
+      "costo": 4500.00,
+      "duracion": "5-10 días",
+      "area_relacionada": "ObjectId('area010')",
+      "via_administracion": "Intravenosa",
+      "FrecuenciaAplicacion": 24
+    },
+    {
+      "_id": "ObjectId('trat024')",
+      "nombre": "Terapia de Reemplazo Renal Continua (CRRT)",
+      "descripcion": "Procedimiento de diálisis lento y continuo para pacientes críticamente enfermos con falla renal aguda.",
+      "costo": 3500.00,
+      "duracion": "Variable (días)",
+      "area_relacionada": "ObjectId('area010')",
+      "via_administracion": "Intravenosa",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat025')",
+      "nombre": "Broncoscopia Diagnóstica y Terapéutica",
+      "descripcion": "Examen endoscópico de las vías respiratorias para diagnóstico o eliminación de cuerpos extraños.",
+      "costo": 700.00,
+      "duracion": "30-60 minutos",
+      "area_relacionada": "ObjectId('area005')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat026')",
+      "nombre": "Manejo de Infarto Agudo de Miocardio",
+      "descripcion": "Reperfusión coronaria (angioplastia o fibrinolisis) y manejo de complicaciones cardíacas.",
+      "costo": 5000.00,
+      "duracion": "3-7 días",
+      "area_relacionada": "ObjectId('area015')",
+      "via_administracion": "Intravenosa/Intraarterial",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat027')",
+      "nombre": "Cirugía de Cataratas (Facoemulsificación)",
+      "descripcion": "Extracción del cristalino opaco y reemplazo por lente intraocular.",
+      "costo": 1500.00,
+      "duracion": "30-45 minutos",
+      "area_relacionada": "ObjectId('area019')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat028')",
+      "nombre": "Tratamiento de Glaucoma (Farmacológico)",
+      "descripcion": "Uso de gotas oftálmicas para reducir la presión intraocular y prevenir daño al nervio óptico.",
+      "costo": 50.00,
+      "duracion": "Crónico",
+      "area_relacionada": "ObjectId('area025')",
+      "via_administracion": "Tópica Oftálmica",
+      "FrecuenciaAplicacion": 2
+    },
+    {
+      "_id": "ObjectId('trat029')",
+      "nombre": "Manejo de Esclerosis Múltiple (Modificadores de Enfermedad)",
+      "descripcion": "Terapias que alteran el curso de la enfermedad para reducir recaídas y progresión.",
+      "costo": 3000.00,
+      "duracion": "Crónico",
+      "area_relacionada": "ObjectId('area013')",
+      "via_administracion": "Subcutánea/Intravenosa",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat030')",
+      "nombre": "Fisioterapia Post-Quirúrgica",
+      "descripcion": "Ejercicios y técnicas para restaurar la movilidad y fuerza después de una cirugía.",
+      "costo": 70.00,
+      "duracion": "2-12 semanas",
+      "area_relacionada": "ObjectId('area029')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 3
+    },
+    {
+      "_id": "ObjectId('trat031')",
+      "nombre": "Manejo de Convulsiones Refractarias",
+      "descripcion": "Administración de anticonvulsivantes intravenosos y monitoreo continuo en UCI.",
+      "costo": 1200.00,
+      "duracion": "Variable (días)",
+      "area_relacionada": "ObjectId('area010')",
+      "via_administracion": "Intravenosa",
+      "FrecuenciaAplicacion": 24
+    },
+    {
+      "_id": "ObjectId('trat032')",
+      "nombre": "Endoscopia Digestiva Superior",
+      "descripcion": "Examen del esófago, estómago y duodeno para diagnóstico de úlceras, gastritis, etc.",
+      "costo": 450.00,
+      "duracion": "20-30 minutos",
+      "area_relacionada": "ObjectId('area016')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat033')",
+      "nombre": "Manejo de Quemaduras de Segundo Grado",
+      "descripcion": "Limpieza de heridas, aplicación de apósitos especiales y manejo del dolor.",
+      "costo": 300.00,
+      "duracion": "1-3 semanas",
+      "area_relacionada": "ObjectId('area002')",
+      "via_administracion": "Tópica/Oral",
+      "FrecuenciaAplicacion": 2
+    },
+    {
+      "_id": "ObjectId('trat034')",
+      "nombre": "Terapia Ocupacional Pediátrica",
+      "descripcion": "Intervenciones para mejorar habilidades motoras finas, juego y autonomía en niños.",
+      "costo": 85.00,
+      "duracion": "Meses",
+      "area_relacionada": "ObjectId('area029')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 2
+    },
+    {
+      "_id": "ObjectId('trat035')",
+      "nombre": "Manejo de Apnea del Sueño (CPAP)",
+      "descripcion": "Uso de presión positiva continua en la vía aérea para mantenerla abierta durante el sueño.",
+      "costo": 100.00,
+      "duracion": "Crónico",
+      "area_relacionada": "ObjectId('area001')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat036')",
+      "nombre": "Cirugía de Hernia Inguinal",
+      "descripcion": "Reparación quirúrgica de una hernia en la región inguinal.",
+      "costo": 1500.00,
+      "duracion": "1-2 horas",
+      "area_relacionada": "ObjectId('area007')",
+      "via_administracion": "N/A",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat037')",
+      "nombre": "Manejo de Insuficiencia Renal Aguda",
+      "descripcion": "Soporte renal, manejo de líquidos y electrolitos, y tratamiento de la causa subyacente.",
+      "costo": 1000.00,
+      "duracion": "Variable (días/semanas)",
+      "area_relacionada": "ObjectId('area010')",
+      "via_administracion": "Intravenosa",
+      "FrecuenciaAplicacion": 24
+    },
+    {
+      "_id": "ObjectId('trat038')",
+      "nombre": "Tratamiento de Migraña Crónica",
+      "descripcion": "Combinación de fármacos preventivos y abortivos, y terapias complementarias.",
+      "costo": 110.00,
+      "duracion": "Crónico",
+      "area_relacionada": "ObjectId('area013')",
+      "via_administracion": "Oral/Subcutánea",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat039')",
+      "nombre": "Manejo de Varices con Escleroterapia",
+      "descripcion": "Inyección de una solución para cerrar venas varicosas pequeñas y medianas.",
+      "costo": 200.00,
+      "duracion": "30-60 minutos",
+      "area_relacionada": "ObjectId('area025')",
+      "via_administracion": "Inyectable",
+      "FrecuenciaAplicacion": 1
+    },
+    {
+      "_id": "ObjectId('trat040')",
+      "nombre": "Terapia de Rehidratación Oral para Gastroenteritis",
+      "descripcion": "Administración de soluciones de sales y azúcares para prevenir o tratar la deshidratación.",
+      "costo": 15.00,
+      "duracion": "1-3 días",
+      "area_relacionada": "ObjectId('area002')",
+      "via_administracion": "Oral",
+      "FrecuenciaAplicacion": 8
+    }
+  ]
+
+  // Coleccion Administrativos
+  [
+    {
+      "_id": "ObjectId('adm001')",
+      "nombre": "Ana María Gómez Restrepo",
+      "telefono": "3101234567",
+      "correo": "ana.gomez@hospital.com",
+      "rol": "Director General",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop001')"
+    },
+    {
+      "_id": "ObjectId('adm002')",
+      "nombre": "Carlos Alberto Ramírez Vargas",
+      "telefono": "3009876543",
+      "correo": "carlos.ramirez@hospital.com",
+      "rol": "Secretario de Recepción Principal",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm003')",
+      "nombre": "Laura Sofía Pérez Castro",
+      "telefono": "3205551122",
+      "correo": "laura.perez@hospital.com",
+      "rol": "Asistente Contable Senior",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm004')",
+      "nombre": "Juan Pablo Sánchez Duque",
+      "telefono": "3154443322",
+      "correo": "juan.sanchez@hospital.com",
+      "rol": "Coordinador de Talento Humano",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm005')",
+      "nombre": "María Fernanda López Rojas",
+      "telefono": "3017778899",
+      "correo": "maria.lopez@hospital.com",
+      "rol": "Jefe de Facturación y Cartera",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm006')",
+      "nombre": "Andrés Felipe Martínez Giraldo",
+      "telefono": "3182223344",
+      "correo": "andres.martinez@hospital.com",
+      "rol": "Jefe de Sistemas e Informática",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm007')",
+      "nombre": "Sofía Valentina Díaz Morales",
+      "telefono": "3049990011",
+      "correo": "sofia.diaz@hospital.com",
+      "rol": "Coordinadora de Atención al Usuario",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm008')",
+      "nombre": "Ricardo José Herrera Ospina",
+      "telefono": "3176667788",
+      "correo": "ricardo.herrera@hospital.com",
+      "rol": "Jefe de Archivo General y Historias Clínicas",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm009')",
+      "nombre": "Valeria Alejandra Gutiérrez Rojas",
+      "telefono": "3021112233",
+      "correo": "valeria.gutierrez@hospital.com",
+      "rol": "Asistente de Compras",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm010')",
+      "nombre": "Daniel Esteban Castillo Vega",
+      "telefono": "3135556677",
+      "correo": "daniel.castillo@hospital.com",
+      "rol": "Coordinador de Estadística",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm011')",
+      "nombre": "Gabriela Andrea Pineda Ríos",
+      "telefono": "3004445566",
+      "correo": "gabriela.pineda@hospital.com",
+      "rol": "Asistente de Dirección General",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm012')",
+      "nombre": "Fabián Eduardo Gómez Rojas",
+      "telefono": "3161112233",
+      "correo": "fabian.gomez@hospital.com",
+      "rol": "Jefe de Oficina Jurídica",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm013')",
+      "nombre": "Camila Victoria Salazar Mesa",
+      "telefono": "3015556677",
+      "correo": "camila.salazar@hospital.com",
+      "rol": "Coordinadora de Control Interno",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm014')",
+      "nombre": "Alejandro José Buitrago Pérez",
+      "telefono": "3178889900",
+      "correo": "alejandro.buitrago@hospital.com",
+      "rol": "Jefe de Desarrollo de Servicios",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm015')",
+      "nombre": "Paola Andrea Cifuentes Ruiz",
+      "telefono": "3042223344",
+      "correo": "paola.cifuentes@hospital.com",
+      "rol": "Coordinadora de Mercadeo y Publicaciones",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm016')",
+      "nombre": "Diego Fernando Vargas León",
+      "telefono": "3189990011",
+      "correo": "diego.vargas@hospital.com",
+      "rol": "Jefe de Auditoría Médica",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm017')",
+      "nombre": "Sandra Milena Herrera Dávila",
+      "telefono": "3006667788",
+      "correo": "sandra.herrera@hospital.com",
+      "rol": "Subgerente de Servicios de Salud",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm018')",
+      "nombre": "Óscar David Pinzón Mesa",
+      "telefono": "3151234567",
+      "correo": "oscar.pinzon@hospital.com",
+      "rol": "Jefe de Educación Médica",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm019')",
+      "nombre": "Natalia Sofía Rico García",
+      "telefono": "3047890123",
+      "correo": "natalia.rico@hospital.com",
+      "rol": "Subgerente Administrativa",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm020')",
+      "nombre": "Mauricio Andrés Rojas Pérez",
+      "telefono": "3162345678",
+      "correo": "mauricio.rojas@hospital.com",
+      "rol": "Coordinador Financiero",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm021')",
+      "nombre": "Viviana Isabel Suárez Gómez",
+      "telefono": "3008765432",
+      "correo": "viviana.suarez@hospital.com",
+      "rol": "Jefe de Tesorería y Caja",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    },
+    {
+      "_id": "ObjectId('adm022')",
+      "nombre": "Luis Fernando Quintero Díaz",
+      "telefono": "3173456789",
+      "correo": "luis.quintero@hospital.com",
+      "rol": "Coordinador de Bienestar Social",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop004')"
+    }
+  ]
+  // Coleccion enfermerios
+  [
+    {
+      "_id": "ObjectId('enf001')",
+      "nombre": "Isabel Cristina Rojas Soto",
+      "telefono": "3112223344",
+      "correo": "isabel.rojas@hospital.com",
+      "rol": "Enfermera Jefe UCI",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf002')",
+      "nombre": "Pedro Antonio Vargas Luna",
+      "telefono": "3001112233",
+      "correo": "pedro.vargas@hospital.com",
+      "rol": "Enfermero de Urgencias",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf003')",
+      "nombre": "Andrea Carolina Méndez Gil",
+      "telefono": "3204445566",
+      "correo": "andrea.mendez@hospital.com",
+      "rol": "Enfermera de Hospitalización General",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf004')",
+      "nombre": "Jorge Andrés Castro Blanco",
+      "telefono": "3167778899",
+      "correo": "jorge.castro@hospital.com",
+      "rol": "Enfermero de Cuidados Intensivos Pediátricos",
+      "horario": "ObjectId('hor009')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf005')",
+      "nombre": "Diana Marcela Ortiz Pardo",
+      "telefono": "3058889900",
+      "correo": "diana.ortiz@hospital.com",
+      "rol": "Enfermera de Consulta Externa",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf006')",
+      "nombre": "Felipe Andrés Guerrero Solano",
+      "telefono": "3145556677",
+      "correo": "felipe.guerrero@hospital.com",
+      "rol": "Enfermero de Laboratorio Clínico",
+      "horario": "ObjectId('hor005')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf007')",
+      "nombre": "Carolina Andrea Naranjo Sierra",
+      "telefono": "3013334455",
+      "correo": "carolina.naranjo@hospital.com",
+      "rol": "Enfermera de Quirófano",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf008')",
+      "nombre": "Roberto Carlos Quintero Vargas",
+      "telefono": "3196667788",
+      "correo": "roberto.quintero@hospital.com",
+      "rol": "Enfermero de Banco de Sangre",
+      "horario": "ObjectId('hor005')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf009')",
+      "nombre": "Laura Ximena Bedoya Cárdenas",
+      "telefono": "3029990011",
+      "correo": "laura.bedoya@hospital.com",
+      "rol": "Enfermera de Maternidad",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf010')",
+      "nombre": "Miguel Ángel Rueda Suárez",
+      "telefono": "3171112233",
+      "correo": "miguel.rueda@hospital.com",
+      "rol": "Enfermero de Unidad Renal",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf011')",
+      "nombre": "Paola Andrea Vélez Rojas",
+      "telefono": "3105554433",
+      "correo": "paola.velez@hospital.com",
+      "rol": "Enfermera de Pediatría",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf012')",
+      "nombre": "Juan Sebastián Guzmán Prieto",
+      "telefono": "3007776655",
+      "correo": "juan.guzman@hospital.com",
+      "rol": "Enfermero de Salud Mental",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf013')",
+      "nombre": "Sandra Liliana Rincón Duque",
+      "telefono": "3201112233",
+      "correo": "sandra.rincon@hospital.com",
+      "rol": "Enfermera de Salud Pública",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf014')",
+      "nombre": "Camilo Ernesto Sierra Bermúdez",
+      "telefono": "3164445566",
+      "correo": "camilo.sierra@hospital.com",
+      "rol": "Enfermero de Medicina Interna",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf015')",
+      "nombre": "Marcela Fernanda Prada Solano",
+      "telefono": "3019998877",
+      "correo": "marcela.prada@hospital.com",
+      "rol": "Enfermera de Geriatría",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf016')",
+      "nombre": "Fernando José Osorio Cifuentes",
+      "telefono": "3132233445",
+      "correo": "fernando.osorio@hospital.com",
+      "rol": "Enfermero de Oncología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf017')",
+      "nombre": "Valeria Sofía Herrera Morales",
+      "telefono": "3023344556",
+      "correo": "valeria.herrera@hospital.com",
+      "rol": "Enfermera de Nefrología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf018')",
+      "nombre": "Esteban David Pinzón Torres",
+      "telefono": "3104455667",
+      "correo": "esteban.pinzon@hospital.com",
+      "rol": "Enfermero de Cardiología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf019')",
+      "nombre": "Andrea Catalina Bustamante Ríos",
+      "telefono": "3175566778",
+      "correo": "andrea.bustamante@hospital.com",
+      "rol": "Enfermera de Neurología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf020')",
+      "nombre": "Luis Alejandro Medina Delgado",
+      "telefono": "3046677889",
+      "correo": "luis.medina@hospital.com",
+      "rol": "Enfermero de Gastroenterología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf021')",
+      "nombre": "Natalia Margarita Pérez Vega",
+      "telefono": "3187788990",
+      "correo": "natalia.perez@hospital.com",
+      "rol": "Enfermera de Endocrinología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf022')",
+      "nombre": "Javier Mauricio Sánchez Ruiz",
+      "telefono": "3008899001",
+      "correo": "javier.sanchez@hospital.com",
+      "rol": "Enfermero de Reumatología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf023')",
+      "nombre": "Mariana Isabella Castro Giraldo",
+      "telefono": "3159900112",
+      "correo": "mariana.castro@hospital.com",
+      "rol": "Enfermera de Dermatología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf024')",
+      "nombre": "Ricardo Andrés Moncada Duque",
+      "telefono": "3010011223",
+      "correo": "ricardo.moncada@hospital.com",
+      "rol": "Enfermero de Urología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf025')",
+      "nombre": "Alejandra Fernanda Soto Quintero",
+      "telefono": "3101122334",
+      "correo": "alejandra.soto@hospital.com",
+      "rol": "Enfermera de Oftalmología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf026')",
+      "nombre": "Sergio Andrés Lozano Bernal",
+      "telefono": "3112233445",
+      "correo": "sergio.lozano@hospital.com",
+      "rol": "Enfermero de Otorrinolaringología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf027')",
+      "nombre": "Laura Camila Reyes Acosta",
+      "telefono": "3003344556",
+      "correo": "laura.reyes@hospital.com",
+      "rol": "Enfermera de Cirugía General",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf028')",
+      "nombre": "Juan Felipe Giraldo Díaz",
+      "telefono": "3204455667",
+      "correo": "juan.giraldo@hospital.com",
+      "rol": "Enfermero de Traumatología y Ortopedia",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf029')",
+      "nombre": "Daniela Carolina Muñoz Colorado",
+      "telefono": "3165566778",
+      "correo": "daniela.munoz@hospital.com",
+      "rol": "Enfermera de Ginecología y Obstetricia",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf030')",
+      "nombre": "Miguel Ángel Restrepo Morales",
+      "telefono": "3056677889",
+      "correo": "miguel.restrepo@hospital.com",
+      "rol": "Enfermero de Pediatría de Urgencias",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf031')",
+      "nombre": "Valeria Sofia Mendoza Rojas",
+      "telefono": "3147788990",
+      "correo": "valeria.mendoza@hospital.com",
+      "rol": "Enfermera de Unidad de Quemados",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf032')",
+      "nombre": "Andrés Camilo Díaz Rincón",
+      "telefono": "3018899001",
+      "correo": "andres.diaz@hospital.com",
+      "rol": "Enfermero de Cuidados Paliativos",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf033')",
+      "nombre": "Camila Andrea Moreno Vargas",
+      "telefono": "3199900112",
+      "correo": "camila.moreno@hospital.com",
+      "rol": "Enfermera de Unidad de Trasplantes",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf034')",
+      "nombre": "Sebastián Alejandro Cárdenas Gil",
+      "telefono": "3020011223",
+      "correo": "sebastian.cardenas@hospital.com",
+      "rol": "Enfermero de Rehabilitación",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf035')",
+      "nombre": "Luisa Fernanda Ordoñez Blanco",
+      "telefono": "3101122334",
+      "correo": "luisa.ordonez@hospital.com",
+      "rol": "Enfermera de Neumología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf036')",
+      "nombre": "Óscar David Londoño Cortés",
+      "telefono": "3112233445",
+      "correo": "oscar.londono@hospital.com",
+      "rol": "Enfermero de Infectología",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf037')",
+      "nombre": "Carolina Andrea Betancur Ortiz",
+      "telefono": "3003344556",
+      "correo": "carolina.betancur@hospital.com",
+      "rol": "Enfermera de Nutrición y Dietética",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf038')",
+      "nombre": "Juan Camilo Salazar Mesa",
+      "telefono": "3204455667",
+      "correo": "juan.salazar@hospital.com",
+      "rol": "Enfermero de Farmacia Hospitalaria",
+      "horario": "ObjectId('hor005')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf039')",
+      "nombre": "Laura Sofía Jiménez Bernal",
+      "telefono": "3165566778",
+      "correo": "laura.jimenez@hospital.com",
+      "rol": "Enfermera de Imagenología",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf040')",
+      "nombre": "Daniel Felipe Rico Patiño",
+      "telefono": "3056677889",
+      "correo": "daniel.rico@hospital.com",
+      "rol": "Enfermero de Endoscopia",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf041')",
+      "nombre": "María José Parra Soto",
+      "telefono": "3147788990",
+      "correo": "maria.parra@hospital.com",
+      "rol": "Enfermera de Electrofisiología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf042')",
+      "nombre": "Andrés Felipe Quintero Ríos",
+      "telefono": "3018899001",
+      "correo": "andres.quintero@hospital.com",
+      "rol": "Enfermero de Sala de Yesos",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf043')",
+      "nombre": "Valentina Andrea Arias Giraldo",
+      "telefono": "3199900112",
+      "correo": "valentina.arias@hospital.com",
+      "rol": "Enfermera de Terapia Respiratoria",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf044')",
+      "nombre": "Carlos Enrique Bernal Pardo",
+      "telefono": "3020011223",
+      "correo": "carlos.bernal@hospital.com",
+      "rol": "Enfermero de Patología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf045')",
+      "nombre": "Juliana Carolina Rojas Cortés",
+      "telefono": "3101122334",
+      "correo": "juliana.rojas@hospital.com",
+      "rol": "Enfermera de Radioterapia",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf046')",
+      "nombre": "Ricardo Javier Soto Prieto",
+      "telefono": "3112233445",
+      "correo": "ricardo.soto@hospital.com",
+      "rol": "Enfermero de Hemodiálisis",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf047')",
+      "nombre": "Paola Sofía Mesa Giraldo",
+      "telefono": "3003344556",
+      "correo": "paola.mesa@hospital.com",
+      "rol": "Enfermera de Esterilización",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf048')",
+      "nombre": "Juan Pablo Duque Ramírez",
+      "telefono": "3204455667",
+      "correo": "juan.duque@hospital.com",
+      "rol": "Enfermero de Centro de Salud Rural",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf049')",
+      "nombre": "María Alejandra Londoño Vélez",
+      "telefono": "3165566778",
+      "correo": "maria.londono@hospital.com",
+      "rol": "Enfermera de Vacunación",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf050')",
+      "nombre": "Diego Andrés Marín Rueda",
+      "telefono": "3056677889",
+      "correo": "diego.marin@hospital.com",
+      "rol": "Enfermero de Telemedicina",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf051')",
+      "nombre": "Gabriela Isabel Ortiz Patiño",
+      "telefono": "3147788990",
+      "correo": "gabriela.ortiz@hospital.com",
+      "rol": "Enfermera de Unidad de Cuidados Crónicos",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf052')",
+      "nombre": "Nicolás Felipe Botero Zuluaga",
+      "telefono": "3018899001",
+      "correo": "nicolas.botero@hospital.com",
+      "rol": "Enfermero de Salud Ocupacional",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf053')",
+      "nombre": "Sofía Camila Arango Castro",
+      "telefono": "3199900112",
+      "correo": "sofia.arango@hospital.com",
+      "rol": "Enfermera de Banco de Leche Humana",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf054')",
+      "nombre": "Santiago Andrés Cifuentes Vélez",
+      "telefono": "3020011223",
+      "correo": "santiago.cifuentes@hospital.com",
+      "rol": "Enfermero de Epidemiología",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf055')",
+      "nombre": "Laura Ximena Bedoya Cárdenas",
+      "telefono": "3101122334",
+      "correo": "laura.bedoya.c@hospital.com",
+      "rol": "Enfermera de Hemato-Oncología Pediátrica",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf056')",
+      "nombre": "Daniel Esteban Caro Rojas",
+      "telefono": "3112233445",
+      "correo": "daniel.caro@hospital.com",
+      "rol": "Enfermero de Shock Trauma",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf057')",
+      "nombre": "Andrea Catalina Rivera Prada",
+      "telefono": "3003344556",
+      "correo": "andrea.rivera@hospital.com",
+      "rol": "Enfermera de Soporte Vital Básico",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf058')",
+      "nombre": "Felipe Santiago Escobar López",
+      "telefono": "3204455667",
+      "correo": "felipe.escobar@hospital.com",
+      "rol": "Enfermero de Salud Escolar",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf059')",
+      "nombre": "María Camila Vargas Betancur",
+      "telefono": "3165566778",
+      "correo": "maria.vargas.b@hospital.com",
+      "rol": "Enfermera de Salud Reproductiva",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf060')",
+      "nombre": "Julián David García Herrera",
+      "telefono": "3056677889",
+      "correo": "julian.garcia@hospital.com",
+      "rol": "Enfermero de Medicina Familiar y Comunitaria",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf061')",
+      "nombre": "Valeria Alejandra Molina Ospina",
+      "telefono": "3147788990",
+      "correo": "valeria.molina@hospital.com",
+      "rol": "Enfermera de Cuidados Domiciliarios",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf062')",
+      "nombre": "Cristian Camilo Soto González",
+      "telefono": "3018899001",
+      "correo": "cristian.soto@hospital.com",
+      "rol": "Enfermero de Teleasistencia",
+      "horario": "ObjectId('hor007')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf063')",
+      "nombre": "Laura Sofía Gómez Patiño",
+      "telefono": "3199900112",
+      "correo": "laura.gomez.p@hospital.com",
+      "rol": "Enfermera de Investigación Clínica",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf064')",
+      "nombre": "Andrés Felipe Sierra Romero",
+      "telefono": "3020011223",
+      "correo": "andres.sierra@hospital.com",
+      "rol": "Enfermero de Soporte Nutricional",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf065')",
+      "nombre": "Natalia Andrea Jaramillo Vélez",
+      "telefono": "3101122334",
+      "correo": "natalia.jaramillo@hospital.com",
+      "rol": "Enfermera de Salud Mental Infantil",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf066')",
+      "nombre": "Fabián Camilo Quintero Duque",
+      "telefono": "3112233445",
+      "correo": "fabian.quintero@hospital.com",
+      "rol": "Enfermero de Trasplante de Médula Ósea",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf067')",
+      "nombre": "María Clara Betancur Ríos",
+      "telefono": "3003344556",
+      "correo": "maria.betancur@hospital.com",
+      "rol": "Enfermera de Cuidados Intensivos Neonatales",
+      "horario": "ObjectId('hor002')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf068')",
+      "nombre": "Santiago David López Martínez",
+      "telefono": "3204455667",
+      "correo": "santiago.lopez@hospital.com",
+      "rol": "Enfermero de Unidad de Dolor",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf069')",
+      "nombre": "Carolina Isabel Vélez Restrepo",
+      "telefono": "3165566778",
+      "correo": "carolina.velez@hospital.com",
+      "rol": "Enfermera de Medicina Nuclear",
+      "horario": "ObjectId('hor001')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    },
+    {
+      "_id": "ObjectId('enf070')",
+      "nombre": "Juan José Herrera Soto",
+      "telefono": "3056677889",
+      "correo": "juan.herrera@hospital.com",
+      "rol": "Enfermero de Unidad de Cuidados Intermedios",
+      "horario": "ObjectId('hor008')",
+      "id_tipo_personal": "ObjectId('tipop003')",
+      "id_hospital": "ObjectId('hosp001')"
+    }
+  ]

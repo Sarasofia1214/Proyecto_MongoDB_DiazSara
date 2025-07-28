@@ -2104,10 +2104,10 @@ Descripción Técnica
 
 
 ``` mermaid
-
+---
 config:
   theme: redux-color
-title: Modelo 3FN - Sistema Hospitalario
+title: Sample title
 ---
 erDiagram
 
@@ -2751,7 +2751,6 @@ El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se
   "tipo": "string"
 }
 ```
-
 
 
 
