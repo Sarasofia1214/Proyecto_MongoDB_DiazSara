@@ -2391,7 +2391,360 @@ Pacientes }o--|| EPS : "afiliado_a"
 Pacientes }o--|| Seguros : "posee"
 
 ``` 
+# Construcción del Modelo Físico
 
+Se diseñó el modelo físico considerando el modelo lógico que incluye todas las entidades, sus atributos y las relaciones entre ellas. Además, este modelo incorpora los tipos de datos de los atributos previamente definidos, los cuales fueron estructurados en tablas utilizando el lenguaje de un Sistema de Gestión de Bases de Datos (SGBD) compatible con la plataforma **MySQL**.
+
+## Descripción
+
+El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se representa como una tabla compuesta por sus atributos correspondientes, organizados en columnas con tipos de datos específicos según sea necesario.
+
+## Colecciones
+
+
+## Hospital
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "direccion": "string",
+  "telefono": "string",
+  "codigo_habilitacion": "string",
+  "tipo_institucion": "string",
+  "nivel_complejidad": "string"
+}
+```
+
+##  Administrativos
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "telefono": "string",
+  "correo": "string",
+  "rol": "string",
+  "horario": "ObjectId",
+  "id_tipo_personal": "ObjectId"
+}
+```
+
+## AdministrativoHospital
+
+```json
+{
+  "_id": "ObjectId",
+  "id_administrativo": "ObjectId",
+  "id_hospital": "ObjectId"
+}
+```
+
+##  Médicos
+
+```json
+{
+  "_id": "ObjectId",
+  "rol": "string",
+  "fecha_ingreso": "date",
+  "correo": "string",
+  "telefono": "string",
+  "numero_colegiatura": "string",
+  "area_asignada": "string",
+  "hospital_id": "ObjectId",
+  "estado": "string",
+  "id_horario": "ObjectId",
+  "id_tipo_personal": "ObjectId"
+}
+```
+
+##  Enfermeros
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "rol": "string",
+  "id_tipo_personal": "ObjectId",
+  "fecha_ingreso": "date",
+  "numero_colegiatura": "string",
+  "correo": "string",
+  "telefono": "string",
+  "area_asignada": "string",
+  "hospital_id": "ObjectId",
+  "estado": "string",
+  "horario": "ObjectId"
+}
+```
+
+##  Mantenimiento
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "correo": "string",
+  "telefono": "string",
+  "servicios": "ObjectId",
+  "hospital_id": "ObjectId",
+  "fecha_ingreso": "date",
+  "estado": "string",
+  "horario": "ObjectId",
+  "id_tipo_personal": "ObjectId"
+}
+```
+
+##  Pacientes
+
+```json
+{
+  "_id": "ObjectId",
+  "hospital_registro_id": "ObjectId",
+  "nombre": "string",
+  "tipo_identificacion": "string",
+  "numero_identificacion": "string",
+  "fecha_nacimiento": "date",
+  "genero": "string",
+  "direccion": "string",
+  "telefono_contacto": "string",
+  "fecha_registro": "date",
+  "estado_paciente": "string",
+  "nivel_atencion": "string",
+  "id_eps": "ObjectId",
+  "id_seguro": "ObjectId"
+}
+```
+
+##  VisitasMedicas
+
+```json
+{
+  "_id": "ObjectId",
+  "fecha_visita": "date",
+  "id_tratamiento": "ObjectId",
+  "id_medico": "ObjectId",
+  "id_paciente": "ObjectId",
+  "id_hospital": "ObjectId",
+  "tipo_visita": "string",
+  "estado_visita": "string",
+  "observaciones": "string"
+}
+```
+
+##  Tratamientos
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "descripcion": "string",
+  "costo": "decimal",
+  "duracion": "string",
+  "area_relacionada": "ObjectId",
+  "via_administracion": "string",
+  "FrecuenciaAplicacion": "int"
+}
+```
+
+##  HistoriaClinica
+
+```json
+{
+  "_id": "ObjectId",
+  "paciente": "ObjectId",
+  "tratamiento": "ObjectId"
+}
+```
+
+##  EPS
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "nit": "string",
+  "tipo": "string",
+  "nivel": "string",
+  "telefono": "string",
+  "correo": "string"
+}
+```
+
+##  Seguros
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "compañia": "string",
+  "tipo": "string",
+  "nivel_cobertura": "string",
+  "plan": "string",
+  "telefono": "string"
+}
+```
+
+##  Enfermedades
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "tipo": "string",
+  "clasificacion": "string",
+  "id_sintoma": "ObjectId"
+}
+```
+
+##  Sintomas
+
+```json
+{
+  "_id": "ObjectId",
+  "descripcion": "string",
+  "observaciones": "string",
+  "fecha_encontrada": "date"
+}
+```
+
+##  Beneficios
+
+```json
+{
+  "_id": "ObjectId",
+  "descripcion": "string",
+  "id_tratamiento": "ObjectId"
+}
+```
+
+## Requerimientos
+
+```json
+{
+  "_id": "ObjectId",
+  "descripcion": "string",
+  "id_tratamiento": "ObjectId"
+}
+```
+
+##  Medicamentos
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre": "string",
+  "principio_activo": "string",
+  "concentracion": "string",
+  "tipo": "string",
+  "lote": "string",
+  "disponibilidad": "boolean",
+  "fabricante": "string"
+}
+```
+
+##  Presentaciones
+
+```json
+{
+  "_id": "ObjectId",
+  "tipo_presentacion": "string",
+  "id_medicamento": "ObjectId"
+}
+```
+
+##  Inventario
+
+```json
+{
+  "_id": "ObjectId",
+  "id_hospital": "ObjectId",
+  "id_medicamento": "ObjectId",
+  "stock": "int",
+  "fecha_ultima_actualizacion": "date"
+}
+```
+
+##  Proveedores
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre_empresa": "string",
+  "nit": "string",
+  "tipo": "string",
+  "fecha": "date",
+  "terminos_pago": "string"
+}
+```
+
+##  ServiciosMantenimiento
+
+```json
+{
+  "_id": "ObjectId",
+  "tipo_ambiente": "string",
+  "nombre_servicio": "string"
+}
+```
+
+## 🕓 Horario
+
+```json
+{
+  "_id": "ObjectId",
+  "horario_tipo": "string",
+  "dias": "string"
+}
+```
+
+##  TiposPersonal
+
+```json
+{
+  "_id": "ObjectId",
+  "codigo": "string",
+  "nombre": "string",
+  "descripcion": "string",
+  "salario_base": "decimal"
+}
+```
+
+##  Areas
+
+```json
+{
+  "_id": "ObjectId",
+  "tipo_area": "string",
+  "descripcion": "string",
+  "estado": "string",
+  "id_hospital": "ObjectId"
+}
+```
+
+##  AreaEspecializacion
+
+```json
+{
+  "_id": "ObjectId",
+  "id_area": "ObjectId",
+  "fecha_asignacion": "date",
+  "id_hospital": "ObjectId",
+  "estado": "string"
+}
+```
+
+## Subareas
+
+```json
+{
+  "_id": "ObjectId",
+  "nombre_subarea": "string",
+  "id_area": "ObjectId",
+  "descripcion": "string",
+  "estado": "string",
+  "tipo": "string"
+}
+```
 
 
 
