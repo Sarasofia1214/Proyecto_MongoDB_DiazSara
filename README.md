@@ -2104,7 +2104,7 @@ Descripción Técnica
 
 
 ``` mermaid
----
+
 config:
   theme: redux-color
 title: Modelo 3FN - Sistema Hospitalario
@@ -2356,6 +2356,10 @@ Subareas {
 %% ========= RELACIONES =========
 
 Hospital ||--o{ AdministrativoHospital : "contiene"
+Hospital ||--o{ Areas : "contiene"
+Hospital ||--o{ AreaEspecializacion : "cuenta_con"
+Areas ||--o{ AreaEspecializacion : "maneja"
+
 AdministrativoHospital }o--|| Administrativos : "asigna"
 Hospital ||--o{ TiposPersonal : "emplea"
 TiposPersonal ||--o{ Enfermeros : "clasifica"
@@ -2365,7 +2369,7 @@ TiposPersonal ||--o{ Mantenimiento : "clasifica"
 Hospital ||--o{ Pacientes : "atiende"
 Hospital ||--o{ Areas : "contiene"
 Areas ||--o{ Subareas : "subdivide"
-Areas ||--o{ AreaEspecializacion : "maneja"
+
 AreaEspecializacion ||--o{ Medicos : "especializa"
 Medicos ||--o{ VisitasMedicas : "realiza"
 Pacientes ||--o{ VisitasMedicas : "recibe"
@@ -2391,6 +2395,8 @@ Pacientes }o--|| EPS : "afiliado_a"
 Pacientes }o--|| Seguros : "posee"
 
 ``` 
+
+
 # Construcción del Modelo Físico
 
 Se diseñó el modelo físico considerando el modelo lógico que incluye todas las entidades, sus atributos y las relaciones entre ellas. Además, este modelo incorpora los tipos de datos de los atributos previamente definidos, los cuales fueron estructurados en tablas utilizando el lenguaje de un Sistema de Gestión de Bases de Datos (SGBD) compatible con la plataforma **MySQL**.
