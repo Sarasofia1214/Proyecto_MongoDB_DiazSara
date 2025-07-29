@@ -49,6 +49,12 @@ db.Medicos.aggregate([
   { $group: { _id: "$id_hospital", total_medicos: { $sum: 1 } } }
 ])
 
+[
+  { _id: 'hos003', total_medicos: 50 },
+  { _id: 'hos001', total_medicos: 50 },
+  { _id: 'hos002', total_medicos: 46 }
+]
+
 
 
 // 2. Cantidad total de enfermeros por hospital
@@ -76,104 +82,205 @@ db.Medicos.find({}, { nombre: 1, especialidad: 1, id_hospital: 1 })
 
 [
   {
-    _id: 'med001',
-    nombre: 'Dr. Andrés Felipe Rojas Castro',
+    _id: 'med021',
+    nombre: 'Dr. Carlos Alberto Vélez Restrepo',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med002',
-    nombre: 'Dra. Laura Marcela Gómez Pérez',
+    _id: 'med022',
+    nombre: 'Dra. Sofía Andrea Moncada Duque',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med003',
-    nombre: 'Dr. Javier Mauricio Soto Restrepo',
+    _id: 'med023',
+    nombre: 'Dr. Miguel Ángel Sierra Bermúdez',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med004',
-    nombre: 'Dra. Carolina Andrea Díaz Morales',
+    _id: 'med024',
+    nombre: 'Dra. Daniela Carolina Quintero Díaz',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med005',
-    nombre: 'Dr. Ricardo José Quintero Vargas',
+    _id: 'med025',
+    nombre: 'Dr. Jorge Eduardo Patiño Giraldo',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med006',
-    nombre: 'Dra. Ana María Botero Ospina',
+    _id: 'med026',
+    nombre: 'Dra. María Paula Londoño Mesa',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med007',
-    nombre: 'Dr. Juan Pablo Ortiz Pardo',
+    _id: 'med027',
+    nombre: 'Dr. Fabián Andrés Restrepo Morales',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med008',
-    nombre: 'Dra. Sofía Valentina Guerrero Solano',
+    _id: 'med028',
+    nombre: 'Dra. Valeria Sofía Bedoya Cárdenas',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med009',
-    nombre: 'Dr. Daniel Esteban Cifuentes Ruiz',
+    _id: 'med029',
+    nombre: 'Dr. Cristian David Muñoz Vargas',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med010',
-    nombre: 'Dra. María Fernanda Rueda Suárez',
+    _id: 'med030',
+    nombre: 'Dra. Luisa Fernanda Ordoñez Blanco',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med011',
-    nombre: 'Dr. Camilo Ernesto Sierra Bermúdez',
+    _id: 'med031',
+    nombre: 'Dr. Camilo Andrés Londoño Cortés',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med012',
-    nombre: 'Dra. Natalia Andrea Vélez Rojas',
+    _id: 'med032',
+    nombre: 'Dra. Andrea Catalina Betancur Ortiz',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med013',
-    nombre: 'Dr. Sebastián Alejandro Muñoz Colorado',
+    _id: 'med033',
+    nombre: 'Dr. Juan Camilo Salazar Mesa',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med014',
-    nombre: 'Dra. Valentina Andrea Herrera Morales',
+    _id: 'med034',
+    nombre: 'Dra. Laura Sofía Jiménez Bernal',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med015',
-    nombre: 'Dr. Andrés Felipe Marín Rueda',
+    _id: 'med035',
+    nombre: 'Dr. Daniel Felipe Rico Patiño',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med016',
-    nombre: 'Dra. Juliana Carolina Ramírez Duque',
+    _id: 'med036',
+    nombre: 'Dra. María José Parra Soto',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med017',
-    nombre: 'Dr. Fernando José Osorio Cifuentes',
+    _id: 'med037',
+    nombre: 'Dr. Andrés Felipe Quintero Ríos',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med018',
-    nombre: 'Dra. Alejandra Fernanda Soto Quintero',
+    _id: 'med038',
+    nombre: 'Dra. Carolina Isabel Vélez Restrepo',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med019',
-    nombre: 'Dr. Sergio Andrés Lozano Bernal',
+    _id: 'med039',
+    nombre: 'Dr. Juan José Herrera Soto',
     id_hospital: 'hos001'
   },
   {
-    _id: 'med020',
-    nombre: 'Dra. Laura Camila Reyes Acosta',
+    _id: 'med040',
+    nombre: 'Dra. Sofía Camila Arango Castro',
     id_hospital: 'hos001'
+  }
+
+  {
+    _id: 'med041',
+    nombre: 'Dr. Nicolás Felipe Botero Zuluaga',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med042',
+    nombre: 'Dra. Gabriela Isabel Ortiz Patiño',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med043',
+    nombre: 'Dr. Santiago Andrés Cifuentes Vélez',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med044',
+    nombre: 'Dra. Laura Ximena Bedoya Cárdenas',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med045',
+    nombre: 'Dr. Daniel Esteban Caro Rojas',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med046',
+    nombre: 'Dra. Andrea Catalina Rivera Prada',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med047',
+    nombre: 'Dr. Felipe Santiago Escobar López',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med048',
+    nombre: 'Dra. María Camila Vargas Betancur',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med049',
+    nombre: 'Dr. Julián David García Herrera',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med050',
+    nombre: 'Dra. Valeria Alejandra Molina Ospina',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: 'med051',
+    nombre: 'Dr. Pedro Juan Martínez Cárdenas',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med052',
+    nombre: 'Dra. Estefanía Sofía Rincón Sierra',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med053',
+    nombre: 'Dr. Andrés Camilo Giraldo Duque',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med054',
+    nombre: 'Dra. Natalia Andrea Pinto Acosta',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med055',
+    nombre: 'Dr. Felipe Andrés Moreno Vargas',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med056',
+    nombre: 'Dra. Carolina Alexandra Salazar Mesa',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med057',
+    nombre: 'Dr. Santiago José Herrera Ospina',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med058',
+    nombre: 'Dra. Camila Andrea Díaz Castro',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med059',
+    nombre: 'Dr. Juan Sebastián Soto Prieto',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: 'med060',
+    nombre: 'Dra. Sofía Valentina Rico García',
+    id_hospital: 'hos002'
   }
 ]
 
