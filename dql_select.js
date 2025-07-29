@@ -1,6 +1,6 @@
-# Consultas en la base de datos hospitalaria
+// Consultas en la base de datos hospitalaria
 
-// 1.  Número total de hospitales por tipo de institución:
+// Número total de hospitales por tipo de institución:
 
 db.Hospitales.aggregate([ { $group: { _id: "$tipo_institucion", total_hospitales: { $sum: 1 } } }] )
 [
@@ -8,7 +8,7 @@ db.Hospitales.aggregate([ { $group: { _id: "$tipo_institucion", total_hospitales
   { _id: 'Privada', total_hospitales: 1 },
   { _id: 'Pública Universitaria', total_hospitales: 1 }
 ]
-// 2.  Número de hospitales por nivel de complejidad
+//  Número de hospitales por nivel de complejidad
 
 db.Hospitales.aggregate([ { $group: { _id: "$nivel_complejidad", total_hospitales: { $sum: 1 } } }] )
 [
@@ -17,7 +17,7 @@ db.Hospitales.aggregate([ { $group: { _id: "$nivel_complejidad", total_hospitale
 ]
 
 
-3.  Medicamentos con más stock por hospital 
+// Medicamentos con más stock por hospital 
 
 db.Inventario.find({ id_hospital: ObjectId("6887ea5f0be2cd6239fe6b01") }).sort({ stock: -1 }).limit(5) 
 [
@@ -44,7 +44,7 @@ db.Inventario.find({ id_hospital: ObjectId("6887ea5f0be2cd6239fe6b01") }).sort({
   }
 ]
 
-// 1. Cantidad total de médicos por hospital
+// Cantidad total de médicos por hospital
 db.Medicos.aggregate([
   { $group: { _id: "$id_hospital", total_medicos: { $sum: 1 } } }
 ])
@@ -57,7 +57,7 @@ db.Medicos.aggregate([
 
 
 
-// 2. Cantidad total de enfermeros por hospital
+//  Cantidad total de enfermeros por hospital
 db.Enfermeros.aggregate([
   { $group: { _id: "$id_hospital", total_enfermeros: { $sum: 1 } } }
 ])
@@ -70,7 +70,7 @@ db.Enfermeros.aggregate([
 
 
 
-// 3. Total de áreas especializadas por hospital
+//  Total de áreas especializadas por hospital
 db.AreaEspecializacion.aggregate([
   { $group: { _id: "$id_hospital", total_areas: { $sum: 1 } } }
 ])
@@ -82,111 +82,10 @@ db.AreaEspecializacion.aggregate([
 ]
 
 
-// 4. Listar médicos por hospital
+//  Listar médicos por hospital
 db.Medicos.find({}, { nombre: 1, especialidad: 1, id_hospital: 1 })
 
 [
-  {
-    _id: 'med021',
-    nombre: 'Dr. Carlos Alberto Vélez Restrepo',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med022',
-    nombre: 'Dra. Sofía Andrea Moncada Duque',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med023',
-    nombre: 'Dr. Miguel Ángel Sierra Bermúdez',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med024',
-    nombre: 'Dra. Daniela Carolina Quintero Díaz',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med025',
-    nombre: 'Dr. Jorge Eduardo Patiño Giraldo',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med026',
-    nombre: 'Dra. María Paula Londoño Mesa',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med027',
-    nombre: 'Dr. Fabián Andrés Restrepo Morales',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med028',
-    nombre: 'Dra. Valeria Sofía Bedoya Cárdenas',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med029',
-    nombre: 'Dr. Cristian David Muñoz Vargas',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med030',
-    nombre: 'Dra. Luisa Fernanda Ordoñez Blanco',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med031',
-    nombre: 'Dr. Camilo Andrés Londoño Cortés',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med032',
-    nombre: 'Dra. Andrea Catalina Betancur Ortiz',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med033',
-    nombre: 'Dr. Juan Camilo Salazar Mesa',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med034',
-    nombre: 'Dra. Laura Sofía Jiménez Bernal',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med035',
-    nombre: 'Dr. Daniel Felipe Rico Patiño',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med036',
-    nombre: 'Dra. María José Parra Soto',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med037',
-    nombre: 'Dr. Andrés Felipe Quintero Ríos',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med038',
-    nombre: 'Dra. Carolina Isabel Vélez Restrepo',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med039',
-    nombre: 'Dr. Juan José Herrera Soto',
-    id_hospital: 'hos001'
-  },
-  {
-    _id: 'med040',
-    nombre: 'Dra. Sofía Camila Arango Castro',
-    id_hospital: 'hos001'
-  }
-
   {
     _id: 'med041',
     nombre: 'Dr. Nicolás Felipe Botero Zuluaga',
@@ -281,16 +180,11 @@ db.Medicos.find({}, { nombre: 1, especialidad: 1, id_hospital: 1 })
     _id: 'med059',
     nombre: 'Dr. Juan Sebastián Soto Prieto',
     id_hospital: 'hos002'
-  },
-  {
-    _id: 'med060',
-    nombre: 'Dra. Sofía Valentina Rico García',
-    id_hospital: 'hos002'
   }
 ]
 
 
-// 5. Listar enfermeros por hospital
+//  Listar enfermeros por hospital
 db.Enfermeros.find({}, { nombre: 1, id_hospital: 1 })
 
 [
@@ -397,7 +291,7 @@ db.Enfermeros.find({}, { nombre: 1, id_hospital: 1 })
 ]
 
 
-// 6. Mostrar hospitales con más de 10 médicos
+//  Mostrar hospitales con más de 10 médicos
 db.Medicos.aggregate([
   { $group: { _id: "$id_hospital", total: { $sum: 1 } } },
   { $match: { total: { $gt: 10 } } }
@@ -410,7 +304,7 @@ db.Medicos.aggregate([
 ]
 
 
-// 8. Mostrar hospitales que tienen laboratorio clínico
+// Mostrar hospitales que tienen laboratorio clínico
 db.Horario.find({ horario_tipo: /Laboratorio/ })
 
 [
@@ -427,7 +321,7 @@ db.Horario.find({ horario_tipo: /Laboratorio/ })
 ]
 
 
-// 9. Listar hospitales con tipo de institución "Privado"
+//  Listar hospitales con tipo de institución "Privado"
 db.Hospitales.find({ tipo_institucion: "Privada" })
 [
 {
@@ -443,132 +337,1185 @@ db.Hospitales.find({ tipo_institucion: "Privada" })
 ]
 
 
-// 10. Mostrar hospitales por nivel de complejidad
-db.Hospital.aggregate([
-  { $group: { _id: "$nivel_complejidad", total: { $sum: 1 } } }
-])
+//  Mostrar hospitales por nivel de complejidad
+db.Hospitales.aggregate([{ $group: { _id: "$nivel_complejidad", total: { $sum: 1 } } }])
+  [
+    { _id: 'Mediana y Alta Complejidad', total: 1 },
+    { _id: 'Alta Complejidad', total: 2 }
+  ]
+  
 
-// 11. Mostrar nombre y áreas de cada hospital
+//  Mostrar nombre y áreas de cada hospital
 db.Areas.find({}, { descripcion: 1, id_hospital: 1 })
 
-// 12. Mostrar cuántas áreas asistenciales hay por hospital
-db.Areas.aggregate([
-  { $match: { tipo_area: "Área Asistencial" } },
-  { $group: { _id: "$id_hospital", total: { $sum: 1 } } }
-])
+[
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b24'),
+    descripcion: 'Servicios ambulatorios generales',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b25'),
+    descripcion: 'Servicios de urgencias',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b26'),
+    descripcion: 'Laboratorio clínico para diagnósticos',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b27'),
+    descripcion: 'Banco de sangre para transfusiones',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b28'),
+    descripcion: 'Radiología e imágenes diagnósticas',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b29'),
+    descripcion: 'Farmacia hospitalaria',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2a'),
+    descripcion: 'Cirugía general',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2b'),
+    descripcion: 'Obstetricia',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2c'),
+    descripcion: 'Hospitalización general',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2d'),
+    descripcion: 'Cuidados Intensivos',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2e'),
+    descripcion: 'Cocina del hospital',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b2f'),
+    descripcion: 'Lavandería del hospital',
+    id_hospital: 'hos001'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b30'),
+    descripcion: 'Servicios ambulatorios especializados',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b31'),
+    descripcion: 'Urgencias pediátricas',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b32'),
+    descripcion: 'Hemodinamia',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b33'),
+    descripcion: 'Gastroenterología y endoscopia diagnóstica',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b34'),
+    descripcion: 'Laboratorio de patología',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b35'),
+    descripcion: 'Nutrición y dietética',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b36'),
+    descripcion: 'Cirugía ambulatoria',
+    id_hospital: 'hos002'
+  },
+  {
+    _id: ObjectId('6887eace0be2cd6239fe6b37'),
+    descripcion: 'Central de esterilización',
+    id_hospital: 'hos002'
+  }
+]
 
-// 13. Mostrar cuántas áreas generales por hospital
-db.Areas.aggregate([
-  { $match: { tipo_area: "Área General" } },
-  { $group: { _id: "$id_hospital", total: { $sum: 1 } } }
-])
 
-// 14. Listar todos los hospitales ordenados por nombre
-db.Hospital.find().sort({ nombre: 1 })
+
+//  Mostrar cuántas áreas generales por hospital
+db.Areas.aggregate([ { $match: { tipo_area: "Asistencial" } }, { $group: { _id: "$id_hospital", total: { $sum: 1 } } }] )
+[
+  { _id: 'hos003', total: 2 },
+  { _id: 'hos001', total: 2 },
+  { _id: 'hos002', total: 2 }
+]
+
+// Mostrar cuantos areas apoyo hay por hospital
+
+db.Areas.aggregate([ { $match: { tipo_area: "Apoyo" } }, { $group: { _id: "$id_hospital", total: { $sum: 1 } } }] )
+[
+  { _id: 'hos001', total: 4 },
+  { _id: 'hos002', total: 4 },
+  { _id: 'hos003', total: 4 }
+]
+
+
+//  Listar todos los hospitales ordenados por nombre
+db.Hospitales.find().sort({ nombre: 1 })
+[
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b03'),
+    hospital_id: 'hos003',
+    nombre: 'Clínica Materno Infantil San Luis',
+    direccion: 'Cra. 26 #48-56',
+    telefono: '(607) 6430026',
+    codigo_habilitacion: '6800100201-01',
+    tipo_institucion: 'Privada',
+    nivel_complejidad: 'Alta Complejidad'
+  },
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b01'),
+    hospital_id: 'hos001',
+    nombre: 'Hospital Universitario de Santander (HUS)',
+    direccion: 'Cra. 33 #28-126',
+    telefono: '(607) 6912010',
+    codigo_habilitacion: '6800100792-01',
+    tipo_institucion: 'Pública Departamental',
+    nivel_complejidad: 'Mediana y Alta Complejidad'
+  },
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b02'),
+    hospital_id: 'hos002',
+    nombre: 'Los Comuneros Hospital Universitario de Bucaramanga',
+    direccion: 'Ak 27 #30 -15',
+    telefono: '(607) 6343536',
+    codigo_habilitacion: '900240018',
+    tipo_institucion: 'Pública Universitaria',
+    nivel_complejidad: 'Alta Complejidad'
+  }
+]
+
 
 // 15. Buscar hospital por código de habilitación
-db.Hospital.find({ codigo_habilitacion: "H12345" })
+db.Hospitales.find({ codigo_habilitacion: "6800100792-01" })
 
-// 16. Mostrar teléfonos de contacto de todos los hospitales
-db.Hospital.find({}, { nombre: 1, telefono: 1 })
+[
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b01'),
+    hospital_id: 'hos001',
+    nombre: 'Hospital Universitario de Santander (HUS)',
+    direccion: 'Cra. 33 #28-126',
+    telefono: '(607) 6912010',
+    codigo_habilitacion: '6800100792-01',
+    tipo_institucion: 'Pública Departamental',
+    nivel_complejidad: 'Mediana y Alta Complejidad'
+  }
+]
 
-// 17. Listar todos los hospitales que tienen más de 3 áreas
+
+//  Mostrar teléfonos de contacto de todos los hospitales
+db.Hospitales.find({}, { nombre: 1, telefono: 1 })
+
+[
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b01'),
+    nombre: 'Hospital Universitario de Santander (HUS)',
+    telefono: '(607) 6912010'
+  },
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b02'),
+    nombre: 'Los Comuneros Hospital Universitario de Bucaramanga',
+    telefono: '(607) 6343536'
+  },
+  {
+    _id: ObjectId('6887ea5f0be2cd6239fe6b03'),
+    nombre: 'Clínica Materno Infantil San Luis',
+    telefono: '(607) 6430026'
+  }
+]
+
+
+//  Listar todos los hospitales que tienen más de 3 áreas
+
 db.Areas.aggregate([
   { $group: { _id: "$id_hospital", total_areas: { $sum: 1 } } },
   { $match: { total_areas: { $gt: 3 } } }
 ])
 
-// 18. Mostrar qué hospitales tienen Imagenología
+[
+  { _id: 'hos003', total_areas: 8 },
+  { _id: 'hos001', total_areas: 12 },
+  { _id: 'hos002', total_areas: 12 }
+]
+
+
+//  Mostrar qué hospitales tienen Imagenología
 db.Horario.find({ horario_tipo: /Imagenología/ })
 
-// 19. Mostrar hospitales con servicio de urgencias 24/7
+[
+  {
+    _id: ObjectId('6887deba0be2cd6239fe6921'),
+    horario_tipo: 'Imagenología/Administrativo - Diurno',
+    dias: 'Lunes a Viernes'
+  }
+]
+
+
+// Mostrar hospitales con servicio de urgencias 24/7
 db.Horario.find({ horario_tipo: /Urgencias/ })
 
-// 20. Mostrar cuántos administrativos hay por hospital
+[
+  {
+    _id: ObjectId('6887deba0be2cd6239fe691c'),
+    horario_tipo: 'Urgencias - 24/7',
+    dias: 'Todos los días'
+  }
+]
+
+
+//  Mostrar cuántos administrativos hay por hospital
 db.Administrativos.aggregate([
-  { $group: { _id: "$id_hospital", total: { $sum: 1 } } }
+  { $group: { _id: "$_id", total: { $sum: 1 } } }
 ])
 
----
+[
+  { _id: 'adm014', total: 1 },
+  { _id: 'adm022', total: 1 },
+  { _id: 'adm013', total: 1 },
+  { _id: 'adm012', total: 1 },
+  { _id: 'adm019', total: 1 },
+  { _id: 'adm002', total: 1 },
+  { _id: 'adm009', total: 1 },
+  { _id: 'adm016', total: 1 },
+  { _id: 'adm021', total: 1 },
+  { _id: 'adm017', total: 1 },
+  { _id: 'adm005', total: 1 },
+  { _id: 'adm007', total: 1 },
+  { _id: 'adm010', total: 1 },
+  { _id: 'adm011', total: 1 },
+  { _id: 'adm020', total: 1 },
+  { _id: 'adm018', total: 1 },
+  { _id: 'adm003', total: 1 },
+  { _id: 'adm015', total: 1 },
+  { _id: 'adm006', total: 1 },
+  { _id: 'adm004', total: 1 }
+]
 
-### 💊 2. Inventarios de medicamentos (15 consultas)
 
-// 21. Mostrar todos los medicamentos
+// Inventarios de medicamentos 
+
+// Mostrar todos los medicamentos
 db.Medicamentos.find()
 
-// 22. Mostrar medicamentos disponibles
-db.Medicamentos.find({ disponibilidad: "Disponible" })
+[
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a11'),
+    medicamento_id: 'med001',
+    nombre: 'Acetaminofén',
+    principio_activo: 'Paracetamol',
+    concentracion: '500 mg',
+    tipo: 'Analgésico / Antipirético',
+    lote: 'LOTE2024001',
+    disponibilidad: true,
+    fabricante: 'Laboratorios Genericos S.A.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a12'),
+    medicamento_id: 'med002',
+    nombre: 'Ibuprofeno',
+    principio_activo: 'Ibuprofeno',
+    concentracion: '400 mg',
+    tipo: 'AINE / Analgésico',
+    lote: 'LOTE2024002',
+    disponibilidad: true,
+    fabricante: 'Farmacéutica Global Ltda.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a13'),
+    medicamento_id: 'med003',
+    nombre: 'Amoxicilina',
+    principio_activo: 'Amoxicilina',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024003',
+    disponibilidad: true,
+    fabricante: 'MediPharma Corp.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a14'),
+    medicamento_id: 'med004',
+    nombre: 'Ceftriaxona',
+    principio_activo: 'Ceftriaxona',
+    concentracion: '1 g',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024004',
+    disponibilidad: true,
+    fabricante: 'BioGen Laboratorios'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a15'),
+    medicamento_id: 'med005',
+    nombre: 'Omeprazol',
+    principio_activo: 'Omeprazol',
+    concentracion: '20 mg',
+    tipo: 'Inhibidor Bomba Protones',
+    lote: 'LOTE2024005',
+    disponibilidad: true,
+    fabricante: 'Química Saludable'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a16'),
+    medicamento_id: 'med006',
+    nombre: 'Salbutamol',
+    principio_activo: 'Salbutamol',
+    concentracion: '100 mcg/dosis',
+    tipo: 'Broncodilatador',
+    lote: 'LOTE2024006',
+    disponibilidad: true,
+    fabricante: 'RespiCare Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a17'),
+    medicamento_id: 'med007',
+    nombre: 'Losartán',
+    principio_activo: 'Losartán Potásico',
+    concentracion: '50 mg',
+    tipo: 'Antihipertensivo',
+    lote: 'LOTE2024007',
+    disponibilidad: true,
+    fabricante: 'CardioFarm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a18'),
+    medicamento_id: 'med008',
+    nombre: 'Metformina',
+    principio_activo: 'Metformina Clorhidrato',
+    concentracion: '850 mg',
+    tipo: 'Antidiabético Oral',
+    lote: 'LOTE2024008',
+    disponibilidad: true,
+    fabricante: 'EndoMed'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a19'),
+    medicamento_id: 'med009',
+    nombre: 'Atorvastatina',
+    principio_activo: 'Atorvastatina Cálcica',
+    concentracion: '20 mg',
+    tipo: 'Hipolipemiante',
+    lote: 'LOTE2024009',
+    disponibilidad: true,
+    fabricante: 'HealthyLife Pharma'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1a'),
+    medicamento_id: 'med010',
+    nombre: 'Morfina',
+    principio_activo: 'Morfina Sulfato',
+    concentracion: '10 mg/ml',
+    tipo: 'Analgésico Opioide',
+    lote: 'LOTE2024010',
+    disponibilidad: true,
+    fabricante: 'FarmaDolor S.A.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1b'),
+    medicamento_id: 'med011',
+    nombre: 'Diazepam',
+    principio_activo: 'Diazepam',
+    concentracion: '10 mg',
+    tipo: 'Ansiolítico / Sedante',
+    lote: 'LOTE2024011',
+    disponibilidad: true,
+    fabricante: 'NeuroCare Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1c'),
+    medicamento_id: 'med012',
+    nombre: 'Heparina',
+    principio_activo: 'Heparina Sódica',
+    concentracion: '5000 UI/ml',
+    tipo: 'Anticoagulante',
+    lote: 'LOTE2024012',
+    disponibilidad: true,
+    fabricante: 'CoagulaPharm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1d'),
+    medicamento_id: 'med013',
+    nombre: 'Dexametasona',
+    principio_activo: 'Dexametasona',
+    concentracion: '4 mg/ml',
+    tipo: 'Corticoide / Antiinflamatorio',
+    lote: 'LOTE2024013',
+    disponibilidad: true,
+    fabricante: 'Steroidix'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1e'),
+    medicamento_id: 'med014',
+    nombre: 'Insulina Glargina',
+    principio_activo: 'Insulina Glargina',
+    concentracion: '100 UI/ml',
+    tipo: 'Insulina',
+    lote: 'LOTE2024014',
+    disponibilidad: true,
+    fabricante: 'DiabCare'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1f'),
+    medicamento_id: 'med015',
+    nombre: 'Ranitidina',
+    principio_activo: 'Ranitidina Clorhidrato',
+    concentracion: '150 mg',
+    tipo: 'Antiácido / Antiulceroso',
+    lote: 'LOTE2024015',
+    disponibilidad: true,
+    fabricante: 'GastroFarm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a20'),
+    medicamento_id: 'med016',
+    nombre: 'Clopidogrel',
+    principio_activo: 'Clopidogrel Bisulfato',
+    concentracion: '75 mg',
+    tipo: 'Antiagregante Plaquetario',
+    lote: 'LOTE2024016',
+    disponibilidad: true,
+    fabricante: 'CardioPrevent'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a21'),
+    medicamento_id: 'med017',
+    nombre: 'Digoxina',
+    principio_activo: 'Digoxina',
+    concentracion: '0.25 mg',
+    tipo: 'Cardiotónico',
+    lote: 'LOTE2024017',
+    disponibilidad: true,
+    fabricante: 'HeartBeat Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a22'),
+    medicamento_id: 'med018',
+    nombre: 'Furosemida',
+    principio_activo: 'Furosemida',
+    concentracion: '40 mg',
+    tipo: 'Diurético',
+    lote: 'LOTE2024018',
+    disponibilidad: true,
+    fabricante: 'HydroPharm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a23'),
+    medicamento_id: 'med019',
+    nombre: 'Ciprofloxacino',
+    principio_activo: 'Ciprofloxacino',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024019',
+    disponibilidad: true,
+    fabricante: 'InfectioCare'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a24'),
+    medicamento_id: 'med020',
+    nombre: 'Vancomicina',
+    principio_activo: 'Vancomicina',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024020',
+    disponibilidad: true,
+    fabricante: 'GramPositive Labs'
+  }
+]
 
-// 23. Mostrar medicamentos agotados
-db.Medicamentos.find({ disponibilidad: "Agotado" })
+// Mostrar medicamentos disponibles
 
-// 24. Contar medicamentos por tipo
+db.Medicamentos.find({ disponibilidad: true })
+[
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a11'),
+    medicamento_id: 'med001',
+    nombre: 'Acetaminofén',
+    principio_activo: 'Paracetamol',
+    concentracion: '500 mg',
+    tipo: 'Analgésico / Antipirético',
+    lote: 'LOTE2024001',
+    disponibilidad: true,
+    fabricante: 'Laboratorios Genericos S.A.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a12'),
+    medicamento_id: 'med002',
+    nombre: 'Ibuprofeno',
+    principio_activo: 'Ibuprofeno',
+    concentracion: '400 mg',
+    tipo: 'AINE / Analgésico',
+    lote: 'LOTE2024002',
+    disponibilidad: true,
+    fabricante: 'Farmacéutica Global Ltda.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a13'),
+    medicamento_id: 'med003',
+    nombre: 'Amoxicilina',
+    principio_activo: 'Amoxicilina',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024003',
+    disponibilidad: true,
+    fabricante: 'MediPharma Corp.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a14'),
+    medicamento_id: 'med004',
+    nombre: 'Ceftriaxona',
+    principio_activo: 'Ceftriaxona',
+    concentracion: '1 g',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024004',
+    disponibilidad: true,
+    fabricante: 'BioGen Laboratorios'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a15'),
+    medicamento_id: 'med005',
+    nombre: 'Omeprazol',
+    principio_activo: 'Omeprazol',
+    concentracion: '20 mg',
+    tipo: 'Inhibidor Bomba Protones',
+    lote: 'LOTE2024005',
+    disponibilidad: true,
+    fabricante: 'Química Saludable'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a16'),
+    medicamento_id: 'med006',
+    nombre: 'Salbutamol',
+    principio_activo: 'Salbutamol',
+    concentracion: '100 mcg/dosis',
+    tipo: 'Broncodilatador',
+    lote: 'LOTE2024006',
+    disponibilidad: true,
+    fabricante: 'RespiCare Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a17'),
+    medicamento_id: 'med007',
+    nombre: 'Losartán',
+    principio_activo: 'Losartán Potásico',
+    concentracion: '50 mg',
+    tipo: 'Antihipertensivo',
+    lote: 'LOTE2024007',
+    disponibilidad: true,
+    fabricante: 'CardioFarm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a18'),
+    medicamento_id: 'med008',
+    nombre: 'Metformina',
+    principio_activo: 'Metformina Clorhidrato',
+    concentracion: '850 mg',
+    tipo: 'Antidiabético Oral',
+    lote: 'LOTE2024008',
+    disponibilidad: true,
+    fabricante: 'EndoMed'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a19'),
+    medicamento_id: 'med009',
+    nombre: 'Atorvastatina',
+    principio_activo: 'Atorvastatina Cálcica',
+    concentracion: '20 mg',
+    tipo: 'Hipolipemiante',
+    lote: 'LOTE2024009',
+    disponibilidad: true,
+    fabricante: 'HealthyLife Pharma'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1a'),
+    medicamento_id: 'med010',
+    nombre: 'Morfina',
+    principio_activo: 'Morfina Sulfato',
+    concentracion: '10 mg/ml',
+    tipo: 'Analgésico Opioide',
+    lote: 'LOTE2024010',
+    disponibilidad: true,
+    fabricante: 'FarmaDolor S.A.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1b'),
+    medicamento_id: 'med011',
+    nombre: 'Diazepam',
+    principio_activo: 'Diazepam',
+    concentracion: '10 mg',
+    tipo: 'Ansiolítico / Sedante',
+    lote: 'LOTE2024011',
+    disponibilidad: true,
+    fabricante: 'NeuroCare Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1c'),
+    medicamento_id: 'med012',
+    nombre: 'Heparina',
+    principio_activo: 'Heparina Sódica',
+    concentracion: '5000 UI/ml',
+    tipo: 'Anticoagulante',
+    lote: 'LOTE2024012',
+    disponibilidad: true,
+    fabricante: 'CoagulaPharm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1d'),
+    medicamento_id: 'med013',
+    nombre: 'Dexametasona',
+    principio_activo: 'Dexametasona',
+    concentracion: '4 mg/ml',
+    tipo: 'Corticoide / Antiinflamatorio',
+    lote: 'LOTE2024013',
+    disponibilidad: true,
+    fabricante: 'Steroidix'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1e'),
+    medicamento_id: 'med014',
+    nombre: 'Insulina Glargina',
+    principio_activo: 'Insulina Glargina',
+    concentracion: '100 UI/ml',
+    tipo: 'Insulina',
+    lote: 'LOTE2024014',
+    disponibilidad: true,
+    fabricante: 'DiabCare'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1f'),
+    medicamento_id: 'med015',
+    nombre: 'Ranitidina',
+    principio_activo: 'Ranitidina Clorhidrato',
+    concentracion: '150 mg',
+    tipo: 'Antiácido / Antiulceroso',
+    lote: 'LOTE2024015',
+    disponibilidad: true,
+    fabricante: 'GastroFarm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a20'),
+    medicamento_id: 'med016',
+    nombre: 'Clopidogrel',
+    principio_activo: 'Clopidogrel Bisulfato',
+    concentracion: '75 mg',
+    tipo: 'Antiagregante Plaquetario',
+    lote: 'LOTE2024016',
+    disponibilidad: true,
+    fabricante: 'CardioPrevent'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a21'),
+    medicamento_id: 'med017',
+    nombre: 'Digoxina',
+    principio_activo: 'Digoxina',
+    concentracion: '0.25 mg',
+    tipo: 'Cardiotónico',
+    lote: 'LOTE2024017',
+    disponibilidad: true,
+    fabricante: 'HeartBeat Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a22'),
+    medicamento_id: 'med018',
+    nombre: 'Furosemida',
+    principio_activo: 'Furosemida',
+    concentracion: '40 mg',
+    tipo: 'Diurético',
+    lote: 'LOTE2024018',
+    disponibilidad: true,
+    fabricante: 'HydroPharm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a23'),
+    medicamento_id: 'med019',
+    nombre: 'Ciprofloxacino',
+    principio_activo: 'Ciprofloxacino',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024019',
+    disponibilidad: true,
+    fabricante: 'InfectioCare'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a24'),
+    medicamento_id: 'med020',
+    nombre: 'Vancomicina',
+    principio_activo: 'Vancomicina',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024020',
+    disponibilidad: true,
+    fabricante: 'GramPositive Labs'
+  }
+]
+
+// Contar medicamentos por tipo
 db.Medicamentos.aggregate([
   { $group: { _id: "$tipo", total: { $sum: 1 } } }
 ])
 
-// 25. Listar medicamentos por proveedor
+[
+  { _id: 'Anticolinérgico / Emergencia', total: 1 },
+  { _id: 'Antiespasmódico', total: 1 },
+  { _id: 'Antihistamínico', total: 1 },
+  { _id: 'Antiácido / Antiulceroso', total: 1 },
+  { _id: 'Uterotónico', total: 1 },
+  { _id: 'Antibiótico / Antiparasitario', total: 1 },
+  { _id: 'Anticoagulante', total: 1 },
+  { _id: 'Solución Intravenosa', total: 1 },
+  { _id: 'Solución Intravenosa / Nutrición', total: 1 },
+  { _id: 'Vasopresor', total: 1 },
+  { _id: 'Diurético Tiazídico', total: 1 },
+  { _id: 'Antidepresivo ISRS', total: 1 },
+  { _id: 'Analgésico / Antipirético', total: 1 },
+  { _id: 'Vitamina / Coagulante', total: 1 },
+  { _id: 'Vitamina', total: 1 },
+  { _id: 'Inhibidor Bomba Protones', total: 1 },
+  { _id: 'IECA / Antihipertensivo', total: 1 },
+  { _id: 'Estimulante Adrenérgico / Emergencia', total: 1 },
+  { _id: 'Antidiabético Oral', total: 1 },
+  { _id: 'Corticoide / Antiinflamatorio', total: 1 }
+]
+
+
+// Listar medicamentos por proveedor
 db.Medicamentos.find({}, { nombre: 1, proveedor: 1 })
 
-// 26. Buscar medicamento por nombre
-db.Medicamentos.find({ nombre: /aspirina/i })
+[
+  { _id: ObjectId('6887e83d0be2cd6239fe6a11'), nombre: 'Acetaminofén' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a12'), nombre: 'Ibuprofeno' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a13'), nombre: 'Amoxicilina' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a14'), nombre: 'Ceftriaxona' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a15'), nombre: 'Omeprazol' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a16'), nombre: 'Salbutamol' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a17'), nombre: 'Losartán' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a18'), nombre: 'Metformina' },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a19'),
+    nombre: 'Atorvastatina'
+  },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a1a'), nombre: 'Morfina' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a1b'), nombre: 'Diazepam' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a1c'), nombre: 'Heparina' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a1d'), nombre: 'Dexametasona' },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a1e'),
+    nombre: 'Insulina Glargina'
+  },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a1f'), nombre: 'Ranitidina' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a20'), nombre: 'Clopidogrel' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a21'), nombre: 'Digoxina' },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a22'), nombre: 'Furosemida' },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a23'),
+    nombre: 'Ciprofloxacino'
+  },
+  { _id: ObjectId('6887e83d0be2cd6239fe6a24'), nombre: 'Vancomicina' }
+]
 
-// 27. Medicamentos con existencia menor a 10 unidades
-db.Medicamentos.find({ cantidad: { $lt: 10 } })
 
-// 28. Total de medicamentos por hospital
-db.Medicamentos.aggregate([
-  { $group: { _id: "$id_hospital", total: { $sum: 1 } } }
-])
-
-// 29. Medicamentos vencidos
-db.Medicamentos.find({ fecha_vencimiento: { $lt: new Date() } })
-
-// 30. Medicamentos que vencen este mes
-const now = new Date()
-const end = new Date(now.getFullYear(), now.getMonth() + 1, 0)
-db.Medicamentos.find({
-  fecha_vencimiento: {
-    $gte: now,
-    $lte: end
+// Buscar medicamento por nombre
+db.Medicamentos.find({ nombre: /ceftriaxona/i })
+[
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a14'),
+    medicamento_id: 'med004',
+    nombre: 'Ceftriaxona',
+    principio_activo: 'Ceftriaxona',
+    concentracion: '1 g',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024004',
+    disponibilidad: true,
+    fabricante: 'BioGen Laboratorios'
   }
-})
+]
 
-// 31. Listar medicamentos ordenados por cantidad
+
+// Medicamentos con lote menor a LOTE2024004
+
+db.Medicamentos.find({ lote: { $lt: "LOTE2024004" } })
+[
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a11'),
+    medicamento_id: 'med001',
+    nombre: 'Acetaminofén',
+    principio_activo: 'Paracetamol',
+    concentracion: '500 mg',
+    tipo: 'Analgésico / Antipirético',
+    lote: 'LOTE2024001',
+    disponibilidad: true,
+    fabricante: 'Laboratorios Genericos S.A.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a12'),
+    medicamento_id: 'med002',
+    nombre: 'Ibuprofeno',
+    principio_activo: 'Ibuprofeno',
+    concentracion: '400 mg',
+    tipo: 'AINE / Analgésico',
+    lote: 'LOTE2024002',
+    disponibilidad: true,
+    fabricante: 'Farmacéutica Global Ltda.'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a13'),
+    medicamento_id: 'med003',
+    nombre: 'Amoxicilina',
+    principio_activo: 'Amoxicilina',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024003',
+    disponibilidad: true,
+    fabricante: 'MediPharma Corp.'
+  }
+]
+
+// Listar medicamentos ordenados por cantidad
 db.Medicamentos.find().sort({ cantidad: -1 })
 
-// 32. Medicamentos que requieren refrigeración
-db.Medicamentos.find({ requiere_refrigeracion: true })
+[
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3e'),
+    medicamento_id: 'med046',
+    nombre: 'Fentanilo',
+    principio_activo: 'Fentanilo Citrato',
+    concentracion: '50 mcg/ml',
+    tipo: 'Analgésico Opioide / Anestésico',
+    lote: 'LOTE2024046',
+    disponibilidad: true,
+    fabricante: 'PainRelief Strong'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a30'),
+    medicamento_id: 'med032',
+    nombre: 'Simvastatina',
+    principio_activo: 'Simvastatina',
+    concentracion: '20 mg',
+    tipo: 'Hipolipemiante',
+    lote: 'LOTE2024032',
+    disponibilidad: true,
+    fabricante: 'Colesterol Control'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a31'),
+    medicamento_id: 'med033',
+    nombre: 'Warfarina',
+    principio_activo: 'Warfarina Sódica',
+    concentracion: '5 mg',
+    tipo: 'Anticoagulante Oral',
+    lote: 'LOTE2024033',
+    disponibilidad: true,
+    fabricante: 'CoagulaSafe'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a32'),
+    medicamento_id: 'med034',
+    nombre: 'Levofloxacino',
+    principio_activo: 'Levofloxacino',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico',
+    lote: 'LOTE2024034',
+    disponibilidad: true,
+    fabricante: 'RespiraPharma'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a33'),
+    medicamento_id: 'med035',
+    nombre: 'Metronidazol',
+    principio_activo: 'Metronidazol',
+    concentracion: '500 mg',
+    tipo: 'Antibiótico / Antiparasitario',
+    lote: 'LOTE2024035',
+    disponibilidad: true,
+    fabricante: 'GastroGuard'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a34'),
+    medicamento_id: 'med036',
+    nombre: 'Fluconazol',
+    principio_activo: 'Fluconazol',
+    concentracion: '150 mg',
+    tipo: 'Antifúngico',
+    lote: 'LOTE2024036',
+    disponibilidad: true,
+    fabricante: 'FungoStop'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a35'),
+    medicamento_id: 'med037',
+    nombre: 'Aciclovir',
+    principio_activo: 'Aciclovir',
+    concentracion: '200 mg',
+    tipo: 'Antiviral',
+    lote: 'LOTE2024037',
+    disponibilidad: true,
+    fabricante: 'VirusShield'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a36'),
+    medicamento_id: 'med038',
+    nombre: 'Gabapentina',
+    principio_activo: 'Gabapentina',
+    concentracion: '300 mg',
+    tipo: 'Anticonvulsivante / Neuropático',
+    lote: 'LOTE2024038',
+    disponibilidad: true,
+    fabricante: 'NeuroRelief'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a37'),
+    medicamento_id: 'med039',
+    nombre: 'Pregabalina',
+    principio_activo: 'Pregabalina',
+    concentracion: '75 mg',
+    tipo: 'Anticonvulsivante / Neuropático',
+    lote: 'LOTE2024039',
+    disponibilidad: true,
+    fabricante: 'NerveCalm'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a38'),
+    medicamento_id: 'med040',
+    nombre: 'Escopolamina (Butilbromuro)',
+    principio_activo: 'Butilbromuro de Escopolamina',
+    concentracion: '20 mg',
+    tipo: 'Antiespasmódico',
+    lote: 'LOTE2024040',
+    disponibilidad: true,
+    fabricante: 'SpasmoFree'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a39'),
+    medicamento_id: 'med041',
+    nombre: 'Tramadol + Paracetamol',
+    principio_activo: 'Tramadol Clorhidrato + Paracetamol',
+    concentracion: '37.5 mg / 325 mg',
+    tipo: 'Analgésico Combinado',
+    lote: 'LOTE2024041',
+    disponibilidad: true,
+    fabricante: 'DolorTotal'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3a'),
+    medicamento_id: 'med042',
+    nombre: 'Vitamina K',
+    principio_activo: 'Fitomenadiona',
+    concentracion: '10 mg/ml',
+    tipo: 'Vitamina / Coagulante',
+    lote: 'LOTE2024042',
+    disponibilidad: true,
+    fabricante: 'Vitaminex'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3b'),
+    medicamento_id: 'med043',
+    nombre: 'Sulfato de Magnesio',
+    principio_activo: 'Sulfato de Magnesio',
+    concentracion: '20%',
+    tipo: 'Electrolito / Anticonvulsivante',
+    lote: 'LOTE2024043',
+    disponibilidad: true,
+    fabricante: 'MineralBalance'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3c'),
+    medicamento_id: 'med044',
+    nombre: 'Dopamina',
+    principio_activo: 'Dopamina Clorhidrato',
+    concentracion: '40 mg/ml',
+    tipo: 'Vasopresor / Inotrópico',
+    lote: 'LOTE2024044',
+    disponibilidad: true,
+    fabricante: 'CriticalCare Pharma'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3d'),
+    medicamento_id: 'med045',
+    nombre: 'Norepinefrina',
+    principio_activo: 'Norepinefrina Bitartrato',
+    concentracion: '4 mg/4ml',
+    tipo: 'Vasopresor',
+    lote: 'LOTE2024045',
+    disponibilidad: true,
+    fabricante: 'LifeSupport Labs'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a2f'),
+    medicamento_id: 'med031',
+    nombre: 'Amlodipino',
+    principio_activo: 'Amlodipino Besilato',
+    concentracion: '5 mg',
+    tipo: 'Antihipertensivo',
+    lote: 'LOTE2024031',
+    disponibilidad: true,
+    fabricante: 'TensioMed'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a3f'),
+    medicamento_id: 'med047',
+    nombre: 'Remifentanilo',
+    principio_activo: 'Remifentanilo Clorhidrato',
+    concentracion: '2 mg',
+    tipo: 'Analgésico Opioide / Anestésico',
+    lote: 'LOTE2024047',
+    disponibilidad: true,
+    fabricante: 'UltraFast Anesthesia'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a40'),
+    medicamento_id: 'med048',
+    nombre: 'Rocuronio',
+    principio_activo: 'Rocuronio Bromuro',
+    concentracion: '10 mg/ml',
+    tipo: 'Relajante Muscular',
+    lote: 'LOTE2024048',
+    disponibilidad: true,
+    fabricante: 'MuscleControl Pharma'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a41'),
+    medicamento_id: 'med049',
+    nombre: 'Succinoilcolina',
+    principio_activo: 'Cloruro de Succinilcolina',
+    concentracion: '100 mg',
+    tipo: 'Relajante Muscular (Despolarizante)',
+    lote: 'LOTE2024049',
+    disponibilidad: true,
+    fabricante: 'EmergencyRelax'
+  },
+  {
+    _id: ObjectId('6887e83d0be2cd6239fe6a42'),
+    medicamento_id: 'med050',
+    nombre: 'Lidocaína',
+    principio_activo: 'Lidocaína Clorhidrato',
+    concentracion: '2%',
+    tipo: 'Anestésico Local / Antiarrítmico',
+    lote: 'LOTE2024050',
+    disponibilidad: true,
+    fabricante: 'NumbSense Labs'
+  }
+]
 
-// 33. Medicamentos de uso controlado
-db.Medicamentos.find({ tipo: "Controlado" })
-
-// 34. Mostrar el proveedor con más medicamentos entregados
-db.Medicamentos.aggregate([
-  { $group: { _id: "$proveedor", total: { $sum: 1 } } },
-  { $sort: { total: -1 } }
-])
-
-// 35. Mostrar disponibilidad por tipo
+//  Mostrar disponibilidad por tipo
 db.Medicamentos.aggregate([
   { $group: { _id: { tipo: "$tipo", disponibilidad: "$disponibilidad" }, total: { $sum: 1 } } }
 ])
 
----
 
-### 🧾 3. Historiales clínicos (15 consultas)
+[
+  { _id: { tipo: 'Antihipertensivo', disponibilidad: true }, total: 2 },
+  {
+    _id: { tipo: 'Antiácido / Antiulceroso', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Antidiabético Oral', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Procinético / Antiemético', disponibilidad: true },
+    total: 1
+  },
+  { _id: { tipo: 'Antipsicótico', disponibilidad: true }, total: 1 },
+  {
+    _id: {
+      tipo: 'Estimulante Adrenérgico / Emergencia',
+      disponibilidad: true
+    },
+    total: 1
+  },
+  {
+    _id: {
+      tipo: 'Relajante Muscular (Despolarizante)',
+      disponibilidad: true
+    },
+    total: 1
+  },
+  {
+    _id: { tipo: 'AINE / Analgésico', disponibilidad: true },
+    total: 1
+  },
+  { _id: { tipo: 'Vitamina', disponibilidad: true }, total: 1 },
+  { _id: { tipo: 'Anestésico Local', disponibilidad: true }, total: 1 },
+  {
+    _id: { tipo: 'Analgésico / Antipirético', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Antiagregante Plaquetario', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Antidepresivo ISRS', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Anestésico Intravenoso', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Anticoagulante Oral', disponibilidad: true },
+    total: 1
+  },
+  {
+    _id: { tipo: 'Corticoide / Antiinflamatorio', disponibilidad: true },
+    total: 1
+  },
+  { _id: { tipo: 'Insulina', disponibilidad: true }, total: 1 },
+  {
+    _id: { tipo: 'Anticolinérgico / Emergencia', disponibilidad: true },
+    total: 1
+  },
+  { _id: { tipo: 'Antiemético', disponibilidad: true }, total: 1 },
+  {
+    _id: { tipo: 'Solución Intravenosa / Nutrición', disponibilidad: true },
+    total: 1
+  }
+]
 
-// 36. Historial por paciente
-db.HistoriaClinica.find({ id_paciente: ObjectId("...") })
+// Historial por paciente
 
-// 37. Diagnósticos más frecuentes
+db.HistoriaClinica.find({ paciente: ObjectId('be2d259697cd42fc99d36162') })
+[
+  {
+    _id: ObjectId('688824670be2cd6239fe6c2e'),
+    paciente: ObjectId('be2d259697cd42fc99d36162'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  },
+  {
+    _id: ObjectId('6888bca9c8a16e0939fe6961'),
+    paciente: ObjectId('be2d259697cd42fc99d36162'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  }
+]
+
+
+//  Diagnósticos más frecuentes
 db.HistoriaClinica.aggregate([
   { $group: { _id: "$diagnostico", total: { $sum: 1 } } },
   { $sort: { total: -1 } }
 ])
 
-// 38. Tratamientos más comunes
-db.HistoriaClinica.aggregate([
+//  Tratamientos más comunes
+db.Tratamientos.aggregate([
   { $unwind: "$tratamientos" },
   { $group: { _id: "$tratamientos.nombre", total: { $sum: 1 } } }
 ])
