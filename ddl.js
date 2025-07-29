@@ -1,3 +1,21 @@
+// Para la creacion de la base de datos
+
+use Sistemahospitalario;
+
+// Para la creacion d ela coleccion con su respectiva validacion dependiendo de los requerimientos de la coleccion
+
+db.createCollection( "nombre_de_la_coleccion", {
+  validator: { <validador> },
+  validationLevel: "off" | "moderate" | "strict",
+  validationAction: "warn" | "error"
+})
+
+// Al insertar la data en estas colecciones, usando el comando:
+
+db.namecolecction.insertMany([])
+
+//Esctructura de las colecciones:
+
 // Hospital
 {
   "_id": "ObjectId()",               // ObjectId
@@ -285,3 +303,6 @@
   "estado": "string",
   "tipo": "string"
 }
+
+
+// Creaccion de usuarios

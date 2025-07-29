@@ -84,7 +84,7 @@
 <div align="center">
  <h2>Introducción</h2>
 </div>
-En este documento se halla la especificación del desarrollo de la **base de datos** realizada para un **sistema hospitalario** de Colombia, el cual busca permitir la gestión eficiente de todas las operaciones relacionadas con la administración de este sistema.
+En este documento se halla la especificación del desarrollo de la base de datos realizada para un sistema hospitalario de Colombia, el cual busca permitir la gestión eficiente de todas las operaciones relacionadas con la administración de este sistema.
 
 Entre los problemas más destacados se encuentran la gestión deficiente de clientes y repuestos, la ineficiencia en la cadena de suministro y las dificultades en el análisis de ventas y compras.
 
@@ -98,7 +98,7 @@ Finalmente, el **modelo físico** para la implementación de una base de datos e
 
 El plasmar estos datos tiene como objetivo para esta documentación la **representación visual** que define los sistemas de recopilación y administración de información del Sistema Hospitalario, logrando ayudar a las diferentes partes interesadas, como analistas e ingenieros, para interpretar de manera efectiva los datos.
 
----
+
 
 ## Caso de Estudio
 
@@ -184,12 +184,21 @@ Gestión institucional, financiera y de talento humano.
 
 
 * Cada hospital tiene un **director general**, pero un director puede supervisar varios hospitales.
+
+### En este caso, los 3 hospitales son dirigidos por el mismo director general.
+
 * Cada hospital tiene un conjunto de **médicos, enfermeras y personal administrativo**.
+
+Cada hospital tiene mas de 40 médicos, 70 enfermeros y 7 administrativos
+
 * Los hospitales deben contar con un **historial detallado de pacientes y tratamientos realizados**.
+
+Registrado en hospital clinico y tratamientos.
 
 ### Pacientes
 
 * Los pacientes se identifican por su **número de historia clínica, nombre, dirección, teléfono, correo electrónico y seguros médicos**.
+
 * Los historiales médicos incluyen **diagnósticos, tratamientos realizados y resultados**.
 
 ### Médicos y Personal
@@ -1537,6 +1546,7 @@ Una tabla está en **2FN** si cumple con los siguientes criterios:
 
 La Segunda Forma Normal es el segundo nivel de normalización en el diseño de una base de datos. Se aplica a las tablas que ya cumplen con la Primera Forma Normal (1FN) y busca eliminar **dependencias parciales** dentro de una tabla.
 
+
 ``` mermaid
 ---
 config:
@@ -1544,251 +1554,294 @@ config:
 title: Sample title
 ---
 erDiagram
-	direction TB
-	Hospital {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string direccion  ""  
-		string telefono  ""  
-		string codigo_habilitacion  ""  
-		string tipo_institucion  ""  
-		string nivel_complejidad  ""  
-	}
-	Administrativos {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string telefono  ""  
-		string correo  ""  
-		string rol  ""  
-		string horario  ""  
-		ObjectId id_tipo_personal FK ""  
-	}
-	AdministrativoHospital {
-		ObjectId id PK ""  
-		ObjectId id_administrativo FK ""  
-		ObjectId id_hospital FK ""  
-	}
-	Medicos {
-		ObjectId id PK ""  
-	
-		string rol  ""  
- 
-		date fecha_ingreso  ""  
-		string correo  ""  
-		string telefono  ""  
-		string numero_colegiatura  ""  
-		string area_asignada  ""  
-		ObjectId hospital_id FK ""  
-		string estado  ""  
-		ObjectId id_horario FK ""  
-		ObjectId id_tipo_personal FK ""  
-	}
-	Horario {
-		ObjectId id PK ""  
-		string horario_tipo  ""  
-		string dias  ""  
-	}
-	Enfermeros {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string rol  ""  
-		ObjectId id_tipo_personal FK ""  
-		date fecha_ingreso  ""  
-		string numero_colegiatura  ""  
-		string correo  ""  
-		string telefono  ""  
-		string area_asignada  ""  
-		ObjectId hospital_id FK ""  
-		string estado  ""  
-		string horario FK ""  
-	}
-	Mantenimiento {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string correo  ""  
-		string telefono  ""  
-		objectid servicios FK ""  
-		ObjectId hospital_id FK ""  
-		date fecha_ingreso  ""  
-		string estado  ""  
-		string horario  ""  
-		ObjectId id_tipo_personal FK ""  
-	}
-	ServiciosMantenimineto {
-		ObjectId id PK ""  
-		string tipo_ambiente  ""  
-		string nombre_servicio  ""  
-	}
-	Pacientes {
-		ObjectId id PK ""  
-		ObjectId hospital_registro_id FK ""  
-		string nombre  ""  
-		string tipo_identificacion  ""  
-		string numero_identificacion  ""  
-		date fecha_nacimiento  ""  
-		string genero  ""  
-		string direccion  ""  
-		string telefono_contacto  ""  
-		date fecha_registro  ""  
-		string estado_paciente  ""  
-		string nivel_atencion  ""  
-		string eps_actual  "" 
-        string seguro_medico 
-	}
----
-	HistoriaClinica {
-		ObjectId id PK ""  
-		ObjectId paciente FK ""  
-		ObjectId tratamiento FK ""  
-	}
 
-	
-	VisitasMedicas {
-		ObjectId id PK ""  
-		date fecha_visita  ""  
-		ObjectId id_tratamiento FK ""  
-		ObjectId id_medico FK ""  
-		ObjectId id_paciente FK ""  
-		ObjectId id_hospital FK ""  
-		string tipo_visita  ""  
-		string estado_visita  ""  
-		string observaciones  ""  
-	}
-	Sintomas {
-		ObjectId id PK ""  
-		string descripcion  ""  
-		string observaciones  ""  
-		date fehca_encontrada  ""  
-	}
-	Enfermedades {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string tipo  ""  
-		string clasificacion  ""  
-		objectid id_sintoma  ""  
-	}
-	Tratamientos {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string descripcion  ""  
-		decimal costo  ""  
-		string duracion  ""  
-		ObjectId area_relacionada FK ""  
+%% ========= ENTIDADES PRINCIPALES =========
 
-		string via_administracion  ""  
-        int FrecuenciaAplicacion
-	}
-	Beneficios {
-		ObjectId id PK ""  
-		string descripcion  ""  
-		ObjectId id_tratamiento FK ""  
-	}
-	Requerimientos {
-		ObjectId id PK ""  
-		string descripcion  ""  
-		ObjectId id_tratamiento FK ""  
----
-	}
-	
+Hospital {
+	ObjectId id PK
+	string nombre
+	string direccion
+	string telefono
+	string codigo_habilitacion
+	string tipo_institucion
+	string nivel_complejidad
+}
 
-	Medicamentos {
-		ObjectId id PK ""  
-		string nombre  ""  
-		string principio_activo  ""  
-		string concentracion  ""  
-		string tipo  ""  
-		string lote  ""  
-		boolean disponibilidad  ""  
-		string fabricante  ""  
-	}
-	Presentaciones {
-		ObjectId id PK ""  
-		string tipo_presentacion  ""  
-		ObjectId id_medicamento FK ""  
-	}
-	Inventario {
-		ObjectId id PK ""  
-		ObjectId id_hospital FK ""  
-		ObjectId id_medicamento FK ""  
-		int stock  ""  
-		date fecha_ultima_actualizacion  ""  
-	}
-	Proveedores {
-		ObjectId id PK ""  
-		string nombre_empresa  ""  
-		string nit  ""  
-		string tipo  ""  
-		date fecha  ""  
-		string terminos_pago  ""  
-	}
-	Areas {
-		ObjectId codigo PK ""  
-		string tipo_area  ""  
-		string descripcion  ""  
-		string estado  ""  
-		ObjectId id_hospital FK ""  
-	}
-	AreaEspecializacion {
-		ObjectId id PK ""  
-		ObjectId id_area FK ""  
-		date fecha_asignacion  ""  
-		ObjectId id_hospital FK ""  
-		string estado  ""  
-	}
-	Subareas {
-		ObjectId id PK ""  
-		string nombre_subarea  ""  
-		ObjectId id_area FK ""  
-		string descripcion  ""  
-		string estado  ""  
-		string tipo  ""  
-	}
-	TiposPersonal {
-		ObjectId id PK ""  
-		string codigo  ""  
-		string nombre  ""  
-		string descripcion  ""  
-		decimal salario_base  ""  
-	}
-	Hospital||--o{AdministrativoHospital:"contiene"
-	AdministrativoHospital}o--||Administrativos:"asigna"
-	Hospital||--o{TiposPersonal:"emplea"
-	TiposPersonal||--o{Enfermeros:"emplea"
-	TiposPersonal||--o{Mantenimiento:"emplea"
-	Hospital||--o{Pacientes:"atiende"
-	Hospital||--o{Areas:"contiene"
-	Areas||--o{Subareas:"subdivide"
-	Areas||--o{AreaEspecializacion:"maneja"
-	Medicos||--o{VisitasMedicas:"realiza"
-   
-	TiposPersonal||--o{Medicos:"clasifica"
-	TiposPersonal||--o{Enfermeros:"clasifica"
-	TiposPersonal||--o{Administrativos:"clasifica"
-	Pacientes||--o{VisitasMedicas:"recibe"
-	VisitasMedicas||--||Tratamientos:"prescribe"
-	Tratamientos||--o{Medicamentos:"utiliza"
-	
-	Medicamentos||--o{Inventario:"disponible_en"
-	Inventario}o--||Hospital:"tiene_stock"
-	Medicamentos||--o{Presentaciones:"tiene"
-	Hospital||--o{Proveedores:"abastece"
-	Pacientes||--o{HistoriaClinica:"posee"
-	HistoriaClinica}o--||Tratamientos:"relacionados"
-	
-	Pacientes||--o{Enfermedades:"diagnostica"
-	Enfermedades||--o{Sintomas:"presenta"
-	VisitasMedicas||--o{Enfermedades:"detecta"
-	VisitasMedicas||--o{Sintomas:"observa"
-	Tratamientos||--o{Beneficios:"ofrece"
-	Tratamientos||--o{Requerimientos:"necesita"
-	
-	
-	Medicos||--||Horario:"turno"
-	Enfermeros||--||Horario:"turno"
-	Mantenimiento||--||ServiciosMantenimineto:"presta"
-	Mantenimiento||--||Horario:"turno"
+Administrativos {
+	ObjectId id PK
+	string nombre
+	string telefono
+	string correo
+	string rol
+	ObjectId horario
+	ObjectId id_tipo_personal FK
+}
+
+AdministrativoHospital {
+	ObjectId id PK
+	ObjectId id_administrativo FK
+	ObjectId id_hospital FK
+}
+
+Medicos {
+	ObjectId id PK
+	string rol
+	date fecha_ingreso
+	string correo
+	string telefono
+	string numero_colegiatura
+	string area_asignada
+	ObjectId hospital_id FK
+	string estado
+	ObjectId id_horario FK
+	ObjectId id_tipo_personal FK
+}
+
+Enfermeros {
+	ObjectId id PK
+	string nombre
+	string rol
+	ObjectId id_tipo_personal FK
+	date fecha_ingreso
+	string numero_colegiatura
+	string correo
+	string telefono
+	string area_asignada
+	ObjectId hospital_id FK
+	string estado
+	ObjectId horario FK
+}
+
+Mantenimiento {
+	ObjectId id PK
+	string nombre
+	string correo
+	string telefono
+	ObjectId servicios FK
+	ObjectId hospital_id FK
+	date fecha_ingreso
+	string estado
+	ObjectId horario FK
+	ObjectId id_tipo_personal FK
+}
+
+Pacientes {
+	ObjectId id PK
+	ObjectId hospital_registro_id FK
+	string nombre
+	string tipo_identificacion
+	string numero_identificacion
+	date fecha_nacimiento
+	string genero
+	string direccion
+	string telefono_contacto
+	date fecha_registro
+	string estado_paciente
+	string nivel_atencion
+	ObjectId id_eps FK
+	ObjectId id_seguro FK
+}
+
+VisitasMedicas {
+	ObjectId id PK
+	date fecha_visita
+	ObjectId id_tratamiento FK
+	ObjectId id_medico FK
+	ObjectId id_paciente FK
+	ObjectId id_hospital FK
+	string tipo_visita
+	string estado_visita
+	string observaciones
+}
+
+Tratamientos {
+	ObjectId id PK
+	string nombre
+	string descripcion
+	decimal costo
+	string duracion
+	ObjectId area_relacionada FK
+	string via_administracion
+	int FrecuenciaAplicacion
+}
+
+HistoriaClinica {
+	ObjectId id PK
+	ObjectId paciente FK
+	ObjectId tratamiento FK
+}
+
+EPS {
+	ObjectId id PK
+	string nombre
+	string nit
+	string tipo
+	string nivel
+	string telefono
+	string correo
+}
+
+Seguros {
+	ObjectId id PK
+	string nombre
+	string compañia
+	string tipo
+	string nivel_cobertura
+	string plan
+	string telefono
+}
+
+Enfermedades {
+	ObjectId id PK
+	string nombre
+	string tipo
+	string clasificacion
+	ObjectId id_sintoma FK
+}
+
+Sintomas {
+	ObjectId id PK
+	string descripcion
+	string observaciones
+	date fecha_encontrada
+}
+
+Beneficios {
+	ObjectId id PK
+	string descripcion
+	ObjectId id_tratamiento FK
+}
+
+Requerimientos {
+	ObjectId id PK
+	string descripcion
+	ObjectId id_tratamiento FK
+}
+
+Medicamentos {
+	ObjectId id PK
+	string nombre
+	string principio_activo
+	string concentracion
+	string tipo
+	string lote
+	boolean disponibilidad
+	string fabricante
+}
+
+Presentaciones {
+	ObjectId id PK
+	string tipo_presentacion
+	ObjectId id_medicamento FK
+}
+
+Inventario {
+	ObjectId id PK
+	ObjectId id_hospital FK
+	ObjectId id_medicamento FK
+	int stock
+	date fecha_ultima_actualizacion
+}
+
+Proveedores {
+	ObjectId id PK
+	string nombre_empresa
+	string nit
+	string tipo
+	date fecha
+	string terminos_pago
+}
+
+ServiciosMantenimiento {
+	ObjectId id PK
+	string tipo_ambiente
+	string nombre_servicio
+}
+
+Horario {
+	ObjectId id PK
+	string horario_tipo
+	string dias
+}
+
+TiposPersonal {
+	ObjectId id PK
+	string codigo
+	string nombre
+	string descripcion
+	decimal salario_base
+}
+
+Areas {
+	ObjectId codigo PK
+	string tipo_area
+	string descripcion
+	string estado
+	ObjectId id_hospital FK
+}
+
+AreaEspecializacion {
+	ObjectId id PK
+	ObjectId id_area FK
+	date fecha_asignacion
+	ObjectId id_hospital FK
+	string estado
+}
+
+Subareas {
+	ObjectId id PK
+	string nombre_subarea
+	ObjectId id_area FK
+	string descripcion
+	string estado
+	string tipo
+}
+
+%% ========= RELACIONES =========
+
+Hospital ||--o{ AdministrativoHospital : "contiene"
+Hospital ||--o{ Areas : "contiene"
+Hospital ||--o{ AreaEspecializacion : "cuenta_con"
+Areas ||--o{ AreaEspecializacion : "maneja"
+
+AdministrativoHospital }o--|| Administrativos : "asigna"
+Hospital ||--o{ TiposPersonal : "emplea"
+TiposPersonal ||--o{ Enfermeros : "clasifica"
+TiposPersonal ||--o{ Medicos : "clasifica"
+TiposPersonal ||--o{ Administrativos : "clasifica"
+TiposPersonal ||--o{ Mantenimiento : "clasifica"
+Hospital ||--o{ Pacientes : "atiende"
+Hospital ||--o{ Areas : "contiene"
+Areas ||--o{ Subareas : "subdivide"
+
+AreaEspecializacion ||--o{ Medicos : "especializa"
+Medicos ||--o{ VisitasMedicas : "realiza"
+Pacientes ||--o{ VisitasMedicas : "recibe"
+VisitasMedicas ||--|| Tratamientos : "prescribe"
+Tratamientos ||--o{ Medicamentos : "utiliza"
+Medicamentos ||--o{ Inventario : "disponible_en"
+Inventario }o--|| Hospital : "tiene_stock"
+Medicamentos ||--o{ Presentaciones : "tiene"
+Hospital ||--o{ Proveedores : "abastece"
+Pacientes ||--o{ HistoriaClinica : "posee"
+HistoriaClinica }o--|| Tratamientos : "relacionados"
+Pacientes ||--o{ Enfermedades : "diagnostica"
+Enfermedades ||--o{ Sintomas : "presenta"
+VisitasMedicas ||--o{ Enfermedades : "detecta"
+VisitasMedicas ||--o{ Sintomas : "observa"
+Tratamientos ||--o{ Beneficios : "ofrece"
+Tratamientos ||--o{ Requerimientos : "necesita"
+Medicos ||--|| Horario : "turno"
+Enfermeros ||--|| Horario : "turno"
+Mantenimiento ||--|| Horario : "turno"
+Mantenimiento ||--|| ServiciosMantenimiento : "presta"
+Pacientes }o--|| EPS : "afiliado_a"
+Pacientes }o--|| Seguros : "posee"
 
 ``` 
+
+
+
 ## Las Entidades y Atributos
 
 ### 1. Hospital :  
@@ -2473,11 +2526,11 @@ Pacientes }o--|| Seguros : "posee"
 
 # Construcción del Modelo Físico
 
-Se diseñó el modelo físico considerando el modelo lógico que incluye todas las entidades, sus atributos y las relaciones entre ellas. Además, este modelo incorpora los tipos de datos de los atributos previamente definidos, los cuales fueron estructurados en tablas utilizando el lenguaje de un Sistema de Gestión de Bases de Datos (SGBD) compatible con la plataforma **MySQL**.
+Se diseñó el modelo físico considerando el modelo lógico que incluye todas las entidades, sus atributos y las relaciones entre ellas. Además, este modelo incorpora los tipos de datos de los atributos previamente definidos, los cuales fueron estructurados en colecciones utilizando el lenguaje de un Sistema de Gestión de Bases de Datos (SGBD) compatible con la plataforma **MongoDB**.
 
 ## Descripción
 
-El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se representa como una tabla compuesta por sus atributos correspondientes, organizados en columnas con tipos de datos específicos según sea necesario.
+El modelo físico se diseñó para funcionar en **MongoDB**, donde cada entidad se representa como una coleccion por sus atributos correspondientes, organizados en columnas con tipos de datos específicos según sea necesario.
 
 ## Colecciones
 
@@ -2767,7 +2820,7 @@ El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se
 }
 ```
 
-## 🕓 Horario
+##  Horario
 
 ```json
 {
@@ -2829,6 +2882,76 @@ El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se
 
 
 
+#  Tecnologías y Herramientas Utilizadas
+
+El desarrollo del sistema hospitalario se llevó a cabo utilizando las siguientes tecnologías y herramientas:
+
+### 1. MongoDB
+
+Base de datos NoSQL orientada a documentos, ideal para almacenar y consultar grandes volúmenes de información estructurada y semiestructurada.
+
+- **MongoDB Server** 
+- **MongoDB Compass**: herramienta visual para consultas, inspección de colecciones y agregaciones.
+
+### 2. MongoDB Query Language (MQL)
+
+Lenguaje nativo para realizar operaciones sobre los documentos. Utilizado para:
+
+- Consultas básicas (`find`, `insert`, `update`, `delete`)
+- Agregaciones avanzadas (`$lookup`, `$unwind`, `$group`, `$match`, `$project`, `$regex`, etc.)
+
+### 3. JavaScript (Funciones Simuladas)
+
+Se implementaron **20 funciones simuladas** usando JavaScript para reutilización de lógica dentro de MongoDB:
+
+```javascript
+db.system.js.save({
+  _id: "nombreFuncion",
+  value: function(parametro) {
+  }
+});
+```
+
+##  4. GitHub
+
+Repositorio **en GitHub** para entrega y control de versiones del proyecto.
+
+###  Estructura organizada por carpetas:
+
+- `ddl.json` → Creación de colecciones y estructura de la base de datos.
+- `dml.json` → Inserciones de datos.
+- `dql_select.json` → Consultas básicas y avanzadas.
+- `dql_funciones.json` → Funciones JavaScript simuladas reutilizables.
+- `README.md` → Documentación general del sistema.
+
+
+##  5. Herramientas de Modelado
+
+Se utilizaron herramientas de diagramación para representar el modelo lógico y entidad-relación del sistema:
+
+- **Mermaid.js** para diagramas ER en Markdown.
+
+
+# Instalación Rápida
+
+### 1. Clona el repositorio:
+
+```bash
+git clone https://github.com/Sarasofia1214/MongoDB_DiazSara.git
+cd MongoDB_DiazSara
+```
+2. Conéctate a la base de datos MongoDB Atlas:
+```bash
+mongosh 'mongodb+srv://saradiaz01214:Adri1206@cluster0.kxkmcm5.mongodb.net/'
+```
+3. Selecciona la base de datos del sistema hospitalario:
+``` js
+use Sistemahospitalario
+```
+4. Ya puedes ejecutar consultas y funciones con esos pasos.
+
+
+
 # Referencias
 
 En el presente documento del Ministerio de la Protección Social
@@ -2841,7 +2964,12 @@ Para la busqueda de la informacion verdiica de los hopitales, se busco en REPS d
 https://prestadores.minsalud.gov.co/habilitacion/consultas/habilitados_reps.aspx?pageTitle=Registro+Actual&pageHlp=
 
 
+# 📬 Contacto
 
+Si tienes preguntas, sugerencias o encuentras algún problema con la implementación, no dudes en contactarme a través de:
+
+- GitHub: [Sarasofia1214](https://github.com/Sarasofia1214)
+- Puedes abrir un [Issue aquí](https://github.com/Sarasofia1214/MongoDB_DiazSara/issues)
 
 
 

@@ -10326,10 +10326,6 @@ db.HistoriaClinica.insertMany([
 
 
 
-  // Validacion Subareas
-
-
-
 
   // Validacion Subareas
 
@@ -10369,6 +10365,7 @@ db.HistoriaClinica.insertMany([
 
 
 // Coleccion Subareas
+
 db.Subareas.insertMany([
   // Subáreas para 'Cocina del hospital' (area011 - hos001) - Basado en image_103202.png
   {
