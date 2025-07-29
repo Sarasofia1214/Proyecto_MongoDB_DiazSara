@@ -62,7 +62,12 @@ db.Enfermeros.aggregate([
   { $group: { _id: "$id_hospital", total_enfermeros: { $sum: 1 } } }
 ])
 
-[ { _id: 'hosp001', total_enfermeros: 70 } ]
+[
+  { _id: 'hosp002', total_enfermeros: 70 },
+  { _id: 'hosp003', total_enfermeros: 70 },
+  { _id: 'hosp001', total_enfermeros: 70 }
+]
+
 
 
 // 3. Total de áreas especializadas por hospital
@@ -288,7 +293,108 @@ db.Medicos.find({}, { nombre: 1, especialidad: 1, id_hospital: 1 })
 // 5. Listar enfermeros por hospital
 db.Enfermeros.find({}, { nombre: 1, id_hospital: 1 })
 
-
+[
+  {
+    _id: 'enf141',
+    nombre: 'Laura Patricia Ramírez Vargas',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf142',
+    nombre: 'Jorge Enrique Torres Méndez',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf143',
+    nombre: 'Sandra Liliana Herrera Castro',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf144',
+    nombre: 'Diego Alejandro Mendoza Rojas',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf145',
+    nombre: 'Paola Andrea Núñez Guzmán',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf146',
+    nombre: 'Oscar Javier Romero Pineda',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf147',
+    nombre: 'Luisa Fernanda Castro Ríos',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf148',
+    nombre: 'Andrés Felipe Rojas Paredes',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf149',
+    nombre: 'Carolina Estefanía Mendoza Vásquez',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf150',
+    nombre: 'Diego Armando Guzmán Soto',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf151',
+    nombre: 'Paula Andrea Restrepo Londoño',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf152',
+    nombre: 'Mauricio Alejandro Parra Jiménez',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf153',
+    nombre: 'Diana Marcela Ospina Valencia',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf154',
+    nombre: 'Julio César Peña Arango',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf155',
+    nombre: 'Sandra Milena Quintero Zapata',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf156',
+    nombre: 'Rafael Antonio Mejía Cardona',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf157',
+    nombre: 'Gloria Stella Arias Betancur',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf158',
+    nombre: 'Álvaro Javier Giraldo Osorio',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf159',
+    nombre: 'Mónica Liliana Cárdenas Franco',
+    id_hospital: 'hosp003'
+  },
+  {
+    _id: 'enf160',
+    nombre: 'Jairo Alonso Montoya Restrepo',
+    id_hospital: 'hosp003'
+  }
+]
 
 
 // 6. Mostrar hospitales con más de 10 médicos
@@ -297,11 +403,12 @@ db.Medicos.aggregate([
   { $match: { total: { $gt: 10 } } }
 ])
 
-// 7. Mostrar hospitales con menos de 5 enfermeros
-db.Enfermeros.aggregate([
-  { $group: { _id: "$id_hospital", total: { $sum: 1 } } },
-  { $match: { total: { $lt: 5 } } }
-])
+[
+  { _id: 'hos002', total: 46 },
+  { _id: 'hos003', total: 50 },
+  { _id: 'hos001', total: 50 }
+]
+
 
 // 8. Mostrar hospitales que tienen laboratorio clínico
 db.Horario.find({ horario_tipo: /Laboratorio/ })
@@ -322,7 +429,6 @@ db.Horario.find({ horario_tipo: /Laboratorio/ })
 
 // 9. Listar hospitales con tipo de institución "Privado"
 db.Hospitales.find({ tipo_institucion: "Privada" })
-
 [
 {
   _id: ObjectId('6887ea5f0be2cd6239fe6b03'),
@@ -335,7 +441,6 @@ db.Hospitales.find({ tipo_institucion: "Privada" })
   nivel_complejidad: 'Alta Complejidad'
 }
 ]
-
 
 
 // 10. Mostrar hospitales por nivel de complejidad

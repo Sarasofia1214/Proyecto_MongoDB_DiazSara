@@ -3026,6 +3026,7 @@ db.createCollection("Tratamientos", {
 
 
   // Coleccion Enfermeros
+  db.Enfermeros.insertMany(
   [
     {
       "_id": "ObjectId('enf001')",
@@ -3716,18 +3717,1408 @@ db.createCollection("Tratamientos", {
       "horario": "ObjectId('hor001')",
       "id_tipo_personal": "ObjectId('tipop003')",
       "id_hospital": "ObjectId('hosp001')"
+    },  {
+      "_id": "enf071",
+      "nombre": "Paola Andrea Núñez Guzmán",
+      "telefono": "3018899010",
+      "correo": "paola.nunez@hospital.com",
+      "rol": "Enfermera de Cardiología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
     },
     {
-      "_id": "ObjectId('enf070')",
-      "nombre": "Juan José Herrera Soto",
-      "telefono": "3056677889",
-      "correo": "juan.herrera@hospital.com",
-      "rol": "Enfermero de Unidad de Cuidados Intermedios",
-      "horario": "ObjectId('hor008')",
-      "id_tipo_personal": "ObjectId('tipop003')",
-      "id_hospital": "ObjectId('hosp001')"
-    }
-  ]
+      "_id": "enf072",
+      "nombre": "Oscar Javier Romero Pineda",
+      "telefono": "3018899011",
+      "correo": "oscar.romero@hospital.com",
+      "rol": "Enfermero de Rehabilitación",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf073",
+      "nombre": "Luisa Fernanda Castro Ríos",
+      "telefono": "3018899012",
+      "correo": "luisa.castro@hospital.com",
+      "rol": "Enfermera de Oncología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf074",
+      "nombre": "Andrés Felipe Rojas Paredes",
+      "telefono": "3018899013",
+      "correo": "andres.rojas@hospital.com",
+      "rol": "Enfermero de Psiquiatría",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf075",
+      "nombre": "Carolina Estefanía Mendoza Vásquez",
+      "telefono": "3018899014",
+      "correo": "carolina.mendoza@hospital.com",
+      "rol": "Enfermera de Endocrinología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf076",
+      "nombre": "Diego Armando Guzmán Soto",
+      "telefono": "3018899015",
+      "correo": "diego.guzman@hospital.com",
+      "rol": "Enfermero de Geriatría",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf077",
+      "nombre": "Paula Andrea Restrepo Londoño",
+      "telefono": "3018899016",
+      "correo": "paula.restrepo@hospital.com",
+      "rol": "Enfermera de Nefrología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf078",
+      "nombre": "Mauricio Alejandro Parra Jiménez",
+      "telefono": "3018899017",
+      "correo": "mauricio.parra@hospital.com",
+      "rol": "Enfermero de Neumología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf079",
+      "nombre": "Diana Marcela Ospina Valencia",
+      "telefono": "3018899018",
+      "correo": "diana.ospina@hospital.com",
+      "rol": "Enfermera de Gastroenterología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf080",
+      "nombre": "Julio César Peña Arango",
+      "telefono": "3018899019",
+      "correo": "julio.pena@hospital.com",
+      "rol": "Enfermero de Hematología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf081",
+      "nombre": "Sandra Milena Quintero Zapata",
+      "telefono": "3018899020",
+      "correo": "sandra.quintero@hospital.com",
+      "rol": "Enfermera de Infectología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf082",
+      "nombre": "Rafael Antonio Mejía Cardona",
+      "telefono": "3018899021",
+      "correo": "rafael.mejia@hospital.com",
+      "rol": "Enfermero de Alergología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf083",
+      "nombre": "Gloria Stella Arias Betancur",
+      "telefono": "3018899022",
+      "correo": "gloria.arias@hospital.com",
+      "rol": "Enfermera de Medicina Interna",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf084",
+      "nombre": "Álvaro Javier Giraldo Osorio",
+      "telefono": "3018899023",
+      "correo": "alvaro.giraldo@hospital.com",
+      "rol": "Enfermero de Cirugía General",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf085",
+      "nombre": "Mónica Liliana Cárdenas Franco",
+      "telefono": "3018899024",
+      "correo": "monica.cardenas@hospital.com",
+      "rol": "Enfermera de Cirugía Plástica",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf086",
+      "nombre": "Jairo Alonso Montoya Restrepo",
+      "telefono": "3018899025",
+      "correo": "jairo.montoya@hospital.com",
+      "rol": "Enfermero de UCI",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf087",
+      "nombre": "Claudia Patricia Marín Escobar",
+      "telefono": "3018899026",
+      "correo": "claudia.marin@hospital.com",
+      "rol": "Enfermera de UCI Neonatal",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf088",
+      "nombre": "Wilson Eduardo Agudelo Velásquez",
+      "telefono": "3018899027",
+      "correo": "wilson.agudelo@hospital.com",
+      "rol": "Enfermero de UCI Pediátrica",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf089",
+      "nombre": "Ángela María Correa Henao",
+      "telefono": "3018899028",
+      "correo": "angela.correa@hospital.com",
+      "rol": "Enfermera de UCI Cardiológica",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf090",
+      "nombre": "Hugo Armando Zapata Londoño",
+      "telefono": "3018899029",
+      "correo": "hugo.zapata@hospital.com",
+      "rol": "Enfermero de UCI Neurológica",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf091",
+      "nombre": "Liliana Patricia Uribe Sosa",
+      "telefono": "3018899030",
+      "correo": "liliana.uribe@hospital.com",
+      "rol": "Enfermera de UCI Quirúrgica",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf092",
+      "nombre": "Óscar Darío Carmona Arcila",
+      "telefono": "3018899031",
+      "correo": "oscar.carmona@hospital.com",
+      "rol": "Enfermero de Hemodiálisis",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf093",
+      "nombre": "Martha Cecilia Velásquez Mesa",
+      "telefono": "3018899032",
+      "correo": "martha.velasquez@hospital.com",
+      "rol": "Enfermera de Quemados",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf094",
+      "nombre": "Guillermo León Arango Vélez",
+      "telefono": "3018899033",
+      "correo": "guillermo.arango@hospital.com",
+      "rol": "Enfermero de Trasplantes",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf095",
+      "nombre": "Beatriz Elena Franco Gutiérrez",
+      "telefono": "3018899034",
+      "correo": "beatriz.franco@hospital.com",
+      "rol": "Enfermera de Cuidados Paliativos",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf096",
+      "nombre": "Ricardo Emilio Palacio Ceballos",
+      "telefono": "3018899035",
+      "correo": "ricardo.palacio@hospital.com",
+      "rol": "Enfermero de Salud Ocupacional",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf097",
+      "nombre": "Adriana Lucía Ramírez Castro",
+      "telefono": "3018899036",
+      "correo": "adriana.ramirez@hospital.com",
+      "rol": "Enfermera de Salud Pública",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf098",
+      "nombre": "Gabriel Esteban Torres Mendoza",
+      "telefono": "3018899037",
+      "correo": "gabriel.torres@hospital.com",
+      "rol": "Enfermero de Epidemiología",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf099",
+      "nombre": "Natalia Andrea Vargas Rojas",
+      "telefono": "3018899038",
+      "correo": "natalia.vargas@hospital.com",
+      "rol": "Enfermera de Vacunación",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf100",
+      "nombre": "Sergio Iván Herrera Guzmán",
+      "telefono": "3018899039",
+      "correo": "sergio.herrera@hospital.com",
+      "rol": "Enfermero de Triage",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf101",
+      "nombre": "Marcela Alejandra Silva Fuentes",
+      "telefono": "3018899040",
+      "correo": "marcela.silva@hospital.com",
+      "rol": "Enfermera de Admisión",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf102",
+      "nombre": "Jorge Luis Morales Duarte",
+      "telefono": "3018899041",
+      "correo": "jorge.morales@hospital.com",
+      "rol": "Enfermero de Esterilización",
+      "horario": "hor008",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf103",
+      "nombre": "Luisa Fernanda Castro Ríos",
+      "telefono": "3018899042",
+      "correo": "luisa.castro@hospital.com",
+      "rol": "Enfermera de Central de Equipos",
+      "horario": "hor008",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf104",
+      "nombre": "Felipe Andrés Rojas Paredes",
+      "telefono": "3018899043",
+      "correo": "felipe.rojas@hospital.com",
+      "rol": "Enfermero de Banco de Sangre",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf105",
+      "nombre": "Carolina Estefanía Mendoza Vásquez",
+      "telefono": "3018899044",
+      "correo": "carolina.mendoza@hospital.com",
+      "rol": "Enfermera de Laboratorio",
+      "horario": "hor005",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf106",
+      "nombre": "Diego Armando Guzmán Soto",
+      "telefono": "3018899045",
+      "correo": "diego.guzman@hospital.com",
+      "rol": "Enfermero de Imagenología",
+      "horario": "hor006",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf107",
+      "nombre": "Paula Andrea Restrepo Londoño",
+      "telefono": "3018899046",
+      "correo": "paula.restrepo@hospital.com",
+      "rol": "Enfermera de Farmacia",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf108",
+      "nombre": "Mauricio Alejandro Parra Jiménez",
+      "telefono": "3018899047",
+      "correo": "mauricio.parra@hospital.com",
+      "rol": "Enfermero de Nutrición",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf109",
+      "nombre": "Diana Marcela Ospina Valencia",
+      "telefono": "3018899048",
+      "correo": "diana.ospina@hospital.com",
+      "rol": "Enfermera de Terapia Respiratoria",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf110",
+      "nombre": "Julio César Peña Arango",
+      "telefono": "3018899049",
+      "correo": "julio.pena@hospital.com",
+      "rol": "Enfermero de Terapia Física",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf111",
+      "nombre": "Sandra Milena Quintero Zapata",
+      "telefono": "3018899050",
+      "correo": "sandra.quintero@hospital.com",
+      "rol": "Enfermera de Terapia Ocupacional",
+      "horario": "hor001",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf112",
+      "nombre": "Rafael Antonio Mejía Cardona",
+      "telefono": "3018899051",
+      "correo": "rafael.mejia@hospital.com",
+      "rol": "Enfermero de Cuidados Domiciliarios",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf113",
+      "nombre": "Gloria Stella Arias Betancur",
+      "telefono": "3018899052",
+      "correo": "gloria.arias@hospital.com",
+      "rol": "Enfermera de Cuidados Paliativos Domiciliarios",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf114",
+      "nombre": "Álvaro Javier Giraldo Osorio",
+      "telefono": "3018899053",
+      "correo": "alvaro.giraldo@hospital.com",
+      "rol": "Enfermero de Atención Domiciliaria",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf115",
+      "nombre": "Mónica Liliana Cárdenas Franco",
+      "telefono": "3018899054",
+      "correo": "monica.cardenas@hospital.com",
+      "rol": "Enfermera de Salud Mental Comunitaria",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf116",
+      "nombre": "Jairo Alonso Montoya Restrepo",
+      "telefono": "3018899055",
+      "correo": "jairo.montoya@hospital.com",
+      "rol": "Enfermero de Atención Primaria",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf117",
+      "nombre": "Claudia Patricia Marín Escobar",
+      "telefono": "3018899056",
+      "correo": "claudia.marin@hospital.com",
+      "rol": "Enfermera de Promoción y Prevención",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf118",
+      "nombre": "Wilson Eduardo Agudelo Velásquez",
+      "telefono": "3018899057",
+      "correo": "wilson.agudelo@hospital.com",
+      "rol": "Enfermero de Vigilancia Epidemiológica",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf119",
+      "nombre": "Ángela María Correa Henao",
+      "telefono": "3018899058",
+      "correo": "angela.correa@hospital.com",
+      "rol": "Enfermera de Salud Sexual y Reproductiva",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf120",
+      "nombre": "Hugo Armando Zapata Londoño",
+      "telefono": "3018899059",
+      "correo": "hugo.zapata@hospital.com",
+      "rol": "Enfermero de Crecimiento y Desarrollo",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf121",
+      "nombre": "Liliana Patricia Uribe Sosa",
+      "telefono": "3018899060",
+      "correo": "liliana.uribe@hospital.com",
+      "rol": "Enfermera de Control Prenatal",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf122",
+      "nombre": "Óscar Darío Carmona Arcila",
+      "telefono": "3018899061",
+      "correo": "oscar.carmona@hospital.com",
+      "rol": "Enfermero de Planificación Familiar",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf123",
+      "nombre": "Martha Cecilia Velásquez Mesa",
+      "telefono": "3018899062",
+      "correo": "martha.velasquez@hospital.com",
+      "rol": "Enfermera de Lactancia Materna",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf124",
+      "nombre": "Guillermo León Arango Vélez",
+      "telefono": "3018899063",
+      "correo": "guillermo.arango@hospital.com",
+      "rol": "Enfermero de Inmunizaciones",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf125",
+      "nombre": "Beatriz Elena Franco Gutiérrez",
+      "telefono": "3018899064",
+      "correo": "beatriz.franco@hospital.com",
+      "rol": "Enfermera de Control del Niño Sano",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf126",
+      "nombre": "Ricardo Emilio Palacio Ceballos",
+      "telefono": "3018899065",
+      "correo": "ricardo.palacio@hospital.com",
+      "rol": "Enfermero de Atención al Adulto Mayor",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf127",
+      "nombre": "Adriana Lucía Ramírez Castro",
+      "telefono": "3018899066",
+      "correo": "adriana.ramirez@hospital.com",
+      "rol": "Enfermera de Atención a Crónicos",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf128",
+      "nombre": "Gabriel Esteban Torres Mendoza",
+      "telefono": "3018899067",
+      "correo": "gabriel.torres@hospital.com",
+      "rol": "Enfermero de Atención a Discapacitados",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf129",
+      "nombre": "Natalia Andrea Vargas Rojas",
+      "telefono": "3018899068",
+      "correo": "natalia.vargas@hospital.com",
+      "rol": "Enfermera de Cuidados Paliativos Pediátricos",
+      "horario": "hor007",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf130",
+      "nombre": "Sergio Iván Herrera Guzmán",
+      "telefono": "3018899069",
+      "correo": "sergio.herrera@hospital.com",
+      "rol": "Enfermero de Cuidados Intensivos Neonatales",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf131",
+      "nombre": "Marcela Alejandra Silva Fuentes",
+      "telefono": "3018899070",
+      "correo": "marcela.silva@hospital.com",
+      "rol": "Enfermera de Cuidados Intensivos Pediátricos",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf132",
+      "nombre": "Jorge Luis Morales Duarte",
+      "telefono": "3018899071",
+      "correo": "jorge.morales@hospital.com",
+      "rol": "Enfermero de Emergencias Pediátricas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf133",
+      "nombre": "Luisa Fernanda Castro Ríos",
+      "telefono": "3018899072",
+      "correo": "luisa.castro2@hospital.com",
+      "rol": "Enfermera de Emergencias Adultos",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf134",
+      "nombre": "Felipe Andrés Rojas Paredes",
+      "telefono": "3018899073",
+      "correo": "felipe.rojas2@hospital.com",
+      "rol": "Enfermero de Emergencias Trauma",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf135",
+      "nombre": "Carolina Estefanía Mendoza Vásquez",
+      "telefono": "3018899074",
+      "correo": "carolina.mendoza2@hospital.com",
+      "rol": "Enfermera de Emergencias Cardiológicas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf136",
+      "nombre": "Diego Armando Guzmán Soto",
+      "telefono": "3018899075",
+      "correo": "diego.guzman2@hospital.com",
+      "rol": "Enfermero de Emergencias Neurológicas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf137",
+      "nombre": "Paula Andrea Restrepo Londoño",
+      "telefono": "3018899076",
+      "correo": "paula.restrepo2@hospital.com",
+      "rol": "Enfermera de Emergencias Respiratorias",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf138",
+      "nombre": "Mauricio Alejandro Parra Jiménez",
+      "telefono": "3018899077",
+      "correo": "mauricio.parra2@hospital.com",
+      "rol": "Enfermero de Emergencias Quirúrgicas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf139",
+      "nombre": "Diana Marcela Ospina Valencia",
+      "telefono": "3018899078",
+      "correo": "diana.ospina2@hospital.com",
+      "rol": "Enfermera de Emergencias Obstétricas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+    {
+      "_id": "enf140",
+      "nombre": "Julio César Peña Arango",
+      "telefono": "3018899079",
+      "correo": "julio.pena2@hospital.com",
+      "rol": "Enfermero de Emergencias Psiquiátricas",
+      "horario": "hor002",
+      "id_tipo_personal": "tipop003",
+      "id_hospital": "hosp002"
+    },
+      {
+        "_id": "enf141",
+        "nombre": "Laura Patricia Ramírez Vargas",
+        "telefono": "3028899001",
+        "correo": "laura.ramirez@hospital.com",
+        "rol": "Enfermera de Cuidados Intensivos",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf142",
+        "nombre": "Jorge Enrique Torres Méndez",
+        "telefono": "3028899002",
+        "correo": "jorge.torres@hospital.com",
+        "rol": "Enfermero de Hospitalización",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf143",
+        "nombre": "Sandra Liliana Herrera Castro",
+        "telefono": "3028899003",
+        "correo": "sandra.herrera@hospital.com",
+        "rol": "Enfermera de Neonatología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf144",
+        "nombre": "Diego Alejandro Mendoza Rojas",
+        "telefono": "3028899004",
+        "correo": "diego.mendoza@hospital.com",
+        "rol": "Enfermero de Emergencias",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf145",
+        "nombre": "Paola Andrea Núñez Guzmán",
+        "telefono": "3028899005",
+        "correo": "paola.nunez@hospital.com",
+        "rol": "Enfermera de Cardiología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf146",
+        "nombre": "Oscar Javier Romero Pineda",
+        "telefono": "3028899006",
+        "correo": "oscar.romero@hospital.com",
+        "rol": "Enfermero de Rehabilitación",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf147",
+        "nombre": "Luisa Fernanda Castro Ríos",
+        "telefono": "3028899007",
+        "correo": "luisa.castro@hospital.com",
+        "rol": "Enfermera de Oncología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf148",
+        "nombre": "Andrés Felipe Rojas Paredes",
+        "telefono": "3028899008",
+        "correo": "andres.rojas@hospital.com",
+        "rol": "Enfermero de Psiquiatría",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf149",
+        "nombre": "Carolina Estefanía Mendoza Vásquez",
+        "telefono": "3028899009",
+        "correo": "carolina.mendoza@hospital.com",
+        "rol": "Enfermera de Endocrinología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf150",
+        "nombre": "Diego Armando Guzmán Soto",
+        "telefono": "3028899010",
+        "correo": "diego.guzman@hospital.com",
+        "rol": "Enfermero de Geriatría",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf151",
+        "nombre": "Paula Andrea Restrepo Londoño",
+        "telefono": "3028899011",
+        "correo": "paula.restrepo@hospital.com",
+        "rol": "Enfermera de Nefrología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf152",
+        "nombre": "Mauricio Alejandro Parra Jiménez",
+        "telefono": "3028899012",
+        "correo": "mauricio.parra@hospital.com",
+        "rol": "Enfermero de Neumología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf153",
+        "nombre": "Diana Marcela Ospina Valencia",
+        "telefono": "3028899013",
+        "correo": "diana.ospina@hospital.com",
+        "rol": "Enfermera de Gastroenterología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf154",
+        "nombre": "Julio César Peña Arango",
+        "telefono": "3028899014",
+        "correo": "julio.pena@hospital.com",
+        "rol": "Enfermero de Hematología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf155",
+        "nombre": "Sandra Milena Quintero Zapata",
+        "telefono": "3028899015",
+        "correo": "sandra.quintero@hospital.com",
+        "rol": "Enfermera de Infectología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf156",
+        "nombre": "Rafael Antonio Mejía Cardona",
+        "telefono": "3028899016",
+        "correo": "rafael.mejia@hospital.com",
+        "rol": "Enfermero de Alergología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf157",
+        "nombre": "Gloria Stella Arias Betancur",
+        "telefono": "3028899017",
+        "correo": "gloria.arias@hospital.com",
+        "rol": "Enfermera de Medicina Interna",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf158",
+        "nombre": "Álvaro Javier Giraldo Osorio",
+        "telefono": "3028899018",
+        "correo": "alvaro.giraldo@hospital.com",
+        "rol": "Enfermero de Cirugía General",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf159",
+        "nombre": "Mónica Liliana Cárdenas Franco",
+        "telefono": "3028899019",
+        "correo": "monica.cardenas@hospital.com",
+        "rol": "Enfermera de Cirugía Plástica",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf160",
+        "nombre": "Jairo Alonso Montoya Restrepo",
+        "telefono": "3028899020",
+        "correo": "jairo.montoya@hospital.com",
+        "rol": "Enfermero de UCI",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf161",
+        "nombre": "Claudia Patricia Marín Escobar",
+        "telefono": "3028899021",
+        "correo": "claudia.marin@hospital.com",
+        "rol": "Enfermera de UCI Neonatal",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf162",
+        "nombre": "Wilson Eduardo Agudelo Velásquez",
+        "telefono": "3028899022",
+        "correo": "wilson.agudelo@hospital.com",
+        "rol": "Enfermero de UCI Pediátrica",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf163",
+        "nombre": "Ángela María Correa Henao",
+        "telefono": "3028899023",
+        "correo": "angela.correa@hospital.com",
+        "rol": "Enfermera de UCI Cardiológica",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf164",
+        "nombre": "Hugo Armando Zapata Londoño",
+        "telefono": "3028899024",
+        "correo": "hugo.zapata@hospital.com",
+        "rol": "Enfermero de UCI Neurológica",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf165",
+        "nombre": "Liliana Patricia Uribe Sosa",
+        "telefono": "3028899025",
+        "correo": "liliana.uribe@hospital.com",
+        "rol": "Enfermera de UCI Quirúrgica",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf166",
+        "nombre": "Óscar Darío Carmona Arcila",
+        "telefono": "3028899026",
+        "correo": "oscar.carmona@hospital.com",
+        "rol": "Enfermero de Hemodiálisis",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf167",
+        "nombre": "Martha Cecilia Velásquez Mesa",
+        "telefono": "3028899027",
+        "correo": "martha.velasquez@hospital.com",
+        "rol": "Enfermera de Quemados",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf168",
+        "nombre": "Guillermo León Arango Vélez",
+        "telefono": "3028899028",
+        "correo": "guillermo.arango@hospital.com",
+        "rol": "Enfermero de Trasplantes",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf169",
+        "nombre": "Beatriz Elena Franco Gutiérrez",
+        "telefono": "3028899029",
+        "correo": "beatriz.franco@hospital.com",
+        "rol": "Enfermera de Cuidados Paliativos",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf170",
+        "nombre": "Ricardo Emilio Palacio Ceballos",
+        "telefono": "3028899030",
+        "correo": "ricardo.palacio@hospital.com",
+        "rol": "Enfermero de Salud Ocupacional",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf171",
+        "nombre": "Adriana Lucía Ramírez Castro",
+        "telefono": "3028899031",
+        "correo": "adriana.ramirez@hospital.com",
+        "rol": "Enfermera de Salud Pública",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf172",
+        "nombre": "Gabriel Esteban Torres Mendoza",
+        "telefono": "3028899032",
+        "correo": "gabriel.torres@hospital.com",
+        "rol": "Enfermero de Epidemiología",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf173",
+        "nombre": "Natalia Andrea Vargas Rojas",
+        "telefono": "3028899033",
+        "correo": "natalia.vargas@hospital.com",
+        "rol": "Enfermera de Vacunación",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf174",
+        "nombre": "Sergio Iván Herrera Guzmán",
+        "telefono": "3028899034",
+        "correo": "sergio.herrera@hospital.com",
+        "rol": "Enfermero de Triage",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf175",
+        "nombre": "Marcela Alejandra Silva Fuentes",
+        "telefono": "3028899035",
+        "correo": "marcela.silva@hospital.com",
+        "rol": "Enfermera de Admisión",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf176",
+        "nombre": "Jorge Luis Morales Duarte",
+        "telefono": "3028899036",
+        "correo": "jorge.morales@hospital.com",
+        "rol": "Enfermero de Esterilización",
+        "horario": "hor008",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf177",
+        "nombre": "Luisa Fernanda Castro Ríos",
+        "telefono": "3028899037",
+        "correo": "luisa.castro@hospital.com",
+        "rol": "Enfermera de Central de Equipos",
+        "horario": "hor008",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf178",
+        "nombre": "Felipe Andrés Rojas Paredes",
+        "telefono": "3028899038",
+        "correo": "felipe.rojas@hospital.com",
+        "rol": "Enfermero de Banco de Sangre",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf179",
+        "nombre": "Carolina Estefanía Mendoza Vásquez",
+        "telefono": "3028899039",
+        "correo": "carolina.mendoza@hospital.com",
+        "rol": "Enfermera de Laboratorio",
+        "horario": "hor005",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf180",
+        "nombre": "Diego Armando Guzmán Soto",
+        "telefono": "3028899040",
+        "correo": "diego.guzman@hospital.com",
+        "rol": "Enfermero de Imagenología",
+        "horario": "hor006",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf181",
+        "nombre": "Paula Andrea Restrepo Londoño",
+        "telefono": "3028899041",
+        "correo": "paula.restrepo@hospital.com",
+        "rol": "Enfermera de Farmacia",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf182",
+        "nombre": "Mauricio Alejandro Parra Jiménez",
+        "telefono": "3028899042",
+        "correo": "mauricio.parra@hospital.com",
+        "rol": "Enfermero de Nutrición",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf183",
+        "nombre": "Diana Marcela Ospina Valencia",
+        "telefono": "3028899043",
+        "correo": "diana.ospina@hospital.com",
+        "rol": "Enfermera de Terapia Respiratoria",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf184",
+        "nombre": "Julio César Peña Arango",
+        "telefono": "3028899044",
+        "correo": "julio.pena@hospital.com",
+        "rol": "Enfermero de Terapia Física",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf185",
+        "nombre": "Sandra Milena Quintero Zapata",
+        "telefono": "3028899045",
+        "correo": "sandra.quintero@hospital.com",
+        "rol": "Enfermera de Terapia Ocupacional",
+        "horario": "hor001",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf186",
+        "nombre": "Rafael Antonio Mejía Cardona",
+        "telefono": "3028899046",
+        "correo": "rafael.mejia@hospital.com",
+        "rol": "Enfermero de Cuidados Domiciliarios",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf187",
+        "nombre": "Gloria Stella Arias Betancur",
+        "telefono": "3028899047",
+        "correo": "gloria.arias@hospital.com",
+        "rol": "Enfermera de Cuidados Paliativos Domiciliarios",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf188",
+        "nombre": "Álvaro Javier Giraldo Osorio",
+        "telefono": "3028899048",
+        "correo": "alvaro.giraldo@hospital.com",
+        "rol": "Enfermero de Atención Domiciliaria",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf189",
+        "nombre": "Mónica Liliana Cárdenas Franco",
+        "telefono": "3028899049",
+        "correo": "monica.cardenas@hospital.com",
+        "rol": "Enfermera de Salud Mental Comunitaria",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf190",
+        "nombre": "Jairo Alonso Montoya Restrepo",
+        "telefono": "3028899050",
+        "correo": "jairo.montoya@hospital.com",
+        "rol": "Enfermero de Atención Primaria",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf191",
+        "nombre": "Claudia Patricia Marín Escobar",
+        "telefono": "3028899051",
+        "correo": "claudia.marin@hospital.com",
+        "rol": "Enfermera de Promoción y Prevención",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf192",
+        "nombre": "Wilson Eduardo Agudelo Velásquez",
+        "telefono": "3028899052",
+        "correo": "wilson.agudelo@hospital.com",
+        "rol": "Enfermero de Vigilancia Epidemiológica",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf193",
+        "nombre": "Ángela María Correa Henao",
+        "telefono": "3028899053",
+        "correo": "angela.correa@hospital.com",
+        "rol": "Enfermera de Salud Sexual y Reproductiva",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf194",
+        "nombre": "Hugo Armando Zapata Londoño",
+        "telefono": "3028899054",
+        "correo": "hugo.zapata@hospital.com",
+        "rol": "Enfermero de Crecimiento y Desarrollo",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf195",
+        "nombre": "Liliana Patricia Uribe Sosa",
+        "telefono": "3028899055",
+        "correo": "liliana.uribe@hospital.com",
+        "rol": "Enfermera de Control Prenatal",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf196",
+        "nombre": "Óscar Darío Carmona Arcila",
+        "telefono": "3028899056",
+        "correo": "oscar.carmona@hospital.com",
+        "rol": "Enfermero de Planificación Familiar",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf197",
+        "nombre": "Martha Cecilia Velásquez Mesa",
+        "telefono": "3028899057",
+        "correo": "martha.velasquez@hospital.com",
+        "rol": "Enfermera de Lactancia Materna",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf198",
+        "nombre": "Guillermo León Arango Vélez",
+        "telefono": "3028899058",
+        "correo": "guillermo.arango@hospital.com",
+        "rol": "Enfermero de Inmunizaciones",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf199",
+        "nombre": "Beatriz Elena Franco Gutiérrez",
+        "telefono": "3028899059",
+        "correo": "beatriz.franco@hospital.com",
+        "rol": "Enfermera de Control del Niño Sano",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf200",
+        "nombre": "Ricardo Emilio Palacio Ceballos",
+        "telefono": "3028899060",
+        "correo": "ricardo.palacio@hospital.com",
+        "rol": "Enfermero de Atención al Adulto Mayor",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf201",
+        "nombre": "Adriana Lucía Ramírez Castro",
+        "telefono": "3028899061",
+        "correo": "adriana.ramirez@hospital.com",
+        "rol": "Enfermera de Atención a Crónicos",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf202",
+        "nombre": "Gabriel Esteban Torres Mendoza",
+        "telefono": "3028899062",
+        "correo": "gabriel.torres@hospital.com",
+        "rol": "Enfermero de Atención a Discapacitados",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf203",
+        "nombre": "Natalia Andrea Vargas Rojas",
+        "telefono": "3028899063",
+        "correo": "natalia.vargas@hospital.com",
+        "rol": "Enfermera de Cuidados Paliativos Pediátricos",
+        "horario": "hor007",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf204",
+        "nombre": "Sergio Iván Herrera Guzmán",
+        "telefono": "3028899064",
+        "correo": "sergio.herrera@hospital.com",
+        "rol": "Enfermero de Cuidados Intensivos Neonatales",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf205",
+        "nombre": "Marcela Alejandra Silva Fuentes",
+        "telefono": "3028899065",
+        "correo": "marcela.silva@hospital.com",
+        "rol": "Enfermera de Cuidados Intensivos Pediátricos",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf206",
+        "nombre": "Jorge Luis Morales Duarte",
+        "telefono": "3028899066",
+        "correo": "jorge.morales@hospital.com",
+        "rol": "Enfermero de Emergencias Pediátricas",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf207",
+        "nombre": "Luisa Fernanda Castro Ríos",
+        "telefono": "3028899067",
+        "correo": "luisa.castro2@hospital.com",
+        "rol": "Enfermera de Emergencias Adultos",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf208",
+        "nombre": "Felipe Andrés Rojas Paredes",
+        "telefono": "3028899068",
+        "correo": "felipe.rojas2@hospital.com",
+        "rol": "Enfermero de Emergencias Trauma",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf209",
+        "nombre": "Carolina Estefanía Mendoza Vásquez",
+        "telefono": "3028899069",
+        "correo": "carolina.mendoza2@hospital.com",
+        "rol": "Enfermera de Emergencias Cardiológicas",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      },
+      {
+        "_id": "enf210",
+        "nombre": "Diego Armando Guzmán Soto",
+        "telefono": "3028899070",
+        "correo": "diego.guzman2@hospital.com",
+        "rol": "Enfermero de Emergencias Neurológicas",
+        "horario": "hor002",
+        "id_tipo_personal": "tipop003",
+        "id_hospital": "hosp003"
+      }
+    ]);
+
 
 
 // Validacion Medicos
@@ -4295,7 +5686,6 @@ db.Medicos.insertMany([
     "id_hospital": "hos001"
   },
 
-  // --- Médicos para Los Comuneros Hospital Universitario de Bucaramanga - ObjectId('hos002') ---
   {
     "_id": "med051",
     "nombre": "Dr. Pedro Juan Martínez Cárdenas",

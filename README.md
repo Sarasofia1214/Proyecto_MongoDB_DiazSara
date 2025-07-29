@@ -34,6 +34,7 @@
 
 <br>
 <br>
+
 ## Tabla de Contenidos
 
 * [Introducción](#introducción)
@@ -91,7 +92,7 @@ Aquí se muestra de forma esquematizada la creación de una base de datos para u
 
 El **modelo conceptual** es una descripción de los requerimientos a grandes rasgos, identificando las principales entidades, atributos y las relaciones de los datos, para crear una esquematización general que plasme todo correctamente a partir de una idea.
 
-El **modelo lógico** trabaja con lo logrado en el modelo conceptual, con la diferencia de que implementa una estructura más específica de los datos, definiendo tablas, llaves primarias o foráneas y cardinalidad.
+El **modelo lógico** trabaja con lo logrado en el modelo conceptual, con la diferencia de que implementa una estructura más específica de los datos, definiendo colecciones, llaves primarias o foráneas y cardinalidad.
 
 Finalmente, el **modelo físico** para la implementación de una base de datos en MongoDB, que toma en cuenta varios factores del lenguaje de definición de datos y detalles de estos tipos de datos.
 
@@ -106,6 +107,82 @@ Se pide diseñar y desarrollar un sistema que incluirá la gestión de hospitale
 ### Estructura del Sistema
 
 * Un hospital puede tener múltiples **áreas especializadas** (Cardiología, Neurología, etc.).
+
+
+#  1. Área Asistencial
+Son áreas clínicas y de soporte diagnóstico que atienden directamente a los pacientes.
+
+## 1.1 Servicios Ambulatorios
+- Consulta externa  
+- Urgencias  
+
+## 1.2 Servicios de Apoyo Diagnóstico y Terapéutico
+- Laboratorio clínico  
+- Banco de sangre  
+- Radiología e imágenes diagnósticas  
+  - Radiología  
+  - Ecografía, EKG, EEG  
+  - Resonancia magnética  
+  - TAC (Tomógrafo Axial Computarizado)  
+- Hemodinamia  
+- Gastroenterología / Endoscopia diagnóstica  
+- Laboratorio de patología  
+- Morgue  
+- Nutrición y dietética  
+- Farmacia  
+- Archivo de historias clínicas  
+- Transporte  
+- Comunicaciones  
+- Rehabilitación (Terapias físicas, respiratorias)  
+- Unidad Renal  
+
+## 1.3 Servicios Quirúrgicos y Obstétricos
+- Cirugía general  
+- Cirugía ambulatoria  
+- Obstetricia  
+- Central de esterilización  
+
+## 1.4 Servicios de Hospitalización
+- Hospitalización general  
+- Neonatología / Cuidado neonatal  
+- UCI adultos  
+- UCI pediátrica  
+- Cuidados intermedios  
+
+#  2. Área General
+Son áreas de soporte logístico y funcional.
+
+## 2.1 Servicios Generales
+- Cocina  
+- Lavandería  
+- Almacén  
+- Mantenimiento  
+- Máquinas (planta eléctrica, gases medicinales, calderas, etc.)  
+- Vestuarios  
+
+## 2.2 Servicios Complementarios
+- Seguridad  
+- Gestión ambiental / Residuos  
+- Parqueadero  
+- Capellanía o apoyo espiritual  
+- Oficina de atención al usuario  
+
+#  3. Área Administrativa
+Gestión institucional, financiera y de talento humano.
+
+- Dirección general  
+- Subdirección médica  
+- Subdirección administrativa  
+- Recursos humanos  
+- Contabilidad y finanzas  
+- Contratación  
+- Sistemas de información (TI)  
+- Archivo general  
+- Planeación y calidad  
+- Comité de ética  
+- Docencia e investigación  
+
+
 * Cada hospital tiene un **director general**, pero un director puede supervisar varios hospitales.
 * Cada hospital tiene un conjunto de **médicos, enfermeras y personal administrativo**.
 * Los hospitales deben contar con un **historial detallado de pacientes y tratamientos realizados**.
@@ -181,6 +258,7 @@ flowchart TD
     Hospital -- recibe suministros de --> Proveedores
     Areas --> ArCodigo(("codigo")) & ArTipoArea(("tipo_area")) & ArDescripcion(("descripcion")) & ArSubareas(("subareas")) & ArPersonal(("personal")) & ArEstado(("estado")) & ArIdHospital(("id_hospital"))
     Hospital -- contiene --> Areas
+
 ```
 
 ### Descripción Técnica
@@ -698,7 +776,7 @@ erDiagram
 
 # Normalización del Modelo Lógico
 
-Se realizó el proceso de la normalización de las tablas anteriormente visualizadas para organizar los datos de manera más eficiente, minimizando redundancias y dependencias transitivas en la base de datos en desarrollo.
+Se realizó el proceso de la normalización de las colecciones anteriormente visualizadas para organizar los datos de manera más eficiente, minimizando redundancias y dependencias transitivas en la base de datos en desarrollo.
 
 ## Primera Forma Normal (1FN)
 
@@ -1459,7 +1537,6 @@ Una tabla está en **2FN** si cumple con los siguientes criterios:
 
 La Segunda Forma Normal es el segundo nivel de normalización en el diseño de una base de datos. Se aplica a las tablas que ya cumplen con la Primera Forma Normal (1FN) y busca eliminar **dependencias parciales** dentro de una tabla.
 
----
 ``` mermaid
 ---
 config:
@@ -1558,6 +1635,7 @@ erDiagram
 		string eps_actual  "" 
         string seguro_medico 
 	}
+---
 	HistoriaClinica {
 		ObjectId id PK ""  
 		ObjectId paciente FK ""  
@@ -1609,6 +1687,7 @@ erDiagram
 		ObjectId id PK ""  
 		string descripcion  ""  
 		ObjectId id_tratamiento FK ""  
+---
 	}
 	
 
@@ -1710,9 +1789,6 @@ erDiagram
 	Mantenimiento||--||Horario:"turno"
 
 ``` 
-
-# Normalización 2FN – Sistema Hospitalario
-
 ## Las Entidades y Atributos
 
 ### 1. Hospital :  
@@ -2009,6 +2085,7 @@ erDiagram
 
 
 # Tercera Forma Normal (3FN)
+
 ### Una tabla está en 3FN si cumple con los siguientes criterios:
 -  Está en 2FN.
 -  No hay dependencias transitivas: ningún atributo no clave depende de otro atributo no clave.
@@ -2016,11 +2093,8 @@ erDiagram
 ## Descripción
 La Tercera Forma Normal (3FN) es el tercer nivel de normalización en el diseño de bases de datos. Se aplica a tablas que ya cumplen con la Segunda Forma Normal (2FN) y su objetivo principal es la eliminación de dependencias transitivas. Esto significa que se busca evitar que un atributo no clave dentro de una tabla dependa de otro atributo no clave, en lugar de depender directamente de la clave primaria.
 
-Descripción Técnica
-# Normalización a Tercera Forma Normal (3FN)  
-**Sistema Hospitalario – Modelo de Datos**
+## Descripción Técnica
 
----
 
 ## Justificación por Entidad
 
@@ -2755,160 +2829,17 @@ El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se
 
 
 
+# Referencias
 
+En el presente documento del Ministerio de la Protección Social
+República de Colombia del 2010, se encuentran especificaciones que se tomaron como guia para la arquitectura del sistema hospitalario en la base de datos manejada:
 
+https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/PSA/guias-programa-medico-arquitectonico-red-prestadores%20servicios-salud.pdf
 
+Para la busqueda de la informacion verdiica de los hopitales, se busco en REPS de minsalud:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Para la busqueda de la informacion se buco en REPS los hospitales de bmanga
 https://prestadores.minsalud.gov.co/habilitacion/consultas/habilitados_reps.aspx?pageTitle=Registro+Actual&pageHlp=
 
-🏥 1. Área Asistencial
-Son áreas clínicas y de soporte diagnóstico que atienden directamente a los pacientes.
-
-1.1 Servicios ambulatorios
-
-Consulta externa
-
-Urgencias
-
-1.2 Servicios de apoyo diagnóstico y terapéutico
-
-Laboratorio clínico
-
-Banco de sangre
-
-Radiología e imágenes diagnósticas
-
-Radiología
-
-Ecografía, EKG, EEG
-
-Resonancia magnética
-
-TAC (Tomógrafo Axial Computarizado)
-
-Hemodinamia
-
-Gastroenterología / endoscopia diagnóstica
-
-Laboratorio de patología
-
-Morgue
-
-Nutrición y dietética
-
-Farmacia
-
-Archivo de historias clínicas
-
-Transporte
-
-Comunicaciones
-
-Rehabilitación (Terapias físicas, respiratorias)
-
-Unidad Renal
-
-1.3 Servicios quirúrgicos y obstétricos
-
-Cirugía general
-
-Cirugía ambulatoria
-
-Obstetricia
-
-Central de esterilización
-
-1.4 Servicios de hospitalización
-
-Hospitalización general
-
-Neonatología / Cuidado neonatal
-
-UCI adultos
-
-UCI pediátrica
-
-Cuidados intermedios
-
-🛠 2. Área General
-Son áreas de soporte logístico y funcional.
-
-2.1 Servicios generales
-
-Cocina
-
-Lavandería
-
-Almacén
-
-Mantenimiento
-
-Máquinas (planta eléctrica, gases medicinales, calderas, etc.)
-
-Vestuarios
-
-2.2 Servicios complementarios
-
-Seguridad
-
-Gestión ambiental / residuos
-
-Parqueadero
-
-Capellanía o apoyo espiritual
-
-Oficina de atención al usuario
-
-🧠 3. Área Administrativa
-Gestión institucional, financiera y de talento humano.
-
-Dirección general
-
-Subdirección médica
-
-Subdirección administrativa
-
-Recursos humanos
-
-Contabilidad y finanzas
-
-Contratación
-
-Sistemas de información (TI)
-
-Archivo general
-
-Planeación y calidad
-
-Comité de ética
-
-Docencia e investigación
 
 
 
