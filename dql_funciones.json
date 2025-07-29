@@ -1,0 +1,333 @@
+db.Presentaciones.insertMany([
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med001')
+    },
+    {
+      "tipo_presentacion": "Solución oral",
+      "id_medicamento": ObjectId('med001')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med002')
+    },
+    {
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": ObjectId('med003')
+    },
+    {
+      "tipo_presentacion": "Polvo para solución inyectable",
+      "id_medicamento": ObjectId('med004')
+    },
+    {
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": ObjectId('med005')
+    },
+    {
+      "tipo_presentacion": "Solución para nebulizar",
+      "id_medicamento": ObjectId('med006')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med007')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med008')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med009')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med010')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med011')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med012')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med013')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med014')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med015')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med016')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med017')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med018')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med018')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med019')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med019')
+    },
+    {
+      "tipo_presentacion": "Polvo para solución inyectable",
+      "id_medicamento": ObjectId('med020')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med021')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med021')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med022')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med023')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med024')
+    },
+    {
+      "tipo_presentacion": "Solución intravenosa",
+      "id_medicamento": ObjectId('med025')
+    },
+    {
+      "tipo_presentacion": "Solución intravenosa",
+      "id_medicamento": ObjectId('med026')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med027')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med028')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med029')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med030')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med031')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med032')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med033')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med034')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med034')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med035')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med035')
+    },
+    {
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": ObjectId('med036')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med037')
+    },
+    {
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": ObjectId('med038')
+    },
+    {
+      "tipo_presentacion": "Cápsula",
+      "id_medicamento": ObjectId('med039')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med040')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med041')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med042')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med043')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med044')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med045')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med046')
+    },
+    {
+      "tipo_presentacion": "Parche transdérmico",
+      "id_medicamento": ObjectId('med046')
+    },
+    {
+      "tipo_presentacion": "Polvo para reconstituir a solución inyectable",
+      "id_medicamento": ObjectId('med047')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med048')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med049')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med050')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med051')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med052')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med053')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med054')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med055')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med056')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med057')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med058')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med059')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med060')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med010')
+    },
+    {
+      "tipo_presentacion": "Tableta sublingual",
+      "id_medicamento": ObjectId('med011')
+    },
+    {
+      "tipo_presentacion": "Jarabe",
+      "id_medicamento": ObjectId('med011')
+    },
+    {
+      "tipo_presentacion": "Tableta",
+      "id_medicamento": ObjectId('med012')
+    },
+    {
+      "tipo_presentacion": "Parche transdérmico",
+      "id_medicamento": ObjectId('med046')
+    },
+    {
+      "tipo_presentacion": "Solución inyectable",
+      "id_medicamento": ObjectId('med046')
+    },
+    {
+      "tipo_presentacion": "Cápsula dura",
+      "id_medicamento": ObjectId('med058')
+    },
+    {
+      "tipo_presentacion": "Tableta de liberación prolongada",
+      "id_medicamento": ObjectId('med058')
+    },
+    {
+      "tipo_presentacion": "Polvo para reconstituir a solución inyectable",
+      "id_medicamento": ObjectId('med047')
+    },
+    {
+      "tipo_presentacion": "Tableta de liberación modificada",
+      "id_medicamento": ObjectId('med008')
+    },
+    {
+      "tipo_presentacion": "Cápsula de liberación modificada",
+      "id_medicamento": ObjectId('med008')
+    }
+]);
+
+// Coleccion Administraviohospital
+db.AdministrativoHospital.insertMany([
+    {
+      "_id": ObjectId(),
+      "id_administrativo": ObjectId('adm001'),
+      "id_hospital": ObjectId('6887ea5f0be2cd6239fe6b01')
+    },
+    {
+      "_id": ObjectId(),
+      "id_administrativo": ObjectId('adm001'),
+      "id_hospital": ObjectId('6887ea5f0be2cd6239fe6b02')
+    },
+    {
+      "_id": ObjectId(),
+      "id_administrativo": ObjectId('adm001'),
+      "id_hospital": ObjectId('6887ea5f0be2cd6239fe6b03')
+    }
+  ]);
