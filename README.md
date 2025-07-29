@@ -2777,6 +2777,13 @@ El modelo físico se diseñó para funcionar en **MySQL**, donde cada entidad se
 
 
 
+
+
+
+
+
+
+
 // Para la busqueda de la informacion se buco en REPS los hospitales de bmanga
 https://prestadores.minsalud.gov.co/habilitacion/consultas/habilitados_reps.aspx?pageTitle=Registro+Actual&pageHlp=
 
