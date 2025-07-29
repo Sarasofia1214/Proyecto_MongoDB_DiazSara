@@ -1,5 +1,117 @@
-// Coleccion horario
+// Validación Hospital
 
+db.createCollection("Hospital", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "nombre",
+        "direccion",
+        "codigo_habilitacion",
+        "tipo_institucion",
+        "nivel_complejidad",
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        nombre: {
+          bsonType: "string",
+          minLength: 1,
+          maxLength: 255,
+          pattern: "^[a-zA-Z0-9\\s.,'-]*$",
+          description: "Debe ser un string no vacío, máximo 255 caracteres, y contener solo caracteres alfanuméricos, espacios, puntos, comas, guiones y apóstrofes."
+        },
+        direccion: {
+          bsonType: "string",
+          minLength: 1,
+          maxLength: 255,
+          pattern: "^[a-zA-Z0-9\\s.,'#-]*$",
+          description: "Debe ser un string no vacío, máximo 255 caracteres, y contener solo caracteres alfanuméricos, espacios, puntos, comas, guiones y numerales."
+        },
+        telefono: {
+          bsonType: ["string", "null"],
+          pattern: "^\\+?\\d{7,15}$",
+          description: "Debe ser un string (si está presente) con un formato de teléfono válido (opcionalmente iniciando con '+', seguido de 7 a 15 dígitos)."
+        },
+        codigo_habilitacion: {
+          bsonType: "string",
+          minLength: 1,
+          maxLength: 50,
+          pattern: "^[A-Z0-9]{5,20}$",
+          description: "Debe ser un string no vacío, máximo 50 caracteres, y seguir el formato específico (ej. 5 a 20 caracteres alfanuméricos en mayúscula)."
+        },
+        tipo_institucion: {
+          bsonType: "string",
+          enum: ["Público", "Privado", "Mixto"],
+          description: "Debe ser un string de la lista predefinida: 'Público', 'Privado' o 'Mixto'."
+        },
+        nivel_complejidad: {
+          bsonType: "string",
+          enum: ["Bajo", "Medio", "Alto", "Especializado"],
+          description: "Debe ser un string de la lista predefinida: 'Bajo', 'Medio', 'Alto' o 'Especializado'."
+        },
+      },
+    },
+  },
+  validationLevel: "strict",
+  validationAction: "error",
+});
+
+
+  // Validacion Horario
+
+  db.createCollection("Horario", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "horario_tipo",
+          "dias"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          horario_tipo: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100,
+            // La lista 'enum' ahora incluye todos los valores necesarios
+            enum: [
+              "Jornada Completa",
+              "Medio Tiempo",
+              "Turno Mañana",
+              "Turno Tarde",
+              "Turno Noche",
+              "Fines de Semana",
+              "Flexible",
+              "Consulta Externa - Diurno",
+              "Urgencias - 24/7",
+              "Visitas - Mañana",
+              "Visitas - Tarde/Noche",
+              "Laboratorio Clínico - Mañana",
+              "Laboratorio Clínico - Tarde",
+              "Imagenología/Administrativo - Diurno",
+              "Rotativo - Personal",
+              "Nocturno - Personal",
+              "Fin de Semana - Personal"
+            ]
+          },
+          dias: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
+// Coleccion horario
 
 [
     {
@@ -44,6 +156,50 @@
     }
   ]
 
+
+    // Validacion Tipospersonal
+
+    db.createCollection("TiposPersonal", {
+      validator: {
+        $jsonSchema: {
+          bsonType: "object",
+          required: [
+            "codigo",
+            "nombre",
+            "descripcion",
+            "salario_base"
+          ],
+          properties: {
+            _id: {
+              bsonType: "objectId"
+            },
+            codigo: {
+              bsonType: "string",
+              minLength: 1,
+              maxLength: 50
+            },
+            nombre: {
+              bsonType: "string",
+              minLength: 1,
+              maxLength: 100
+            },
+            descripcion: {
+              bsonType: "string",
+              maxLength: 500
+            },
+            salario_base: {
+              bsonType: ["double", "decimal"],
+              minimum: 0
+            }
+          }
+        }
+      },
+      validationLevel: "strict",
+      validationAction: "error"
+    });
+  
+
+
   // Coleccion Tipo Personal
 
   db.TiposPersonal.insertMany([
@@ -79,7 +235,53 @@
     }
   ]);
 
-  // Servicios Mantenimiento
+
+
+// Validacion Servicio mantenimiento
+
+db.createCollection("ServiciosMantenimiento", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "tipo_ambiente",
+        "nombre_servicio"
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        tipo_ambiente: {
+          bsonType: "string",
+          // La lista 'enum' ahora incluye todos los valores que has proporcionado
+          enum: [
+            "Áreas Comunes",
+            "Quirófanos",
+            "UCI",
+            "Habitaciones",
+            "Laboratorios",
+            "Oficinas",
+            "Exteriores",
+            "Servicios Generales",
+            "Administrativo",
+            "Talleres"
+          ]
+        },
+        nombre_servicio: {
+          bsonType: "string",
+          minLength: 1,
+          maxLength: 255
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
+
+
+
+  // Coleccion Servicios Mantenimiento
 
   [
     {
@@ -157,6 +359,62 @@
   ]
 
 
+
+  // Validacion EPS
+
+  db.createCollection("EPS", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "nombre",
+          "nit",
+          "tipo",
+          "nivel",
+          "telefono",
+          "correo"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          nombre: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          },
+          nit: {
+            bsonType: "string",
+            minLength: 9,
+            maxLength: 15,
+            pattern: "^[0-9]{9,15}[-]{0,1}[0-9]$"
+          },
+          tipo: {
+            bsonType: "string",
+            enum: ["Contributivo", "Subsidiado"]
+          },
+          nivel: {
+            bsonType: "string",
+            enum: ["Nacional", "Departamental", "Municipal"]
+          },
+          telefono: {
+            bsonType: "string",
+            minLength: 7,
+            maxLength: 15,
+            pattern: "^\\+?\\d{7,15}$"
+          },
+          correo: {
+            bsonType: "string",
+            pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
   // Coleccion EPS
   [
     {
@@ -200,6 +458,62 @@
       "correo": "atencionalafiliado@coosalud.com"
     }
   ]
+
+
+  // Validacion Seguros
+
+
+  db.createCollection("Seguros", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "nombre",
+          "compania",
+          "tipo",
+          "nivel_cobertura",
+          "plan",
+          "telefono"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          nombre: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          },
+          compania: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          },
+          tipo: {
+            bsonType: "string",
+            enum: ["Salud", "Vida", "Accidentes Personales", "Servicios Funerarios"]
+          },
+          nivel_cobertura: {
+            bsonType: "string",
+            enum: ["Básico", "Intermedio", "Completo", "Premium"]
+          },
+          plan: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          telefono: {
+            bsonType: "string",
+            minLength: 7,
+            maxLength: 15,
+            pattern: "^\\+?\\d{7,15}$"
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
 
   // Seguros 
   [
@@ -268,6 +582,39 @@
       "telefono": "018000513300"
     }
   ]
+
+   // Validacion Sintomas
+
+   db.createCollection("Sintomas", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "descripcion"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          descripcion: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          },
+          observaciones: {
+            bsonType: "string",
+            maxLength: 500
+          },
+          fecha_encontrada: {
+            bsonType: ["date", "null"] 
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
 
   // Coleccion Sintomas
 
@@ -508,6 +855,73 @@
       "fecha_encontrada": null
     }
   ]
+
+
+  // Validacion Medicamentos
+ 
+  db.createCollection("Medicamentos", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "medicamento_id", // New: custom ID field
+          "nombre",
+          "principio_activo",
+          "concentracion",
+          "tipo",
+          "lote",
+          "disponibilidad",
+          "fabricante"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId" // MongoDB's auto-generated ObjectId
+          },
+          medicamento_id: {
+            bsonType: "string", // Your custom ID (e.g., "med001")
+            minLength: 1,
+            maxLength: 50
+          },
+          nombre: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 150
+          },
+          principio_activo: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 150
+          },
+          concentracion: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          tipo: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          lote: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          disponibilidad: {
+            bsonType: "bool"
+          },
+          fabricante: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 200
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
 
   // Coleccion Medicamentos
 
@@ -1114,6 +1528,38 @@
     }
   ]);
 
+
+  // Validacion Presentacion 
+
+  db.createCollection("Presentaciones", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "tipo_presentacion",
+          "id_medicamento"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId" // MongoDB will auto-generate this
+          },
+          tipo_presentacion: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          id_medicamento: {
+            bsonType: "string", // Changed to string to match medicamento_id
+            description: "Referencia al campo 'medicamento_id' del medicamento en la colección Medicamentos."
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
   // Coleccion Presentacion:
   db.Presentaciones.insertMany([
     {
@@ -1430,6 +1876,61 @@
     }
 ]);
 
+// Validacion Proovedores
+
+db.createCollection("Proveedores", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "proveedor_id",
+          "nombre_empresa",
+          "nit",
+          "tipo",
+          "fecha",
+          "terminos_pago"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId" // MongoDB will auto-generate this
+          },
+          proveedor_id: {
+            bsonType: "string", // Your custom ID (e.g., "prov001")
+            minLength: 1,
+            maxLength: 50
+          },
+          nombre_empresa: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 200
+          },
+          nit: {
+            bsonType: "string", // NITs can contain non-numeric characters, so string is best
+            minLength: 5,
+            maxLength: 20
+          },
+          tipo: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          },
+          fecha: {
+            bsonType: "date", // Stores as an ISODate object
+            description: "Fecha de inicio de relación con el proveedor"
+          },
+          terminos_pago: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 100
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
   //Colecciones Proveedores
 
   db.Proveedores.insertMany([
@@ -1657,6 +2158,57 @@
       "nivel_complejidad": "Alta Complejidad"
     }
 ]);
+
+
+
+  // Validacion Areas
+
+  db.createCollection("Areas", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "area_id",
+          "tipo_area",
+          "descripcion",
+          "estado",
+          "id_hospital"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId" 
+          },
+          area_id: {
+            bsonType: "string", 
+            minLength: 1,
+            maxLength: 50
+          },
+          tipo_area: {
+            bsonType: "string",
+            enum: ["Asistencial", "Apoyo", "Quirúrgico y Obstétrico", "Hospitalización", "General"], 
+            description: "Tipo de área funcional del hospital"
+          },
+          descripcion: {
+            bsonType: "string",
+            minLength: 1,
+            maxLength: 255
+          },
+          estado: {
+            bsonType: "string",
+            enum: ["Activo", "Inactivo", "Mantenimiento"], 
+            description: "Estado actual del área"
+          },
+          id_hospital: {
+            bsonType: "string", 
+            description: "Referencia al campo 'hospital_id' del hospital al que pertenece el área."
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
 
   // Coleccion Areas
 
@@ -1887,6 +2439,67 @@
     }
 ]);
 
+
+
+
+// Validacion Tratamientos
+
+db.createCollection("Tratamientos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "tratamiento_id",
+        "nombre",
+        "descripcion",
+        "costo",
+        "duracion",
+        "area_relacionada",
+        "via_administracion",
+        "FrecuenciaAplicacion"
+      ],
+      properties: {
+        tratamiento_id: {
+          bsonType: "string",
+          description: "identificador único para el tratamiento y es requerido"
+        },
+        nombre: {
+          bsonType: "string",
+          description: "nombre del tratamiento y es requerido"
+        },
+        descripcion: {
+          bsonType: "string",
+          description: "descripción del tratamiento y es requerido"
+        },
+        costo: {
+          bsonType: ["double", "int"], // ¡Este es el cambio clave para aceptar ambos tipos!
+          description: "costo del tratamiento y es requerido"
+        },
+        duracion: {
+          bsonType: "string",
+          description: "duración estimada del tratamiento y es requerido"
+        },
+        area_relacionada: {
+          bsonType: "string",
+          description: "ID del área relacionada y es requerido"
+        },
+        via_administracion: {
+          bsonType: "string",
+          description: "vía de administración del tratamiento y es requerido"
+        },
+        FrecuenciaAplicacion: {
+          bsonType: "int",
+          description: "frecuencia de aplicación del tratamiento y es requerido"
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
+
+
+
   // coleccion trataminetos
 
   db.Tratamientos.insertMany([
@@ -2092,6 +2705,61 @@
     }
 ]);
 
+
+
+
+  // Validacion Administrativos
+  db.createCollection("Administrativos", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "nombre",
+          "telefono",
+          "correo",
+          "rol",
+          "horario",
+          "id_tipo_personal"
+        ],
+        properties: {
+          _id: {
+            bsonType: "string", // Definimos _id como string para tus IDs personalizados
+            description: "identificador único para el administrativo (admXXX)"
+          },
+          nombre: {
+            bsonType: "string",
+            description: "nombre completo del personal administrativo"
+          },
+          telefono: {
+            bsonType: "string",
+            pattern: "^[0-9]{10}$", // Ejemplo: patrón para 10 dígitos numéricos
+            description: "número de teléfono del administrativo"
+          },
+          correo: {
+            bsonType: "string",
+            pattern: "^.+@.+\\..+$", // Ejemplo: patrón básico para correo electrónico
+            description: "dirección de correo electrónico del administrativo"
+          },
+          rol: {
+            bsonType: "string",
+            description: "rol o cargo del administrativo"
+          },
+          horario: {
+            bsonType: "string", // Referencia al ID de horario (ej. 'hor007')
+            description: "ID del horario asignado al administrativo"
+          },
+          id_tipo_personal: {
+            bsonType: "string", // Referencia al ID del tipo de personal (ej. 'tipop001')
+            description: "ID del tipo de personal administrativo"
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
   // Coleccion Administrativos
 
   db.Administrativos.insertMany([
@@ -2296,7 +2964,68 @@
 ]);
 
 
-  // Coleccion enfermerios
+
+  // Validacion Enfermeros
+  
+  db.createCollection("Enfermeros", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "nombre",
+          "telefono",
+          "correo",
+          "rol",
+          "horario",
+          "id_tipo_personal",
+          "id_hospital"
+        ],
+        properties: {
+          _id: {
+            bsonType: "string",
+            description: "identificador único para el enfermero (enfXXX)"
+          },
+          nombre: {
+            bsonType: "string",
+            description: "nombre completo del enfermero"
+          },
+          telefono: {
+            bsonType: "string",
+            pattern: "^[0-9]{10}$", 
+            description: "número de teléfono del enfermero"
+          },
+          correo: {
+            bsonType: "string",
+            pattern: "^.+@.+\\..+$", 
+            description: "dirección de correo electrónico del enfermero"
+          },
+          rol: {
+            bsonType: "string",
+            description: "rol o especialidad del enfermero"
+          },
+          horario: {
+            bsonType: "string", 
+            description: "ID del horario asignado al enfermero"
+          },
+          id_tipo_personal: {
+            bsonType: "string", 
+            description: "ID del tipo de personal (enfermero)"
+          },
+          id_hospital: {
+            bsonType: "string", 
+            description: "ID del hospital al que pertenece el enfermero"
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+  
+
+
+
+  // Coleccion Enfermeros
   [
     {
       "_id": "ObjectId('enf001')",
@@ -3000,10 +3729,71 @@
     }
   ]
 
+
+// Validacion Medicos
+
+  db.createCollection("Medicos", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "nombre",
+          "telefono",
+          "correo",
+          "rol",
+          "horario",
+          "id_tipo_personal",
+          "id_hospital"
+        ],
+        properties: {
+          _id: {
+            bsonType: "string", // Definimos _id como string para tus IDs personalizados (ej. 'med001')
+            description: "identificador único para el médico (medXXX)"
+          },
+          nombre: {
+            bsonType: "string",
+            description: "nombre completo del médico"
+          },
+          telefono: {
+            bsonType: "string",
+            pattern: "^[0-9]{10}$", // Ejemplo: patrón para 10 dígitos numéricos
+            description: "número de teléfono del médico"
+          },
+          correo: {
+            bsonType: "string",
+            pattern: "^.+@.+\\..+$", // Ejemplo: patrón básico para correo electrónico
+            description: "dirección de correo electrónico del médico"
+          },
+          rol: {
+            bsonType: "string",
+            description: "rol o especialidad del médico"
+          },
+          horario: {
+            bsonType: "string", // Referencia al ID del horario (ej. 'hor001')
+            description: "ID del horario asignado al médico"
+          },
+          id_tipo_personal: {
+            bsonType: "string", // Referencia al ID del tipo de personal (ej. 'tipop002')
+            description: "ID del tipo de personal (médico)"
+          },
+          id_hospital: {
+            bsonType: "string", // Referencia al ID del hospital (ej. 'hos001')
+            description: "ID del hospital al que pertenece el médico"
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
+
+
 // Coleccion de Medicos
 
 db.Medicos.insertMany([
-  // --- Médicos para Hospital Universitario de Santander (HUS) - ObjectId('hos001') ---
+
   {
     "_id": "med001",
     "nombre": "Dr. Andrés Felipe Rojas Castro",
@@ -3968,6 +4758,75 @@ db.Medicos.insertMany([
   }
 ]);
 
+ // Validacion Mantenimiento
+ 
+ db.createCollection("Mantenimiento", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "nombre",
+        "correo",
+        "telefono",
+        "id_servicio_asignado",
+        "id_hospital",
+        "fecha_ingreso",
+        "estado",
+        "id_horario",
+        "id_tipo_personal"
+      ],
+      properties: {
+        _id: {
+          bsonType: "string", // Definimos _id como string para tus IDs personalizados (ej. 'mantPers001')
+          description: "identificador único para el personal de mantenimiento (mantPersXXX)"
+        },
+        nombre: {
+          bsonType: "string",
+          description: "nombre completo del personal de mantenimiento"
+        },
+        correo: {
+          bsonType: "string",
+          pattern: "^.+@.+\\..+$", // Ejemplo: patrón básico para correo electrónico
+          description: "dirección de correo electrónico del personal"
+        },
+        telefono: {
+          bsonType: "string",
+          pattern: "^[0-9]{10}$", // Ejemplo: patrón para 10 dígitos numéricos
+          description: "número de teléfono del personal"
+        },
+        id_servicio_asignado: {
+          bsonType: "string", // Referencia al ID del servicio (ej. 'servm001')
+          description: "ID del servicio de mantenimiento asignado"
+        },
+        id_hospital: {
+          bsonType: "string", // Referencia al ID del hospital (ej. 'hos001')
+          description: "ID del hospital al que pertenece el personal"
+        },
+        fecha_ingreso: {
+          bsonType: "date", // Fecha de ingreso del personal
+          description: "fecha de ingreso del personal a la institución"
+        },
+        estado: {
+          bsonType: "string",
+          enum: ["Activo", "Inactivo", "Suspendido"], // Estados permitidos
+          description: "estado actual del personal (Activo, Inactivo, Suspendido)"
+        },
+        id_horario: {
+          bsonType: "string", // Referencia al ID del horario (ej. 'hor006')
+          description: "ID del horario de trabajo asignado"
+        },
+        id_tipo_personal: {
+          bsonType: "string", // Referencia al ID del tipo de personal (ej. 'tipop004', 'tipop005')
+          description: "ID del tipo de personal de mantenimiento"
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
+
+
 // Coleccion Mantenimineto
 
 db.Mantenimiento.insertMany([
@@ -4158,6 +5017,38 @@ db.Mantenimiento.insertMany([
   }
 ]);
 
+
+  // Validados administrativohospital
+  
+  db.createCollection("AdministrativoHospital", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "id_administrativo",
+          "id_hospital"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId", // Keep _id as ObjectId for this collection's primary key
+            description: "ID único de la relación Administrativo-Hospital."
+          },
+          id_administrativo: {
+            bsonType: "string", // CHANGE HERE: Now it expects a string
+            description: "Referencia al ID del administrativo (FK). Debe ser un string."
+          },
+          id_hospital: {
+            bsonType: "string", // CHANGE HERE: Now it expects a string
+            description: "Referencia al ID del hospital (FK). Debe ser un string."
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
 // Coleccion Administravitohospital
 
 db.AdministrativoHospital.insertMany([
@@ -4177,6 +5068,68 @@ db.AdministrativoHospital.insertMany([
     "id_hospital": 'hos003'
   }
 ]);
+
+
+// Validacion Pacientes
+
+db.createCollection("Pacientes", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "nombre",
+        "fecha_nacimiento",
+        "genero",
+        "direccion",
+        "telefono",
+        "correo",
+        "hospital_id",
+        "eps_id",      // Changed to _id reference
+        "seguro_id"    // Changed to _id reference
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        nombre: {
+          bsonType: "string"
+        },
+        fecha_nacimiento: {
+          bsonType: "date"
+        },
+        genero: {
+          bsonType: "string",
+          enum: ["Masculino", "Femenino", "Otro"]
+        },
+        direccion: {
+          bsonType: "string"
+        },
+        telefono: {
+          bsonType: "string",
+          pattern: "^[0-9]{10}$"
+        },
+        correo: {
+          bsonType: "string",
+          pattern: "^.+@.+\\..+$"
+        },
+        hospital_id: {
+          bsonType: "objectId", // Reference to Hospitales _id
+          description: "ID del hospital al que el paciente está asociado."
+        },
+        eps_id: {
+          bsonType: "objectId", // Reference to EPS _id
+          description: "ID de la Entidad Promotora de Salud (EPS) del paciente."
+        },
+        seguro_id: {
+          bsonType: "objectId", // Reference to Seguros _id (Plan de Salud)
+          description: "ID del plan de seguro de salud del paciente."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
 
 
 
@@ -7557,6 +8510,38 @@ db.Pacientes.insertMany([
   }])
 
 
+// Validacion Historia Clinica
+
+db.createCollection("HistoriaClinica", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "paciente",
+        "tratamiento"
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId",
+          description: "ID único de la historia clínica."
+        },
+        paciente: {
+          bsonType: "objectId",
+          description: "Referencia al ID del paciente asociado a esta historia clínica (FK). Debe ser un ObjectId."
+        },
+        tratamiento: {
+          bsonType: "objectId",
+          description: "Referencia al ID del tratamiento asociado a esta historia clínica (FK). Debe ser un ObjectId."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
+
+
+
 // Coleccion de Historial clinico
 db.HistoriaClinica.insertMany([
   { paciente: ObjectId('be2d259697cd42fc99d36162'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbc') },
@@ -7579,7 +8564,6 @@ db.HistoriaClinica.insertMany([
   { paciente: ObjectId('9b6606b94359493a9210b8e0'), tratamiento: ObjectId('6887ee060be2cd6239fe6bcd') },
   { paciente: ObjectId('4f93178bf13c4a1fb79c758a'), tratamiento: ObjectId('6887ee060be2cd6239fe6bce') },
   { paciente: ObjectId('c428a1233cfd4a8d934fb460'), tratamiento: ObjectId('6887ee060be2cd6239fe6bcf') },
-  // Continuación de pacientes, ciclando tratamientos
   { paciente: ObjectId('b7856f0086cc491fa39f1294'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbc') },
   { paciente: ObjectId('5cfd89f776cf4a7eaab02319'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbd') },
   { paciente: ObjectId('72e124bde5d24daf9fb5265a'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbe') },
@@ -7831,7 +8815,6 @@ db.HistoriaClinica.insertMany([
   { paciente: ObjectId('148ffcc06d274b828602c38d'), tratamiento: ObjectId('6887ee060be2cd6239fe6bcd') },
   { paciente: ObjectId('f73ac4c0faa849ea84435c69'), tratamiento: ObjectId('6887ee060be2cd6239fe6bce') },
   { paciente: ObjectId('c0af182c7fcb419da2d48667'), tratamiento: ObjectId('6887ee060be2cd6239fe6bcf') },
-  // Decimocuarto ciclo de tratamientos
   { paciente: ObjectId('a90a8bf83c4c4c079d786d4f'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbc') },
   { paciente: ObjectId('cb147bdf8a4b4ef49f138c5b'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbd') },
   { paciente: ObjectId('1a80eb640a2f46218ac7acd0'), tratamiento: ObjectId('6887ee060be2cd6239fe6bbe') },
@@ -7857,15 +8840,48 @@ db.HistoriaClinica.insertMany([
 
 
 
+  // Validacion AreaEspecializacion 
+
+  db.createCollection("AreaEspecializacion", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "id_area",
+          "fecha_asignacion",
+          "id_hospital",
+          "estado"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          id_area: {
+            bsonType: "objectId",
+            description: "Referencia al ID del área (FK). Debe ser un ObjectId."
+          },
+          fecha_asignacion: {
+            bsonType: "date",
+            description: "Fecha en la que se asignó la especialización o el personal al área. Debe ser un tipo Date."
+          },
+          id_hospital: {
+            bsonType: "objectId",
+            description: "Referencia al ID del hospital al que pertenece esta área de especialización (FK). Debe ser un ObjectId."
+          },
+          estado: {
+            bsonType: "string",
+            enum: ["Activa", "Inactiva", "En Mantenimiento", "Pendiente de Activación"],
+            description: "Estado actual de la especialización o asignación del área. Debe ser uno de los valores predefinidos."
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
 
 
-
-
-
-
-
-
-
+// Coleccion AreaEspecializacion
 
   db.AreaEspecializacion.insertMany([
     {
@@ -7917,6 +8933,49 @@ db.HistoriaClinica.insertMany([
       descripcion: "Evaluación y seguimiento del crecimiento y desarrollo de niños y adolescentes."
     }
   ]);
+
+
+
+  // Validacion Subareas
+
+
+
+
+  // Validacion Subareas
+
+  db.createCollection("Subareas", {
+      validator: {
+       $jsonSchema: {
+           bsonType: "object",
+          required: [
+            "id_area",
+            "nombre_subarea",
+             "descripcion"
+           ],
+           properties: {
+             _id: {
+               bsonType: "objectId",
+               description: "ID único de la subárea."
+             },
+             id_area: {
+               bsonType: "objectId",
+               description: "Referencia al ID del área a la que pertenece esta subárea (FK). Debe ser un ObjectId."
+             },
+             nombre_subarea: {
+               bsonType: "string",
+               description: "Nombre de la subárea. Debe ser un string."
+             },
+             descripcion: {
+               bsonType: "string",
+               maxLength: 500,
+               description: "Descripción detallada de la subárea. Debe ser un string, máximo 500 caracteres."
+             }
+           }
+         }
+       },
+       validationLevel: "strict",
+       validationAction: "error"
+     });
 
 
 // Coleccion Subareas
@@ -8092,7 +9151,7 @@ db.Subareas.insertMany([
     descripcion: "Espacio para la atención y apoyo social a pacientes y familiares."
   },
 
-  // Subáreas para 'Laboratorio clínico para diagnósticos' (area003 - hos001) - Basado en image_102e43.png
+
   {
     id_area: ObjectId('6887eace0be2cd6239fe6b26'), // area003: Laboratorio clínico para diagnósticos
     nombre_subarea: "Toma de Muestras (Donantes)",
@@ -8129,7 +9188,7 @@ db.Subareas.insertMany([
     descripcion: "Almacenamiento refrigerado de unidades de sangre."
   },
 
-  // Subáreas para 'Servicios ambulatorios generales' (area001 - hos001) - Basado en image_102e43.png (Área Administrativa)
+
   {
     id_area: ObjectId('6887eace0be2cd6239fe6b24'), // area001: Servicios ambulatorios generales (como área general para administración)
     nombre_subarea: "Oficina Jefe (Administrativa)",
@@ -8146,6 +9205,46 @@ db.Subareas.insertMany([
     descripcion: "Espacio de espera común para servicios administrativos."
   }
 ]);
+
+  // Validacion Inventrio 
+
+db.createCollection("Inventario", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "id_hospital",
+        "id_medicamento",
+        "stock",
+        "fecha_ultima_actualizacion"
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        id_hospital: {
+          bsonType: "objectId",
+          description: "Reference to the ID of the hospital where the inventory is located (FK)."
+        },
+        id_medicamento: {
+          bsonType: "objectId",
+          description: "Reference to the ID of the medicine in this inventory record (FK)."
+        },
+        stock: {
+          bsonType: "int",
+          minimum: 0,
+          description: "Current stock quantity of the medicine. Must be an integer greater than or equal to 0."
+        },
+        fecha_ultima_actualizacion: {
+          bsonType: "date",
+          description: "Date of the last inventory update. Must be a Date type."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
 
 // Coleccion Inventario
 
@@ -8206,5 +9305,1918 @@ db.Inventario.insertMany([
   }
 ]);
 
+// Validacion HistoriaClinica
+
+db.createCollection("HistoriaClinica", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "paciente",
+        "tratamiento"
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId",
+          description: "ID único de la historia clínica."
+        },
+        paciente: {
+          bsonType: "objectId",
+          description: "Referencia al ID del paciente asociado a esta historia clínica (FK). Debe ser un ObjectId."
+        },
+        tratamiento: {
+          bsonType: "objectId",
+          description: "Referencia al ID del tratamiento asociado a esta historia clínica (FK). Debe ser un ObjectId."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+});
+
+
 // Coleccion Historial Clinico
 
+db.HistoriaClinica.insertMany([
+  {
+    _id: ObjectId('688824670be2cd6239fe6c2e'),
+    paciente: ObjectId('be2d259697cd42fc99d36162'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c2f'),
+    paciente: ObjectId('bc63b5c2331d4fcdb26c517c'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbd')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c30'),
+    paciente: ObjectId('be5639854e484337a5f7fd40'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbe')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c31'),
+    paciente: ObjectId('65dc333014f4439ea1da0e34'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bbf')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c32'),
+    paciente: ObjectId('048f014687e34335a6a79477'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc0')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c33'),
+    paciente: ObjectId('ec7e983507f34fada5a4501e'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc1')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c34'),
+    paciente: ObjectId('3524f8a2f3414c1d98fcd28e'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc2')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c35'),
+    paciente: ObjectId('8d89f735a02543188d6a7d43'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc3')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c36'),
+    paciente: ObjectId('066bd5575f2f407ab17240af'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc4')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c37'),
+    paciente: ObjectId('ba5eb1c2ad2b4f6d8d084ce5'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc5')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c38'),
+    paciente: ObjectId('f48a3c0baf544bcc867f790c'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc6')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c39'),
+    paciente: ObjectId('85e612ca3f234b9493005ab9'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc7')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3a'),
+    paciente: ObjectId('f5e7d20c635d4575ab41b4e6'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc8')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3b'),
+    paciente: ObjectId('fca35a6dea3f4cc082275df5'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bc9')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3c'),
+    paciente: ObjectId('f9d0b158dadc4667a34d451c'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bca')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3d'),
+    paciente: ObjectId('bb00acc6e59e4979a884d61e'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bcb')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3e'),
+    paciente: ObjectId('5cec787741d54b4b92beb29c'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bcc')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c3f'),
+    paciente: ObjectId('9b6606b94359493a9210b8e0'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bcd')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c40'),
+    paciente: ObjectId('4f93178bf13c4a1fb79c758a'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bce')
+  },
+  {
+    _id: ObjectId('688824670be2cd6239fe6c41'),
+    paciente: ObjectId('c428a1233cfd4a8d934fb460'),
+    tratamiento: ObjectId('6887ee060be2cd6239fe6bcf')
+  }
+])
+
+
+  // Validacion Visitasmedicas
+
+  db.createCollection("VisitasMedicas", {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: [
+          "fecha_visita",
+          "id_tratamiento",
+          "id_medico",
+          "id_paciente",
+          "id_hospital",
+          "tipo_visita",
+          "estado_visita",
+          "observaciones"
+        ],
+        properties: {
+          _id: {
+            bsonType: "objectId",
+            description: "ID único de la visita médica."
+          },
+          fecha_visita: {
+            bsonType: "date",
+            description: "Fecha y hora de la visita médica. Debe ser un tipo Date."
+          },
+          id_tratamiento: {
+            bsonType: "objectId",
+            description: "Referencia al ID del tratamiento asociado a esta visita (FK). Debe ser un ObjectId."
+          },
+          id_medico: {
+            bsonType: "objectId",
+            description: "Referencia al ID del médico que realizó la visita (FK). Debe ser un ObjectId."
+          },
+          id_paciente: {
+            bsonType: "objectId",
+            description: "Referencia al ID del paciente que recibió la visita (FK). Debe ser un ObjectId."
+          },
+          id_hospital: {
+            bsonType: "objectId",
+            description: "Referencia al ID del hospital donde se realizó la visita (FK). Debe ser un ObjectId."
+          },
+          tipo_visita: {
+            bsonType: "string",
+            enum: ["Consulta General", "Emergencia", "Seguimiento", "Control", "Interconsulta", "Procedimiento"],
+            description: "Tipo de visita médica. Debe ser uno de los valores predefinidos."
+          },
+          estado_visita: {
+            bsonType: "string",
+            enum: ["Programada", "Realizada", "Cancelada", "Reprogramada", "Pendiente"],
+            description: "Estado actual de la visita médica. Debe ser uno de los valores predefinidos."
+          },
+          observaciones: {
+            bsonType: "string",
+            maxLength: 1000,
+            description: "Notas u observaciones relevantes de la visita. Debe ser un string, máximo 1000 caracteres."
+          }
+        }
+      }
+    },
+    validationLevel: "strict",
+    validationAction: "error"
+  });
+
+
+
+// Coleccion VisitasMedicas
+
+
+db.VisitasMedicas.insertMany([
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-15T09:30:00Z"),
+    id_tratamiento: ObjectId('be2d259697cd42fc99d36162'),
+    id_medico: "med001",
+    id_paciente: "44827dbe77d340ae975ec45c",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Paciente presenta mejoría en síntomas iniciales. Se recomienda continuar tratamiento."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-16T14:00:00Z"),
+    id_tratamiento: ObjectId('bc63b5c2331d4fcdb26c517c'),
+    id_medico: "med002",
+    id_paciente: "6313070bc3634e8694175f22",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Herida quirúrgica cicatrizando correctamente. Sin signos de infección."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-17T10:15:00Z"),
+    id_tratamiento: ObjectId('be5639854e484337a5f7fd40'),
+    id_medico: "med003",
+    id_paciente: "8ae0a42a2f354a45861708d5",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Paciente atendido por dolor abdominal agudo. Se realizaron estudios complementarios."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-18T11:45:00Z"),
+    id_tratamiento: ObjectId('65dc333014f4439ea1da0e34'),
+    id_medico: "med004",
+    id_paciente: "66667855c5204841b0a174cf",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación cardiológica completa. Se ajusta medicación antihipertensiva."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-19T08:30:00Z"),
+    id_tratamiento: ObjectId('048f014687e34335a6a79477'),
+    id_medico: "med005",
+    id_paciente: "4f9ce3a8b8534deba71ca321",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Paciente diabético con niveles de glucosa estables. Continuar con dieta y ejercicio."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-20T15:20:00Z"),
+    id_tratamiento: ObjectId('ec7e983507f34fada5a4501e'),
+    id_medico: "med006",
+    id_paciente: "db4dd9a5bacb438caf9fde8b",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Sesión de fisioterapia completada. Paciente muestra progreso en movilidad."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-22T09:00:00Z"),
+    id_tratamiento: ObjectId('3524f8a2f3414c1d98fcd28e'),
+    id_medico: "med007",
+    id_paciente: "98647a40f54c4013a2231d87",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Chequeo anual completo. Todos los parámetros dentro de rangos normales."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-23T13:30:00Z"),
+    id_tratamiento: ObjectId('8d89f735a02543188d6a7d43'),
+    id_medico: "med008",
+    id_paciente: "fa6caa4ffb2348b391a29d12",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación neurológica. Se solicitan estudios complementarios."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-24T16:45:00Z"),
+    id_tratamiento: ObjectId('066bd5575f2f407ab17240af'),
+    id_medico: "med009",
+    id_paciente: "a36d36f944fa4a6bbc9b1108",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Atención por crisis asmática. Paciente estabilizado y dado de alta."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-25T10:30:00Z"),
+    id_tratamiento: ObjectId('ba5eb1c2ad2b4f6d8d084ce5'),
+    id_medico: "med010",
+    id_paciente: "87550034ec0c46fb9305eeb9",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Primera consulta postoperatoria. Evolución favorable sin complicaciones."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-26T12:15:00Z"),
+    id_tratamiento: ObjectId('f48a3c0baf544bcc867f790c'),
+    id_medico: "med011",
+    id_paciente: "789bac0123ce4f56a461478e",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Paciente refiere dolor en articulaciones. Se inicia tratamiento antiinflamatorio."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-29T14:00:00Z"),
+    id_tratamiento: ObjectId('85e612ca3f234b9493005ab9'),
+    id_medico: "med012",
+    id_paciente: "b287c155f2c3455f80484841",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Continúa programa de rehabilitación cardíaca. Tolerancia al ejercicio mejorada."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-30T08:45:00Z"),
+    id_tratamiento: ObjectId('f5e7d20c635d4575ab41b4e6'),
+    id_medico: "med013",
+    id_paciente: "36076c4cdfb948d5a8b6f8e3",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación dermatológica completa. Se detecta lesión que requiere biopsia."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-01-31T11:20:00Z"),
+    id_tratamiento: ObjectId('fca35a6dea3f4cc082275df5'),
+    id_medico: "med014",
+    id_paciente: "f599cf0705884961a72d51bd",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Control de hipertensión arterial. Presión arterial controlada con medicación actual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-01T15:30:00Z"),
+    id_tratamiento: ObjectId('f9d0b158dadc4667a34d451c'),
+    id_medico: "med015",
+    id_paciente: "ad5006ae5a58430f8660cc11",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Traumatismo en extremidad inferior. Se realiza radiografía, sin fracturas evidentes."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-02T09:10:00Z"),
+    id_tratamiento: ObjectId('bb00acc6e59e4979a884d61e'),
+    id_medico: "med016",
+    id_paciente: "a81ad550f8224abdbceb5ca7",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Síntomas gripales. Se indica tratamiento sintomático y reposo."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-05T13:45:00Z"),
+    id_tratamiento: ObjectId('5cec787741d54b4b92beb29c'),
+    id_medico: "med017",
+    id_paciente: "a93baf82c485424cb0a1139d",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Segunda evaluación postoperatoria. Herida limpia, retiro de puntos programado."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-06T16:00:00Z"),
+    id_tratamiento: ObjectId('9b6606b94359493a9210b8e0'),
+    id_medico: "med018",
+    id_paciente: "23bb5590bca044958152cdf8",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación oftalmológica. Se prescribe nueva graduación para lentes."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-07T10:30:00Z"),
+    id_tratamiento: ObjectId('4f93178bf13c4a1fb79c758a'),
+    id_medico: "med019",
+    id_paciente: "69de04630e9040b092fb48ae",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Terapia ocupacional. Paciente muestra mejora en coordinación motora fina."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-08T14:15:00Z"),
+    id_tratamiento: ObjectId('c428a1233cfd4a8d934fb460'),
+    id_medico: "med020",
+    id_paciente: "88999d504ecc4c74b718f3aa",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Control de rutina. Se solicitan exámenes de laboratorio para próxima cita."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-09T08:00:00Z"),
+    id_tratamiento: ObjectId('b7856f0086cc491fa39f1294'),
+    id_medico: "med021",
+    id_paciente: "cd626fd5803844369b9bbe72",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Dolor torácico. Electrocardiograma normal. Se descarta origen cardíaco."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-12T11:30:00Z"),
+    id_tratamiento: ObjectId('5cfd89f776cf4a7eaab02319'),
+    id_medico: "med022",
+    id_paciente: "301a531cbd614944a6a1445f",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación endocrinológica. Ajuste en dosis de medicación para diabetes."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-13T15:45:00Z"),
+    id_tratamiento: ObjectId('72e124bde5d24daf9fb5265a'),
+    id_medico: "med023",
+    id_paciente: "5fa0d27199ee47569b9ce5e5",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Paciente embarazada. Control prenatal sin alteraciones. Feto en buenas condiciones."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-14T09:20:00Z"),
+    id_tratamiento: ObjectId('7775b869954f4c609cb9dc92'),
+    id_medico: "med024",
+    id_paciente: "c252a79788ad4d8da0f5057d",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Fisioterapia post fractura. Rango de movimiento mejorando progresivamente."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-15T12:00:00Z"),
+    id_tratamiento: ObjectId('4e222e7e65804ccf927a0234'),
+    id_medico: "med025",
+    id_paciente: "657055c99b474d9e96f5f314",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Cefaleas recurrentes. Se solicita resonancia magnética para descartar patología."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-16T16:30:00Z"),
+    id_tratamiento: ObjectId('93e2f21cd1b044539246e749'),
+    id_medico: "med026",
+    id_paciente: "3b7d58ab9557486a9fa88b9b",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Reacción alérgica medicamentosa. Tratamiento con antihistamínicos y corticoides."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-19T10:45:00Z"),
+    id_tratamiento: ObjectId('70db30ff717e439584dce9f3'),
+    id_medico: "med027",
+    id_paciente: "ee6bda32f09c489d957b8cf2",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Control a las 2 semanas de cirugía. Evolución excelente, sin complicaciones."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-20T13:15:00Z"),
+    id_tratamiento: ObjectId('cb4a253860604a9f9da41c33'),
+    id_medico: "med028",
+    id_paciente: "a9ceb66826244b0997920bf0",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación psiquiátrica. Ajuste en medicación antidepresiva."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-21T14:30:00Z"),
+    id_tratamiento: ObjectId('745460e515dc4304951ddcea'),
+    id_medico: "med029",
+    id_paciente: "8f7b3b484aec4171925ecfd9",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Terapia del lenguaje post ACV. Se observa mejoría en articulación."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-22T08:30:00Z"),
+    id_tratamiento: ObjectId('d031f50cb7a644058400fc20'),
+    id_medico: "med030",
+    id_paciente: "93efec4840cf4f49ae82c60c",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Dolor lumbar crónico. Se indica fisioterapia y analgésicos."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-23T15:00:00Z"),
+    id_tratamiento: ObjectId('6527d68ce81b455db16bd420'),
+    id_medico: "med031",
+    id_paciente: "cbd109c0a6cd4f6d99349647",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Control de colesterol. Niveles dentro de rango objetivo con dieta y medicación."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-26T09:15:00Z"),
+    id_tratamiento: ObjectId('3e2a0a03299e4be9b7aa2650'),
+    id_medico: "med032",
+    id_paciente: "fe23b8906e104c288e08b9d1",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Gastroenteritis aguda. Hidratación endovenosa y tratamiento sintomático."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-27T11:00:00Z"),
+    id_tratamiento: ObjectId('2b4c0443bb0446c89955b637'),
+    id_medico: "med033",
+    id_paciente: "b3e29cc380dd4fbd85a3fcac",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación ortopédica. Se programa cirugía de rodilla para próximo mes."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-02-28T16:20:00Z"),
+    id_tratamiento: ObjectId('6a6b574e72ec4bbfad7d8ba2'),
+    id_medico: "med034",
+    id_paciente: "ab2671eb0e354741861a5804",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Rehabilitación pulmonar. Capacidad respiratoria mejorando gradualmente."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-01T10:30:00Z"),
+    id_tratamiento: ObjectId('166b32fac8db4e13a013c63f'),
+    id_medico: "med035",
+    id_paciente: "9bf4441add30418ab41211ac",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Vacunación de rutina completada. Próxima cita en 6 meses para control."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-04T14:45:00Z"),
+    id_tratamiento: ObjectId('3dfc0771329b41e7ab764d0c'),
+    id_medico: "med036",
+    id_paciente: "d626b432e7cb41599dabc5cd",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación ginecológica anual. Se realizan estudios preventivos de rutina."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-05T11:15:00Z"),
+    id_tratamiento: ObjectId('bfa69a6e428e47b78481d345'),
+    id_medico: "med037",
+    id_paciente: "c192a7ca8b59495db860aba7",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Control de presión arterial. Medicación ajustada según evolución clínica."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-06T09:45:00Z"),
+    id_tratamiento: ObjectId('b259d5fcc0f34f3bb1f94e4b'),
+    id_medico: "med038",
+    id_paciente: "89181af5cab54d6eb404c76a",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Episodio de broncoespasmo. Nebulizaciones y corticoides inhalados."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-07T16:00:00Z"),
+    id_tratamiento: ObjectId('0df5e5db9d384398af1cda01'),
+    id_medico: "med039",
+    id_paciente: "63c26a8be9ca40169c166545",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "En progreso",
+    observaciones: "Sesión de terapia física. Fortalecimiento muscular progresivo satisfactorio."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-08T13:20:00Z"),
+    id_tratamiento: ObjectId('961401f855dc461886f662cf'),
+    id_medico: "med040",
+    id_paciente: "7dd585bd94ae48e99b5290f0",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Evaluación de salud mental. Se refiere a especialista en psicología clínica."
+  }
+]);
+
+
+
+
+
+
+
+
+
+
+// Coleccion VisitasMedicas
+
+db.VisitasMedicas.insertMany([
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-10T09:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbc'),
+    id_medico: "med001",
+    id_paciente: "f39f8a0de6bb41558c572960",
+    tipo_visita: "Consulta inicial",
+    estado_visita: "Completada",
+    observaciones: "Paciente con dolor abdominal. Se ordenaron análisis de sangre."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-15T14:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbd'),
+    id_medico: "med012",
+    id_paciente: "7de16aa11ef64441881e8afc",
+    tipo_visita: "Seguimiento",
+    estado_visita: "Completada",
+    observaciones: "Mejoría notable en los síntomas. Ajustar dosis de medicación."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-20T11:00:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbe'),
+    id_medico: "med025",
+    id_paciente: "65513a811af94d15817ffb19",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Cancelada",
+    observaciones: "Paciente no se presentó. Reagendar."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-22T16:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbf'),
+    id_medico: "med038",
+    id_paciente: "ca1d04d3a6384ec799088359",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Paciente con fiebre alta. Se administró antipirético."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-03-25T10:00:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc0'),
+    id_medico: "med005",
+    id_paciente: "1db882ee6aec4460ba013961",
+    tipo_visita: "Revisión postoperatoria",
+    estado_visita: "Completada",
+    observaciones: "Herida quirúrgica cicatrizando correctamente."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-02T13:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc1'),
+    id_medico: "med031",
+    id_paciente: "48e09b852d9440b19063140b",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Presión arterial estable con medicación actual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-05T08:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc2'),
+    id_medico: "med019",
+    id_paciente: "88ed3da661d54cb082cdd6d3",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Derivar a endocrinólogo para evaluación adicional."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-10T15:20:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc3'),
+    id_medico: "med042",
+    id_paciente: "c4c33f4b721f4e11b73bada1",
+    tipo_visita: "Seguimiento crónico",
+    estado_visita: "Completada",
+    observaciones: "Paciente con diabetes controlada. Mantener tratamiento."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-12T11:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc4'),
+    id_medico: "med007",
+    id_paciente: "bd6f23dec1894fa0989ff0fe",
+    tipo_visita: "Vacunación",
+    estado_visita: "Completada",
+    observaciones: "Administrada vacuna antigripal. Sin reacciones adversas."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-18T09:00:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc5'),
+    id_medico: "med053",
+    id_paciente: "c4300bed41724d0e8e71b3bd",
+    tipo_visita: "Control pediátrico",
+    estado_visita: "Completada",
+    observaciones: "Niño con desarrollo normal para su edad."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-20T14:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc6'),
+    id_medico: "med015",
+    id_paciente: "8634bc0e6692475687a3d6e6",
+    tipo_visita: "Emergencia",
+    estado_visita: "Completada",
+    observaciones: "Paciente con dificultad respiratoria. Mejoría tras tratamiento."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-04-25T10:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc7'),
+    id_medico: "med028",
+    id_paciente: "ef70a89b53f84591a470ce8d",
+    tipo_visita: "Consulta psicológica",
+    estado_visita: "Completada",
+    observaciones: "Sesión de terapia cognitivo-conductual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-03T16:00:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc8'),
+    id_medico: "med036",
+    id_paciente: "fbf4213d9d54484c9bc0164e",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "Completada",
+    observaciones: "Progreso en movilidad tras fractura de tibia."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-08T08:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc9'),
+    id_medico: "med022",
+    id_paciente: "565b6aba0fab4b8a9d939856",
+    tipo_visita: "Control prenatal",
+    estado_visita: "Completada",
+    observaciones: "Embarazo de 24 semanas. Todo normal."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-12T12:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bca'),
+    id_medico: "med047",
+    id_paciente: "035d1382d23244319fb934cb",
+    tipo_visita: "Tratamiento dermatológico",
+    estado_visita: "Completada",
+    observaciones: "Mejoría en lesiones cutáneas con crema recetada."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-18T15:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcb'),
+    id_medico: "med009",
+    id_paciente: "5bc185636aa24ce2b5800968",
+    tipo_visita: "Chequeo anual",
+    estado_visita: "Completada",
+    observaciones: "Analíticas dentro de rangos normales."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-22T11:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcc'),
+    id_medico: "med054",
+    id_paciente: "78a11003bfb54abdba7a7215",
+    tipo_visita: "Consulta oftalmológica",
+    estado_visita: "Completada",
+    observaciones: "Cambio en graduación de lentes. Recetados nuevos anteojos."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-25T09:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcd'),
+    id_medico: "med033",
+    id_paciente: "f1cad87e1a964c258cf39f0b",
+    tipo_visita: "Control geriátrico",
+    estado_visita: "Completada",
+    observaciones: "Paciente con artrosis. Recomendado fisioterapia."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-05-30T14:00:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bce'),
+    id_medico: "med061",
+    id_paciente: "9cf3fccf2247471288d0c60b",
+    tipo_visita: "Evaluación cardiológica",
+    estado_visita: "Pendiente",
+    observaciones: "Programar electrocardiograma para próxima visita."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-06-05T10:20:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcf'),
+    id_medico: "med017",
+    id_paciente: "6f5f2ec759074e1fae02beb1",
+    tipo_visita: "Seguimiento tratamiento",
+    estado_visita: "Completada",
+    observaciones: "Paciente tolerando bien la medicación. Continuar igual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-05T10:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbc'),
+    id_medico: "med018",
+    id_paciente: "8634bc0e6692475687a3d6e6",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Paciente con dolor de garganta. Se recetó antibiótico tras test rápido positivo para estreptococo."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-08T14:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbd'),
+    id_medico: "med027",
+    id_paciente: "ef70a89b53f84591a470ce8d",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Presión arterial dentro de rangos normales. Continuar con hábitos saludables."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-12T11:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbe'),
+    id_medico: "med035",
+    id_paciente: "fbf4213d9d54484c9bc0164e",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Derivado a neumología por sospecha de asma. Solicitar espirometría."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-15T16:20:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbf'),
+    id_medico: "med049",
+    id_paciente: "565b6aba0fab4b8a9d939856",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Paciente con reacción alérgica leve. Administrado antihistamínico. Mejoría inmediata."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-18T09:10:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc0'),
+    id_medico: "med011",
+    id_paciente: "035d1382d23244319fb934cb",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Retirada de puntos. Herida cicatrizando adecuadamente sin signos de infección."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-22T13:25:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc1'),
+    id_medico: "med052",
+    id_paciente: "5bc185636aa24ce2b5800968",
+    tipo_visita: "Seguimiento",
+    estado_visita: "Completada",
+    observaciones: "Paciente con artritis reumatoide. Dolor mejor controlado con medicación actual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-25T15:50:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc2'),
+    id_medico: "med024",
+    id_paciente: "78a11003bfb54abdba7a7215",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "Completada",
+    observaciones: "Progreso en terapia física tras accidente cerebrovascular. Aumentar intensidad de ejercicios."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-09-28T08:40:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc3'),
+    id_medico: "med043",
+    id_paciente: "f1cad87e1a964c258cf39f0b",
+    tipo_visita: "Procedimiento",
+    estado_visita: "Completada",
+    observaciones: "Extracción de lunar para biopsia. Resultados en 7-10 días."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-02T12:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc4'),
+    id_medico: "med016",
+    id_paciente: "9cf3fccf2247471288d0c60b",
+    tipo_visita: "Interconsulta",
+    estado_visita: "Completada",
+    observaciones: "Evaluación conjunta con psiquiatría para manejo de depresión resistente."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-05T10:30:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc5'),
+    id_medico: "med030",
+    id_paciente: "6f5f2ec759074e1fae02beb1",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Analíticas dentro de rangos normales. Recomendar continuar con ejercicio moderado."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-09T14:45:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc6'),
+    id_medico: "med041",
+    id_paciente: "5fad35df50fa4a41a10b177d",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Paciente con sinusitis. Recetado tratamiento antibiótico y descongestionante."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-12T09:20:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc7'),
+    id_medico: "med055",
+    id_paciente: "fdad6026193541e38df55755",
+    tipo_visita: "Control postoperatorio",
+    estado_visita: "Completada",
+    observaciones: "Seguimiento tras cirugía de vesícula. Dieta baja en grasas tolerada adecuadamente."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-15T16:10:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc8'),
+    id_medico: "med008",
+    id_paciente: "9726b7134942488894089fe1",
+    tipo_visita: "Urgencia",
+    estado_visita: "Completada",
+    observaciones: "Paciente con esguince de tobillo grado I. Recomendado reposo, hielo y elevación."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-18T11:35:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc9'),
+    id_medico: "med062",
+    id_paciente: "ae4a23ebdbfa4088bb49b60b",
+    tipo_visita: "Consulta especializada",
+    estado_visita: "Completada",
+    observaciones: "Evaluación endocrinológica por posible trastorno tiroideo. Solicitar perfil tiroideo completo."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-22T08:50:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bca'),
+    id_medico: "med013",
+    id_paciente: "0b53d8c4945640f490005032",
+    tipo_visita: "Seguimiento",
+    estado_visita: "Completada",
+    observaciones: "Paciente con EPOC estable. Continuar tratamiento inhalatorio actual."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-25T13:15:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcb'),
+    id_medico: "med046",
+    id_paciente: "8505a55a62cc4d78a3fc0be2",
+    tipo_visita: "Control rutinario",
+    estado_visita: "Completada",
+    observaciones: "Chequeo anual sin hallazgos relevantes. Próxima visita en 1 año."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-10-28T15:40:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcc'),
+    id_medico: "med029",
+    id_paciente: "0745a05c307843c284440288",
+    tipo_visita: "Procedimiento",
+    estado_visita: "Completada",
+    observaciones: "Aplicación de vacuna antineumocócica. Sin reacciones adversas."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-11-02T10:25:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcd'),
+    id_medico: "med057",
+    id_paciente: "6b05232b1b304a0a9a5a3990",
+    tipo_visita: "Interconsulta",
+    estado_visita: "Pendiente",
+    observaciones: "Derivación a cardiología por soplo cardíaco detectado en examen rutinario."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-11-05T14:50:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bce'),
+    id_medico: "med004",
+    id_paciente: "2631f701dc604f5db2c4f320",
+    tipo_visita: "Rehabilitación",
+    estado_visita: "Completada",
+    observaciones: "Sesión de fisioterapia para recuperación de movilidad tras fractura de húmero."
+  },
+  {
+    _id: new ObjectId(),
+    fecha_visita: new Date("2024-11-08T09:35:00Z"),
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcf'),
+    id_medico: "med050",
+    id_paciente: "f9b746ebd82a4f09b5b46a77",
+    tipo_visita: "Consulta general",
+    estado_visita: "Completada",
+    observaciones: "Paciente con conjuntivitis viral. Recomendado tratamiento sintomático y medidas higiénicas."
+  }
+])
+
+
+
+
+
+// Validacion Enfermedades
+
+db.createCollection("Enfermedades", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "tipo", "clasificacion", "id_sintoma"],
+      properties: {
+        nombre: {
+          bsonType: "string",
+          description: "Debe ser un string y es requerido."
+        },
+        tipo: {
+          bsonType: "string",
+          description: "Debe ser un string y es requerido."
+        },
+        clasificacion: {
+          bsonType: "string",
+          description: "Debe ser un string y es requerido."
+        },
+        id_sintoma: {
+          bsonType: "objectId",
+          description: "Debe ser un ObjectId válido que referencia a la colección Sintomas y es requerido."
+        }
+      }
+    }
+  }
+});
+
+// Coleccion Enfermedades
+db.Enfermedades.insertMany([
+  {
+    _id: ObjectId(),
+    nombre: "Gripe Común",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696a')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Migraña",
+    tipo: "Neurológica",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696b')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Bronquitis Aguda",
+    tipo: "Respiratoria",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696c')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Diabetes Tipo 2",
+    tipo: "Metabólica",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696d')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Dermatitis Atópica",
+    tipo: "Cutánea",
+    clasificacion: "Autoinmune",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696e')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Hipertensión",
+    tipo: "Cardiovascular",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696f')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Gastritis",
+    tipo: "Digestiva",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6970')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Artritis Reumatoide",
+    tipo: "Autoinmune",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6971')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Conjuntivitis",
+    tipo: "Ocular",
+    clasificacion: "Infecciosa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6972')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Anemia Ferropénica",
+    tipo: "Sanguínea",
+    clasificacion: "Deficiencia",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6973')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Asma",
+    tipo: "Respiratoria",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6974')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Tiña",
+    tipo: "Cutánea",
+    clasificacion: "Fúngica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6975')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Cálculos Renales",
+    tipo: "Urológica",
+    clasificacion: "Metabólica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6976')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Depresión",
+    tipo: "Mental",
+    clasificacion: "Trastorno del ánimo",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6977')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Hepatitis A",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6978')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Osteoporosis",
+    tipo: "Ósea",
+    clasificacion: "Degenerativa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6979')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Reflujo Gastroesofágico",
+    tipo: "Digestiva",
+    clasificacion: "Funcional",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697a')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Sinusitis",
+    tipo: "Respiratoria",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697b')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Varicela",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697c')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Cáncer de Piel",
+    tipo: "Oncológica",
+    clasificacion: "Neoplasia",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697d')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Resfriado Común",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697e')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Dolor de Espalda Crónico",
+    tipo: "Musculoesquelética",
+    clasificacion: "Dolor crónico",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe697f')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Alergia Estacional",
+    tipo: "Inmunológica",
+    clasificacion: "Alérgica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6980')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Gota",
+    tipo: "Metabólica",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6981')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Conjuntivitis Alérgica",
+    tipo: "Ocular",
+    clasificacion: "Alérgica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6982')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Anorexia Nerviosa",
+    tipo: "Mental",
+    clasificacion: "Trastorno alimentario",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6983')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Enfermedad Celíaca",
+    tipo: "Autoinmune",
+    clasificacion: "Digestiva",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6984')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Pie de Atleta",
+    tipo: "Cutánea",
+    clasificacion: "Fúngica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6985')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Neuralgia del Trigémino",
+    tipo: "Neurológica",
+    clasificacion: "Dolor crónico",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6986')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Endometriosis",
+    tipo: "Ginecológica",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6987')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Herpes Labial",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6988')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Colitis Ulcerosa",
+    tipo: "Digestiva",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6989')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Esclerosis Múltiple",
+    tipo: "Neurológica",
+    clasificacion: "Autoinmune",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698a')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Síndrome de Colon Irritable",
+    tipo: "Digestiva",
+    clasificacion: "Funcional",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698b')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Cataratas",
+    tipo: "Ocular",
+    clasificacion: "Degenerativa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698c')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Mononucleosis",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698d')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Fibromialgia",
+    tipo: "Musculoesquelética",
+    clasificacion: "Dolor crónico",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698e')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Enfermedad de Crohn",
+    tipo: "Digestiva",
+    clasificacion: "Autoinmune",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe698f')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Glaucoma",
+    tipo: "Ocular",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6990')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Neumonía Bacteriana",
+    tipo: "Respiratoria",
+    clasificacion: "Bacteriana",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6991')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Otitis Media",
+    tipo: "Otorrinolaringológica",
+    clasificacion: "Infecciosa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6992')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Psoriasis",
+    tipo: "Cutánea",
+    clasificacion: "Autoinmune",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6993')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Síndrome de Fatiga Crónica",
+    tipo: "Neurológica",
+    clasificacion: "Crónica",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6994')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Hipotiroidismo",
+    tipo: "Endocrina",
+    clasificacion: "Hormonal",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6995')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "VIH/SIDA",
+    tipo: "Infecciosa",
+    clasificacion: "Viral",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6996')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Cistitis",
+    tipo: "Urológica",
+    clasificacion: "Infecciosa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6997')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Parkinson",
+    tipo: "Neurológica",
+    clasificacion: "Neurodegenerativa",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe6998')
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Úlcera Péptica",
+    tipo: "Digestiva",
+    clasificacion: "Inflamatoria",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696a') // Repetido para completar los 50
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Hemorroides",
+    tipo: "Digestiva",
+    clasificacion: "Vascular",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696b') // Repetido
+  },
+  {
+    _id: ObjectId(),
+    nombre: "Apendicitis",
+    tipo: "Digestiva",
+    clasificacion: "Inflamatoria aguda",
+    id_sintoma: ObjectId('6887e4cc0be2cd6239fe696c') // Repetido
+  }
+]);
+
+// Validacion Beneficios
+db.createCollection("Beneficios", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["descripcion", "id_tratamiento"],
+      properties: {
+        descripcion: {
+          bsonType: "string",
+          description: "Debe ser un string y es requerido."
+        },
+        id_tratamiento: {
+          bsonType: "objectId",
+          description: "Debe ser un ObjectId válido que referencia a la colección Tratamientos y es requerido."
+        }
+      }
+    }
+  }
+});
+
+// coleccion Beneficios
+
+  db.Beneficios.insertMany([ {
+    _id: ObjectId(),
+    descripcion: "Alivio significativo del dolor y mejora de la movilidad.", 
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción de la inflamación y recuperación más rápida.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbd')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora en la función respiratoria y menos episodios de asma.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbe')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Control efectivo de los niveles de azúcar en sangre.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbf')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Piel más sana y reducción de brotes de dermatitis.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc0')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Normalización de la presión arterial y menor riesgo cardiovascular.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc1')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Disminución de la acidez estomacal y alivio de la indigestión.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc2')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora en la calidad del sueño y reducción de la fatiga.", 
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc3')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Recuperación de la visión y prevención de futuros problemas oculares.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc4')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Aumento de los niveles de energía y mejora general del bienestar.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc5')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Fortalecimiento del sistema inmunológico y menor susceptibilidad a infecciones.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc6')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Crecimiento de cabello y uñas más saludables.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc7')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora del estado de ánimo y reducción de la ansiedad.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc8')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Desintoxicación del organismo y mejora de la función hepática.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc9')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción de la frecuencia e intensidad de los dolores de cabeza.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bca')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la digestión y regularidad intestinal.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcb')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Aumento de la concentración y claridad mental.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcc')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Recuperación de la masa ósea y prevención de fracturas.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcd')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Ciclos menstruales más regulares y menos dolorosos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bce')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la circulación sanguínea y reducción de hinchazón.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcf')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Restauración de la vitalidad y energía general.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Eliminación de toxinas y purificación del cuerpo.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbd')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la postura y reducción de dolores crónicos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbe')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Fortalecimiento de articulaciones y ligamentos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbf')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción del estrés y promoción de la calma.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc0')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la función cognitiva y memoria.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc1')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Regulación del apetito y promoción de un peso saludable.", 
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc2')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Piel más luminosa y reducción de imperfecciones.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc3')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Recuperación rápida de lesiones deportivas.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc4')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la audición y reducción de zumbidos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc5')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Aumento de la flexibilidad y rango de movimiento.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc6')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Refuerzo del sistema cardiovascular.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc7')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Disminución de la sensibilidad dental.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc8')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción de la retención de líquidos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc9')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora del equilibrio y coordinación.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bca')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Alivio de los síntomas del síndrome premenstrual.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcb')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Fortalecimiento del cabello y reducción de su caída.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcc')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mayor resistencia física y menos fatiga muscular.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcd')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Regulación hormonal y mejora del bienestar general.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bce')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora de la función renal y desintoxicación.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bcf')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción de la tensión muscular y espasmos.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbc')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora del tránsito intestinal y alivio del estreñimiento.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbd')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Piel hidratada y reducción de la sequedad.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbe')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción de la caída del cabello y fomento del crecimiento.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bbf')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Fortalecimiento de los huesos y prevención de la osteoporosis.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc0')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Alivio del dolor articular y mejora de la movilidad.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc1')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Mejora en la cicatrización de heridas.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc2')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Refuerzo de la función pulmonar.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc3')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Reducción del cansancio ocular.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc4')
+  },
+  {
+    _id: ObjectId(),
+    descripcion: "Regulación del ciclo del sueño.",
+    id_tratamiento: ObjectId('6887ee060be2cd6239fe6bc5')
+  }
+]);
+
+  
+
+
+
+// Valiacion Requerimientos
+db.createCollection("Requerimientos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["descripcion", "id_tratamiento"],
+      properties: {
+        descripcion: {
+          bsonType: "string",
+          description: "debe ser una cadena de texto y es obligatoria"
+        },
+        id_tratamiento: {
+          bsonType: "objectId",
+          description: "debe ser un ObjectId válido referenciando un tratamiento y es obligatorio"
+        }
+      }
+    }
+  },
+  validationAction: "error" // Esto asegura que cualquier documento que no cumpla con el esquema no sea insertado
+});
+
+
+
+
+// Coleccion Requeriminetos
+
+db.Requerimientos.insertMany([
+  {
+    "descripcion": "El paciente debe ayunar al menos 8 horas antes del procedimiento. Se requiere una evaluación pre-anestésica completa.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbc" }
+  },
+  {
+    "descripcion": "Monitorear la presión arterial cada 8 horas durante los primeros 3 días. Dosis máxima diaria de 500mg.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbd" }
+  },
+  {
+    "descripcion": "El tratamiento está contraindicado en pacientes con insuficiencia renal. Se necesita consentimiento informado por escrito.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbe" }
+  },
+  {
+    "descripcion": "Las sesiones deben ser al menos 3 veces por semana para ver resultados. Requiere la participación activa del paciente.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbf" }
+  },
+  {
+    "descripcion": "El paciente debe abstenerse de consumir alcohol durante la duración del tratamiento. Seguimiento semanal requerido.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc0" }
+  },
+  {
+    "descripcion": "Administrar el medicamento con alimentos para reducir irritación gástrica. Advertir sobre posibles náuseas.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc1" }
+  },
+  {
+    "descripcion": "Verificar la disponibilidad de equipo especializado. Realizar pruebas de coagulación sanguínea previas.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc2" }
+  },
+  {
+    "descripcion": "El paciente debe tener un historial médico completo. No apto para pacientes con ideación suicida activa.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc3" }
+  },
+  {
+    "descripcion": "Asegurar un entorno seguro y libre de obstáculos. El paciente debe tener movilidad mínima.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc4" }
+  },
+  {
+    "descripcion": "Confidencialidad absoluta garantizada, salvo excepciones legales. Compromiso a asistir a todas las sesiones.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc5" }
+  },
+  {
+    "descripcion": "Se requiere una prueba de laboratorio (e.g., hemograma completo) antes y después del tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc6" }
+  },
+  {
+    "descripcion": "Ajustar la dosis según la respuesta del paciente. Monitoreo constante de efectos adversos.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc7" }
+  },
+  {
+    "descripcion": "El paciente no debe tener antecedentes de alergias a los componentes del tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc8" }
+  },
+  {
+    "descripcion": "Evitar la exposición solar directa durante el tratamiento. Usar protector solar de alto factor.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc9" }
+  },
+  {
+    "descripcion": "Se recomienda una dieta baja en sodio. Controlar el nivel de glucosa en sangre diariamente.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bca" }
+  },
+  {
+    "descripcion": "El tratamiento es de larga duración, se requiere compromiso del paciente.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcb" }
+  },
+  {
+    "descripcion": "Realizar un electrocardiograma antes de iniciar el tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcc" }
+  },
+  {
+    "descripcion": "No combinar con otros medicamentos sin consultar al médico.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcd" }
+  },
+  {
+    "descripcion": "El paciente debe informar cualquier cambio en su estado de salud.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bce" }
+  },
+  {
+    "descripcion": "Se requiere la presencia de un acompañante para pacientes menores de edad.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcf" }
+  },
+  {
+    "descripcion": "El tratamiento requiere que el paciente no tenga antecedentes de alergias a AINEs.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbc" }
+  },
+  {
+    "descripcion": "Se necesita consentimiento informado por escrito. Dosis máxima diaria de 500mg.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbd" }
+  },
+  {
+    "descripcion": "El tratamiento está contraindicado en pacientes con insuficiencia hepática.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbe" }
+  },
+  {
+    "descripcion": "Requiere la participación activa del paciente en tareas inter-sesión.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbf" }
+  },
+  {
+    "descripcion": "El paciente debe abstenerse de fumar durante la duración del tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc0" }
+  },
+  {
+    "descripcion": "Administrar el medicamento 30 minutos antes de las comidas.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc1" }
+  },
+  {
+    "descripcion": "Verificar la compatibilidad sanguínea antes de la transfusión.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc2" }
+  },
+  {
+    "descripcion": "El paciente debe tener un historial de vacunación actualizado.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc3" }
+  },
+  {
+    "descripcion": "Asegurar un entorno tranquilo para la terapia de relajación.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc4" }
+  },
+  {
+    "descripcion": "Se requiere la supervisión de un terapeuta ocupacional certificado.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc5" }
+  },
+  {
+    "descripcion": "Realizar un estudio de imagen (e.g., radiografía) antes de proceder.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc6" }
+  },
+  {
+    "descripcion": "Ajustar la dosis en pacientes pediátricos según el peso corporal.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc7" }
+  },
+  {
+    "descripcion": "El paciente no debe tener implantes metálicos si se usa resonancia magnética.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc8" }
+  },
+  {
+    "descripcion": "Evitar el consumo de cafeína y estimulantes durante el tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc9" }
+  },
+  {
+    "descripcion": "Se recomienda una dieta rica en fibra. Controlar los niveles de colesterol.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bca" }
+  },
+  {
+    "descripcion": "El tratamiento puede causar somnolencia, evitar conducir vehículos.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcb" }
+  },
+  {
+    "descripcion": "Realizar un examen oftalmológico anual durante el tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcc" }
+  },
+  {
+    "descripcion": "No suspender el medicamento abruptamente sin supervisión médica.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcd" }
+  },
+  {
+    "descripcion": "El paciente debe mantener un registro de sus síntomas diarios.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bce" }
+  },
+  {
+    "descripcion": "Se requiere un acompañante para pacientes con movilidad reducida.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bcf" }
+  },
+  {
+    "descripcion": "El paciente debe evitar el contacto con personas enfermas.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbc" }
+  },
+  {
+    "descripcion": "Se necesita un período de recuperación de 24 horas después del procedimiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbd" }
+  },
+  {
+    "descripcion": "El tratamiento no es compatible con el embarazo o la lactancia.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbe" }
+  },
+  {
+    "descripcion": "Requiere la asistencia a grupos de apoyo semanales.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bbf" }
+  },
+  {
+    "descripcion": "El paciente debe mantener una buena higiene oral durante el tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc0" }
+  },
+  {
+    "descripcion": "Administrar el medicamento por vía intravenosa lentamente.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc1" }
+  },
+  {
+    "descripcion": "Verificar la fecha de caducidad de todos los insumos médicos.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc2" }
+  },
+  {
+    "descripcion": "El paciente debe evitar actividades físicas extenuantes.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc3" }
+  },
+  {
+    "descripcion": "Asegurar que el paciente comprenda completamente las instrucciones post-tratamiento.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc4" }
+  },
+  {
+    "descripcion": "Se requiere la firma de un acuerdo de confidencialidad por parte del terapeuta.",
+    "id_tratamiento": { "$oid": "6887ee060be2cd6239fe6bc5" }
+  }
+]);
