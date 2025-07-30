@@ -1476,3 +1476,66 @@ function reporteIntegralPacientes(hospitalId, tipoFiltro = "TODOS") {
 // Funciones Estratégicas para la Gestión Hospitalaria
 
 Estas 20 funciones cubren los aspectos más críticos de la operación hospitalaria:
+
+## 1. `calcularInventarioHospital(hospitalId)`
+Calcula el inventario de medicamentos de un hospital específico con información detallada del stock y estado crítico.
+
+## 2. `reporteVisitasPorTipo(fechaInicio, fechaFin, hospitalId)`
+Genera un reporte de visitas médicas agrupadas por tipo de visita con estadísticas de pacientes y médicos únicos.
+
+## 3. `estadisticasTratamientosPorHistoria()`
+Analiza estadísticas de tratamientos aplicados en historias clínicas con costos y frecuencias de aplicación.
+
+## 4. `consultarPacientesPorEPS()`
+Consulta y agrupa pacientes por su EPS asignada mostrando totales y detalles de cada afiliado.
+
+## 5. `reporteRecursosPorArea(hospitalId)`
+Reporta recursos humanos (médicos y enfermeros) distribuidos por áreas de un hospital específico.
+
+## 6. `sintomasMasComunes()`
+Identifica los 10 síntomas más comunes basándose en su relación con diferentes enfermedades.
+
+## 7. `reporteIngresosMensualesPorTratamientos(hospitalId, mes, año)`
+Calcula ingresos diarios generados por tratamientos en un hospital durante un mes específico.
+
+## 8. `medicamentosPorHospital(hospitalId)`
+Lista todos los medicamentos disponibles en el inventario de un hospital con detalles de stock.
+
+## 9. `pacientesConCobertura()`
+Obtiene pacientes que tienen tanto EPS como seguro médico con información completa de cobertura.
+
+## 10. `medicosPorHospital(hospitalId)`
+Lista médicos asignados a un hospital específico con información de contacto y área asignada.
+
+## 11. `eficienciaMedicosPorEspecializacion(hospitalId, fechaInicio, fechaFin)`
+Analiza la eficiencia de médicos por especialización calculando tasas de completación y productividad.
+
+## 12. `analisisOcupacionAreas(hospitalId)`
+Analiza el nivel de ocupación de las áreas hospitalarias basándose en visitas y recursos disponibles.
+
+## 13. `historialesClinicosActivos(hospitalId, estadoPaciente)`
+Genera reporte de historiales clínicos activos con estadísticas de visitas y seguimiento de pacientes.
+
+## 14. `analisisProveedoresSupministros(hospitalId)`
+Evalúa proveedores de medicamentos analizando confiabilidad, stock suministrado y medicamentos críticos.
+
+## 15. `generarReporteHorarios()`
+Consolida información de horarios de todo el personal médico y administrativo en una colección unificada.
+
+## 16. `dashboardHospital(hospitalId)`
+Crea un dashboard completo con estadísticas generales del hospital incluyendo personal, pacientes y recursos.
+
+## 17. `reportePersonalPorArea(hospitalId)`
+Detalla todo el personal médico y de enfermería distribuido por áreas con información de contacto.
+
+## 18. `analisisFinancieroTratamientos(hospitalId, fechaInicio, fechaFin)`
+Análisis financiero detallado de ingresos por tratamientos agrupados por período y área médica.
+
+## 19. `gestionInventarioAvanzada(hospitalId)`
+Gestión avanzada de inventario con alertas automáticas, niveles de stock y información de proveedores.
+
+## 20. `analisisRendimientoMedicos(hospitalId, fechaInicio, fechaFin)`
+Análisis completo del rendimiento médico con métricas de productividad, ingresos generados y tasas de completación.
+
+## 21. `reporteIntegralPacientes(hospitalId, tipoFiltro)`
+Reporte integral de pacientes con seguimiento completo incluyendo historial médico, cobertura y alertas de seguimiento.

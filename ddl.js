@@ -384,3 +384,47 @@ db.createRole({
   ],
   roles: []
 });
+
+
+#  Resumen de Control de Acceso y Roles en el Sistema Hospitalario
+
+
+##  Director General (`DirectorGeneral`)
+- **Acceso total** a todas las colecciones y operaciones.
+- Supervisa y gestiona todo el sistema.
+- Ideal para auditorías y decisiones estratégicas.
+
+---
+
+##  Médico Especialista (`MedicoEspecialista`)
+- **Lee y edita pacientes.**
+- **Registra diagnósticos.**
+- Permite atención clínica sin comprometer otros datos.
+
+---
+
+##  Enfermero/a (`Enfermero`)
+- **Solo lectura** de pacientes.
+- Puede consultar datos para atención, sin modificarlos.
+
+---
+
+## Personal Administrativo (`Administrativo`)
+- **Gestión de inventario, proveedores y personal.**
+- Asegura operación logística sin acceder a datos clínicos.
+
+---
+
+##  Mantenimiento (`Mantenimiento`)
+- **Gestiona tareas de mantenimiento.**
+- No accede a datos clínicos o administrativos.
+
+---
+
+##  Beneficios del RBAC
+- **Seguridad:** Restringe accesos no autorizados.
+- **Trazabilidad:** Facilita auditorías por rol.
+- **Escalabilidad:** Fácil de mantener y ampliar.
+- **Eficiencia:** Optimiza el uso del sistema por usuario.
+
+
