@@ -306,3 +306,81 @@ db.namecolecction.insertMany([])
 
 
 // Creaccion de usuarios
+// Usuario director general
+
+db.createRole({
+  role: "DirectorGeneral",
+  privileges: [
+    {
+      resource: { db: "SistemaHospitalario", collection: "" },
+      actions: [ "find", "insert", "update", "remove", "createCollection", "createIndex", "dropCollection", "dropIndex" ]
+    }
+  ],
+  roles: []
+});
+
+// Usuario de medicos
+
+db.createRole({
+  role: "MedicoEspecialista",
+  privileges: [
+    {
+      resource: { db: "SistemaHospitalario", collection: "Pacientes" },
+      actions: [ "find", "update" ]
+    },
+    {
+      resource: { db: "SistemaHospitalario", collection: "Diagnosticos" },
+      actions: [ "find", "insert", "update" ]
+    }
+  ],
+  roles: []
+});
+
+
+// Usuario de enfermeras
+
+db.createRole({
+  role: "Enfermero",
+  privileges: [
+    {
+      resource: { db: "SistemaHospitalario", collection: "Pacientes" },
+      actions: [ "find" ]
+    }
+  ],
+  roles: []
+});
+
+
+// Usuario de Personal Administrativo
+
+db.createRole({
+  role: "Administrativo",
+  privileges: [
+    {
+      resource: { db: "SistemaHospitalario", collection: "Inventario" },
+      actions: [ "find", "insert", "update" ]
+    },
+    {
+      resource: { db: "SistemaHospitalario", collection: "Proveedores" },
+      actions: [ "find", "insert", "update" ]
+    },
+    {
+      resource: { db: "SistemaHospitalario", collection: "Personal" },
+      actions: [ "find", "update" ]
+    }
+  ],
+  roles: []
+});
+
+//  Usuario de Mantenimiento 
+
+db.createRole({
+  role: "Mantenimiento",
+  privileges: [
+    {
+      resource: { db: "SistemaHospitalario", collection: "TareasMantenimiento" },
+      actions: [ "find", "insert", "update" ]
+    }
+  ],
+  roles: []
+});

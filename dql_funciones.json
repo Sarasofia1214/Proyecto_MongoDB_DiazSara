@@ -1,0 +1,1478 @@
+
+// 20 FUNCIONES MONGODB PARA SISTEMA HOSPITALARIO
+
+// PARA GUARDAR LAS FUNCIONES SE USA:
+
+db.system.js.save({
+    _id: "nombreDeTuFuncion",
+    value: function(param1, param2) {
+      // Lógica de tu función
+      return db.TuColeccion.aggregate([
+        // etapas del pipeline
+      ]).toArray();
+    }
+  });
+  
+// 1. CÁLCULO DE INVENTARIOS DE MEDICAMENTOS POR HOSPITAL
+
+function calcularInventarioHospital(hospitalId) {
+    return db.Inventario.aggregate([
+        {
+            $match: {
+                id_hospital: hospitalId
+            }
+        },
+        {
+            $lookup: {
+                from: "Medicamentos",
+                localField: "id_medicamento",
+                foreignField: "_id",
+                as: "medicamento_info"
+            }
+        },
+        {
+            $lookup: {
+                from: "Hospital",
+                localField: "id_hospital",
+                foreignField: "_id",
+                as: "hospital_info"
+            }
+        },
+        {
+            $project: {
+                hospital_nombre: { $arrayElemAt: ["$hospital_info.nombre", 0] },
+                medicamento_nombre: { $arrayElemAt: ["$medicamento_info.nombre", 0] },
+                principio_activo: { $arrayElemAt: ["$medicamento_info.principio_activo", 0] },
+                stock_actual: "$stock",
+                disponibilidad: { $arrayElemAt: ["$medicamento_info.disponibilidad", 0] },
+                fecha_actualizacion: "$fecha_ultima_actualizacion",
+                estado_stock: {
+                    $cond: {
+                        if: { $lt: ["$stock", 10] },
+                        then: "CRÍTICO",
+                        else: {
+                            $cond: {
+                                if: { $lt: ["$stock", 50] },
+                                then: "BAJO",
+                                else: "NORMAL"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $sort: { stock_actual: 1 }
+        }
+    ]).toArray();
+}
+
+
+
+calcularInventarioHospital(ObjectId("6887ea5f0be2cd6239fe6b01"));
+
+
+
+// 2. REPORTE DE VISITAS MÉDICAS POR TIPO DE VISITA
+function reporteVisitasPorTipo(fechaInicio, fechaFin, hospitalId = null) {
+    const matchCondition = {
+        fecha_visita: {
+            $gte: new Date(fechaInicio),
+            $lte: new Date(fechaFin)
+        }
+    };
+
+    if (hospitalId) {
+        matchCondition.id_hospital = hospitalId;
+    }
+
+    return db.VisitasMedicas.aggregate([
+        { $match: matchCondition },
+        {
+            $group: {
+                _id: "$tipo_visita",
+                total_visitas: { $sum: 1 },
+                pacientes_unicos: { $addToSet: "$id_paciente" },
+                medicos_tratantes: { $addToSet: "$id_medico" }
+            }
+        },
+        {
+            $project: {
+                tipo_visita: "$_id",
+                total_visitas: 1,
+                total_pacientes: { $size: "$pacientes_unicos" },
+                total_medicos: { $size: "$medicos_tratantes" },
+                promedio_visitas_por_paciente: {
+                    $cond: {
+                        if: { $eq: [{ $size: "$pacientes_unicos" }, 0] },
+                        then: 0,
+                        else: { $divide: ["$total_visitas", { $size: "$pacientes_unicos" }] }
+                    }
+                }
+            }
+        },
+        { $sort: { total_visitas: -1 } }
+    ]).toArray();
+}
+
+reporteVisitasPorTipo("2024-01-01", "2024-12-31");
+
+
+// 3.  ESTADISTICAS DE TRATAMIENTOS POR HISTORIA CLINICA
+
+function estadisticasTratamientosPorHistoria() {
+    return db.HistoriaClinica.aggregate([
+        {
+            $lookup: {
+                from: "Tratamientos",
+                localField: "tratamiento",
+                foreignField: "_id",
+                as: "tratamiento_info"
+            }
+        },
+        { $unwind: "$tratamiento_info" },
+        {
+            $group: {
+                _id: {
+                    tratamiento_id: "$tratamiento_info._id",
+                    codigo: "$tratamiento_info.tratamiento_id",
+                    nombre: "$tratamiento_info.nombre",
+                    duracion: "$tratamiento_info.duracion",
+                    via: "$tratamiento_info.via_administracion",
+                    frecuencia: "$tratamiento_info.FrecuenciaAplicacion",
+                    costo_unitario: "$tratamiento_info.costo"
+                },
+                total_aplicaciones: { $sum: 1 },
+                pacientes_unicos: { $addToSet: "$paciente" },
+                costo_total: { $sum: "$tratamiento_info.costo" }
+            }
+        },
+        {
+            $project: {
+                tratamiento_id: "$_id.tratamiento_id",
+                codigo: "$_id.codigo",
+                nombre: "$_id.nombre",
+                duracion: "$_id.duracion",
+                via_administracion: "$_id.via",
+                frecuencia_aplicacion_horas: "$_id.frecuencia",
+                costo_unitario: "$_id.costo_unitario",
+                total_aplicaciones: 1,
+                total_pacientes: { $size: "$pacientes_unicos" },
+                costo_total: { $round: ["$costo_total", 2] },
+                costo_promedio: {
+                    $cond: {
+                        if: { $eq: ["$total_aplicaciones", 0] },
+                        then: 0,
+                        else: {
+                            $round: [
+                                { $divide: ["$costo_total", "$total_aplicaciones"] },
+                                2
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        { $sort: { total_aplicaciones: -1 } }
+    ]).toArray();
+}
+
+
+
+// 4. CONSULTA DE PACIENTES POR EPS
+function consultarPacientesPorEPS() {
+  return db.Pacientes.aggregate([
+    {
+      $lookup: {
+        from: "EPS",
+        localField: "id_eps",
+        foreignField: "_id",
+        as: "eps_info"
+      }
+    },
+    {
+      $unwind: {
+        path: "$eps_info",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: "$eps_info.nombre",
+        total_pacientes: { $sum: 1 },
+        pacientes: {
+          $push: {
+            nombre: "$nombre",
+            identificacion: "$numero_identificacion",
+            estado: "$estado_paciente",
+            nivel_atencion: "$nivel_atencion"
+          }
+        }
+      }
+    },
+    {
+      $project: {
+        eps_nombre: "$_id",
+        total_pacientes: 1,
+        pacientes: 1,
+        _id: 0
+      }
+    },
+    {
+      $sort: { total_pacientes: -1 }
+    }
+  ]).toArray();
+}
+
+consultarPacientesPorEPS();
+
+
+// 5. CONSULTA ESPECIALIZACION POR HOSPITAL
+function reporteRecursosPorArea(hospitalId) {
+    return db.Areas.aggregate([
+      { $match: { id_hospital: hospitalId } }, 
+      {
+        $lookup: {
+          from: "AreaEspecializacion",
+          localField: "_id",
+          foreignField: "id_area",
+          as: "especializaciones"
+        }
+      },
+      {
+        $lookup: {
+          from: "Medicos",
+          localField: "especializaciones._id",
+          foreignField: "id_area_especializacion",
+          as: "medicos"
+        }
+      },
+      {
+        $lookup: {
+          from: "Enfermeros",
+          localField: "_id",
+          foreignField: "area_asignada",
+          as: "enfermeros"
+        }
+      },
+      {
+        $project: {
+          area_nombre: "$tipo_area",
+          area_descripcion: "$descripcion",
+          estado: "$estado",
+          total_especializaciones: { $size: "$especializaciones" },
+          total_medicos: { $size: "$medicos" },
+          total_enfermeros: { $size: "$enfermeros" },
+          medicos_activos: {
+            $size: {
+              $filter: {
+                input: "$medicos",
+                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+              }
+            }
+          },
+          enfermeros_activos: {
+            $size: {
+              $filter: {
+                input: "$enfermeros",
+                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+              }
+            }
+          }
+        }
+      },
+      { $sort: { area_nombre: 1 } }
+    ]).toArray();
+  }
+  
+  
+
+// 6. RELACION ENFERMEDAD
+function sintomasMasComunes() {
+    return db.Sintomas.aggregate([
+      {
+        $lookup: {
+          from: "Enfermedades",
+          localField: "_id",
+          foreignField: "id_sintoma",
+          as: "enfermedades"
+        }
+      },
+      {
+        $project: {
+          descripcion: 1,
+          total_enfermedades: { $size: "$enfermedades" }
+        }
+      },
+      { $sort: { total_enfermedades: -1 } },
+      { $limit: 10 }
+    ]).toArray();
+  }
+
+  sintomasMasComunes();
+
+
+// 7. REPORTE FINANCIERO DE TRATAMIENTOS
+function reporteIngresosMensualesPorTratamientos(hospitalId, mes, año) {
+    return db.VisitasMedicas.aggregate([
+      {
+        $match: {
+          id_hospital: hospitalId,
+          fecha_visita: {
+            $gte: new Date(año, mes - 1, 1),
+            $lt: new Date(año, mes, 1)
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: "Tratamientos",
+          localField: "id_tratamiento",
+          foreignField: "_id",
+          as: "tratamiento_info"
+        }
+      },
+      { $unwind: "$tratamiento_info" },
+      {
+        $group: {
+          _id: {
+            dia: { $dayOfMonth: "$fecha_visita" },
+            tratamiento: "$tratamiento_info.nombre"
+          },
+          ingresos_diarios: { $sum: "$tratamiento_info.costo" },
+          cantidad_tratamientos: { $sum: 1 }
+        }
+      },
+      {
+        $group: {
+          _id: "$_id.dia",
+          ingresos_totales_dia: { $sum: "$ingresos_diarios" },
+          tratamientos_realizados: { $sum: "$cantidad_tratamientos" },
+          detalle_tratamientos: {
+            $push: {
+              tratamiento: "$_id.tratamiento",
+              ingresos: "$ingresos_diarios",
+              cantidad: "$cantidad_tratamientos"
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          dia: "$_id",
+          ingresos_totales: { $round: ["$ingresos_totales_dia", 2] },
+          total_tratamientos: "$tratamientos_realizados",
+          promedio_por_tratamiento: {
+            $cond: {
+              if: { $eq: ["$tratamientos_realizados", 0] },
+              then: 0,
+              else: {
+                $round: [
+                  { $divide: ["$ingresos_totales_dia", "$tratamientos_realizados"] },
+                  2
+                ]
+              }
+            }
+          },
+          detalle: "$detalle_tratamientos"
+        }
+      },
+      { $sort: { dia: 1 } }
+    ]).toArray();
+  }
+  
+
+
+// 8. CONSULTAR MEDICAMENTOS POR HOSPITAL
+function medicamentosPorHospital(hospitalId) {
+    return db.Inventario.aggregate([
+      { $match: { id_hospital: hospitalId } },
+      {
+        $lookup: {
+          from: "Medicamentos",
+          localField: "id_medicamento",
+          foreignField: "_id",
+          as: "medicamento_info"
+        }
+      },
+      { $unwind: "$medicamento_info" },
+      {
+        $project: {
+          _id: 0,
+          nombre: "$medicamento_info.nombre",
+          principio_activo: "$medicamento_info.principio_activo",
+          lote: "$medicamento_info.lote",
+          stock: "$stock",
+          fecha_actualizacion: "$fecha_ultima_actualizacion"
+        }
+      }
+    ]);
+  }
+  
+
+// 9. OBTENER PACIENTES Y EPS SEGUROS
+
+function pacientesConCobertura() {
+    return db.Pacientes.aggregate([
+      {
+        $lookup: {
+          from: "EPS",
+          localField: "id_eps",
+          foreignField: "_id",
+          as: "eps_info"
+        }
+      },
+      {
+        $lookup: {
+          from: "Seguros",
+          localField: "id_seguro",
+          foreignField: "_id",
+          as: "seguro_info"
+        }
+      },
+      { $unwind: "$eps_info" },
+      { $unwind: "$seguro_info" },
+      {
+        $project: {
+          _id: 0,
+          nombre: 1,
+          tipo_identificacion: 1,
+          numero_identificacion: 1,
+          eps: "$eps_info.nombre",
+          seguro: "$seguro_info.nombre",
+          nivel_cobertura: "$seguro_info.nivel_cobertura"
+        }
+      }
+    ]);
+  }
+  
+  pacientesConCobertura();
+
+// 10. Listado de médicos por hospital y área asignada
+function medicosPorHospital(hospitalId) {
+    return db.Medicos.find(
+      { hospital_id: hospitalId },
+      {
+        nombre: 1,
+        correo: 1,
+        telefono: 1,
+        area_asignada: 1,
+        numero_colegiatura: 1
+      }
+    ).toArray();
+  }
+  
+  medicosPorHospital(ObjectId("6887ea5f0be2cd6239fe6b01"));
+
+
+// 11. EFICIENCIA DE MÉDICOS POR ESPECIALIZACIÓN
+
+function eficienciaMedicosPorEspecializacion(hospitalId, fechaInicio, fechaFin) {
+    return db.VisitasMedicas.aggregate([
+      {
+        $match: {
+          fecha_visita: {
+            $gte: new Date(fechaInicio),
+            $lte: new Date(fechaFin)
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: "Medicos",
+          localField: "id_medico",
+          foreignField: "_id",
+          as: "medico_info"
+        }
+      },
+      { $unwind: "$medico_info" },
+      {
+        $match: {
+          "medico_info.hospital_id": hospitalId
+        }
+      },
+      {
+        $group: {
+          _id: {
+            medico_id: "$id_medico",
+            nombre: "$medico_info.nombre",
+            area_asignada: "$medico_info.area_asignada"
+          },
+          total_visitas: { $sum: 1 },
+          pacientes_atendidos: { $addToSet: "$id_paciente" },
+          visitas_completadas: {
+            $sum: {
+              $cond: [{ $eq: ["$estado_visita", "COMPLETADA"] }, 1, 0]
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          medico_id: "$_id.medico_id",
+          medico_nombre: "$_id.nombre",
+          especializacion: "$_id.area_asignada",
+          total_visitas: 1,
+          visitas_completadas: 1,
+          total_pacientes_unicos: { $size: "$pacientes_atendidos" },
+          tasa_completacion: {
+            $round: [
+              {
+                $multiply: [
+                  { $divide: ["$visitas_completadas", "$total_visitas"] },
+                  100
+                ]
+              },
+              2
+            ]
+          },
+          promedio_visitas_por_paciente: {
+            $round: [
+              {
+                $divide: [
+                  "$total_visitas",
+                  { $cond: [{ $eq: [{ $size: "$pacientes_atendidos" }, 0] }, 1, { $size: "$pacientes_atendidos" }] }
+                ]
+              },
+              2
+            ]
+          }
+        }
+      },
+      { $sort: { tasa_completacion: -1, total_visitas: -1 } }
+    ]).toArray();
+  }
+ 
+
+// 11. ANÁLISIS DE OCUPACIÓN POR ÁREAS
+db.system.js.save({
+    _id: "analisisOcupacionAreas",
+    value: function(hospitalId) {
+        return db.Areas.aggregate([
+            { $match: { id_hospital: hospitalId, estado: "ACTIVO" } },
+            {
+                $lookup: {
+                    from: "Subareas",
+                    localField: "_id",
+                    foreignField: "id_area",
+                    as: "subareas"
+                }
+            },
+            {
+                $lookup: {
+                    from: "VisitasMedicas",
+                    let: { areaId: "$_id" },
+                    pipeline: [
+                        {
+                            $lookup: {
+                                from: "Medicos",
+                                localField: "id_medico",
+                                foreignField: "_id",
+                                as: "medico"
+                            }
+                        },
+                        {
+                            $match: {
+                                $expr: { $eq: ["$medico.area_asignada", "$$areaId"] },
+                                fecha_visita: {
+                                    $gte: new Date(new Date().setDate(new Date().getDate() - 30))
+                                }
+                            }
+                        }
+                    ],
+                    as: "visitas_recientes"
+                }
+            },
+            {
+                $project: {
+                    area_nombre: "$tipo_area",
+                    descripcion: "$descripcion",
+                    total_subareas: { $size: "$subareas" },
+                    subareas_activas: {
+                        $size: {
+                            $filter: {
+                                input: "$subareas",
+                                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+                            }
+                        }
+                    },
+                    visitas_ultimo_mes: { $size: "$visitas_recientes" },
+                    promedio_visitas_diarias: {
+                        $round: [{ $divide: [{ $size: "$visitas_recientes" }, 30] }, 2]
+                    },
+                    nivel_ocupacion: {
+                        $cond: {
+                            if: { $gt: [{ $size: "$visitas_recientes" }, 100] },
+                            then: "ALTA",
+                            else: {
+                                $cond: {
+                                    if: { $gt: [{ $size: "$visitas_recientes" }, 50] },
+                                    then: "MEDIA",
+                                    else: "BAJA"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            { $sort: { visitas_ultimo_mes: -1 } }
+        ]).toArray();
+    }
+});
+
+// 12. REPORTE DE HISTORIALES CLÍNICOS ACTIVOS
+function historialesClinicosActivos(hospitalId = null, estadoPaciente = "ACTIVO") {
+    let matchCondition = { estado_paciente: estadoPaciente };
+    if (hospitalId) {
+      matchCondition.hospital_registro_id = hospitalId;
+    }
+  
+    return db.Pacientes.aggregate([
+      { $match: matchCondition },
+      {
+        $lookup: {
+          from: "HistoriaClinica",
+          localField: "_id",
+          foreignField: "paciente",
+          as: "historias"
+        }
+      },
+      {
+        $lookup: {
+          from: "VisitasMedicas",
+          localField: "_id",
+          foreignField: "id_paciente",
+          as: "visitas"
+        }
+      },
+      {
+        $project: {
+          paciente_nombre: "$nombre",
+          numero_identificacion: "$numero_identificacion",
+          fecha_nacimiento: "$fecha_nacimiento",
+          edad: {
+            $floor: {
+              $divide: [
+                { $subtract: [new Date(), "$fecha_nacimiento"] },
+                365.25 * 24 * 60 * 60 * 1000
+              ]
+            }
+          },
+          total_historias: { $size: "$historias" },
+          total_visitas: { $size: "$visitas" },
+          ultima_visita: {
+            $max: "$visitas.fecha_visita"
+          },
+          nivel_atencion: "$nivel_atencion",
+          estado_actual: "$estado_paciente"
+        }
+      },
+      { $sort: { ultima_visita: -1 } }
+    ]).toArray();
+  }
+  
+
+// 13. ANÁLISIS DE PROVEEDORES Y SUMINISTROS
+function analisisProveedoresSupministros(hospitalId) {
+    return db.Proveedores.aggregate([
+      {
+        $lookup: {
+          from: "Inventario",
+          let: { proveedorId: "$_id" },
+          pipeline: [
+            { $match: { id_hospital: hospitalId } },
+            {
+              $lookup: {
+                from: "Medicamentos",
+                localField: "id_medicamento",
+                foreignField: "_id",
+                as: "medicamento"
+              }
+            },
+            {
+              $match: {
+                "medicamento.fabricante": { $ne: null }
+              }
+            }
+          ],
+          as: "suministros"
+        }
+      },
+      {
+        $project: {
+          proveedor_nombre: "$nombre_empresa",
+          nit: "$nit",
+          tipo: "$tipo",
+          terminos_pago: "$terminos_pago",
+          total_medicamentos_suministrados: { $size: "$suministros" },
+          stock_total_hospital: {
+            $sum: "$suministros.stock"
+          },
+          medicamentos_criticos: {
+            $size: {
+              $filter: {
+                input: "$suministros",
+                as: "s",
+                cond: { $lt: ["$$s.stock", 10] }
+              }
+            }
+          },
+          confiabilidad: {
+            $cond: {
+              if: { $gt: [{ $size: "$suministros" }, 0] },
+              then: {
+                $round: [
+                  {
+                    $multiply: [
+                      {
+                        $divide: [
+                          {
+                            $subtract: [
+                              { $size: "$suministros" },
+                              {
+                                $size: {
+                                  $filter: {
+                                    input: "$suministros",
+                                    as: "s",
+                                    cond: { $lt: ["$$s.stock", 10] }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          { $size: "$suministros" }
+                        ]
+                      },
+                      100
+                    ]
+                  },
+                  2
+                ]
+              },
+              else: 0
+            }
+          }
+        }
+      },
+      { $sort: { confiabilidad: -1, total_medicamentos_suministrados: -1 } }
+    ]).toArray();
+  }
+  
+
+// 14. REPORTE DE HORARIOS 
+
+
+function generarReporteHorarios() {
+    const colecciones = [
+      { nombre: "Medicos", tipo: "Médico" },
+      { nombre: "Enfermeros", tipo: "Enfermero" },
+      { nombre: "Administrativos", tipo: "Administrativo" },
+      { nombre: "Mantenimiento", tipo: "Mantenimiento" }
+    ];
+  
+    colecciones.forEach(c => {
+      const registros = db.getCollection(c.nombre).aggregate([
+        {
+          $lookup: {
+            from: "Hospital",
+            localField: "hospital_id",
+            foreignField: "_id",
+            as: "hospital"
+          }
+        },
+        {
+          $unwind: {
+            path: "$hospital",
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $lookup: {
+            from: "Horario",
+            localField: "horario",
+            foreignField: "_id",
+            as: "horario_info"
+          }
+        },
+        {
+          $unwind: {
+            path: "$horario_info",
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $project: {
+            id_personal: "$_id",
+            nombre_completo: "$nombre",
+            rol: "$rol",
+            tipo_personal: c.tipo,
+            area: "$area_asignada",
+            hospital_id: "$hospital._id",
+            nombre_hospital: "$hospital.nombre",
+            id_horario: "$horario_info._id",
+            horario_tipo: "$horario_info.horario_tipo",
+            dias: "$horario_info.dias",
+            estado: "$estado",
+            fecha_ingreso: "$fecha_ingreso"
+          }
+        }
+      ]).toArray();
+  
+      if (registros.length > 0) {
+        db.ReporteHorarios.insertMany(registros);
+      }
+    });
+  
+    return "Reporte de horarios generado exitosamente.";
+  }
+  
+
+// 15. DASHBOARD COMPLETO DEL HOSPITAL
+function dashboardHospital(hospitalId) {
+    return db.Hospital.aggregate([
+        { $match: { _id: ObjectId(hospitalId) } },
+        {
+            $lookup: {
+                from: "Pacientes",
+                localField: "_id",
+                foreignField: "hospital_registro_id",
+                as: "pacientes"
+            }
+        },
+        {
+            $lookup: {
+                from: "Medicos",
+                localField: "_id",
+                foreignField: "hospital_id",
+                as: "medicos"
+            }
+        },
+        {
+            $lookup: {
+                from: "Enfermeros",
+                localField: "_id",
+                foreignField: "hospital_id",
+                as: "enfermeros"
+            }
+        },
+        {
+            $lookup: {
+                from: "Areas",
+                localField: "_id",
+                foreignField: "id_hospital",
+                as: "areas"
+            }
+        },
+        {
+            $lookup: {
+                from: "Inventario",
+                localField: "_id",
+                foreignField: "id_hospital",
+                as: "inventario"
+            }
+        },
+        {
+            $project: {
+                hospital_nombre: "$nombre",
+                hospital_codigo: "$codigo_habilitacion",
+                hospital_nivel: "$nivel_complejidad",
+                estadisticas: {
+                    total_pacientes: { $size: "$pacientes" },
+                    pacientes_activos: {
+                        $size: {
+                            $filter: {
+                                input: "$pacientes",
+                                cond: { $eq: ["$$this.estado_paciente", "ACTIVO"] }
+                            }
+                        }
+                    },
+                    total_medicos: { $size: "$medicos" },
+                    medicos_activos: {
+                        $size: {
+                            $filter: {
+                                input: "$medicos",
+                                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+                            }
+                        }
+                    },
+                    total_enfermeros: { $size: "$enfermeros" },
+                    enfermeros_activos: {
+                        $size: {
+                            $filter: {
+                                input: "$enfermeros",
+                                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+                            }
+                        }
+                    },
+                    total_areas: { $size: "$areas" },
+                    areas_activas: {
+                        $size: {
+                            $filter: {
+                                input: "$areas",
+                                cond: { $eq: ["$$this.estado", "ACTIVO"] }
+                            }
+                        }
+                    },
+                    total_medicamentos_inventario: { $size: "$inventario" },
+                    medicamentos_stock_bajo: {
+                        $size: {
+                            $filter: {
+                                input: "$inventario",
+                                cond: { $lte: ["$$this.stock", 10] }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]).toArray();
+}
+
+// 16. REPORTE DETALLADO DE PERSONAL POR ÁREA
+function reportePersonalPorArea(hospitalId) {
+    return db.Areas.aggregate([
+        { $match: { id_hospital: ObjectId(hospitalId), estado: "ACTIVO" } },
+        {
+            $lookup: {
+                from: "Medicos",
+                let: { areaName: "$tipo_area" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $and: [
+                                    { $eq: ["$hospital_id", ObjectId(hospitalId)] },
+                                    { $eq: ["$area_asignada", "$$areaName"] },
+                                    { $eq: ["$estado", "ACTIVO"] }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                as: "medicos"
+            }
+        },
+        {
+            $lookup: {
+                from: "Enfermeros",
+                let: { areaName: "$tipo_area" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $and: [
+                                    { $eq: ["$hospital_id", ObjectId(hospitalId)] },
+                                    { $eq: ["$area_asignada", "$$areaName"] },
+                                    { $eq: ["$estado", "ACTIVO"] }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                as: "enfermeros"
+            }
+        },
+        {
+            $lookup: {
+                from: "Horario",
+                localField: "medicos.id_horario",
+                foreignField: "_id",
+                as: "horarios_medicos"
+            }
+        },
+        {
+            $lookup: {
+                from: "Horario",
+                localField: "enfermeros.horario",
+                foreignField: "_id",
+                as: "horarios_enfermeros"
+            }
+        },
+        {
+            $project: {
+                area_nombre: "$tipo_area",
+                descripcion: "$descripcion",
+                personal_resumen: {
+                    total_medicos: { $size: "$medicos" },
+                    total_enfermeros: { $size: "$enfermeros" },
+                    total_personal: { $add: [{ $size: "$medicos" }, { $size: "$enfermeros" }] }
+                },
+                detalle_medicos: {
+                    $map: {
+                        input: "$medicos",
+                        as: "medico",
+                        in: {
+                            nombre: "$$medico.nombre",
+                            colegiatura: "$$medico.numero_colegiatura",
+                            correo: "$$medico.correo",
+                            telefono: "$$medico.telefono",
+                            fecha_ingreso: "$$medico.fecha_ingreso",
+                            rol: "$$medico.rol"
+                        }
+                    }
+                },
+                detalle_enfermeros: {
+                    $map: {
+                        input: "$enfermeros",
+                        as: "enfermero",
+                        in: {
+                            nombre: "$$enfermero.nombre",
+                            colegiatura: "$$enfermero.numero_colegiatura",
+                            correo: "$$enfermero.correo",
+                            telefono: "$$enfermero.telefono",
+                            fecha_ingreso: "$$enfermero.fecha_ingreso",
+                            rol: "$$enfermero.rol"
+                        }
+                    }
+                }
+            }
+        },
+        { $sort: { "personal_resumen.total_personal": -1 } }
+    ]).toArray();
+}
+
+// 17. ANÁLISIS FINANCIERO DE TRATAMIENTOS POR PERÍODO
+function analisisFinancieroTratamientos(hospitalId, fechaInicio, fechaFin) {
+    return db.VisitasMedicas.aggregate([
+        {
+            $match: {
+                fecha_visita: {
+                    $gte: new Date(fechaInicio),
+                    $lte: new Date(fechaFin)
+                }
+            }
+        },
+        {
+            $lookup: {
+                from: "Medicos",
+                localField: "id_medico",
+                foreignField: "_id",
+                as: "medico_info"
+            }
+        },
+        {
+            $match: {
+                "medico_info.hospital_id": ObjectId(hospitalId)
+            }
+        },
+        {
+            $lookup: {
+                from: "Tratamientos",
+                localField: "id_tratamiento",
+                foreignField: "_id",
+                as: "tratamiento_info"
+            }
+        },
+        { $unwind: "$tratamiento_info" },
+        { $unwind: "$medico_info" },
+        {
+            $group: {
+                _id: {
+                    mes: { $month: "$fecha_visita" },
+                    año: { $year: "$fecha_visita" },
+                    tratamiento_id: "$tratamiento_info._id",
+                    tratamiento_nombre: "$tratamiento_info.nombre",
+                    area: "$medico_info.area_asignada"
+                },
+                total_aplicaciones: { $sum: 1 },
+                ingresos_tratamiento: { $sum: "$tratamiento_info.costo" },
+                pacientes_diferentes: { $addToSet: "$id_paciente" },
+                medicos_aplicadores: { $addToSet: "$id_medico" }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    mes: "$_id.mes",
+                    año: "$_id.año",
+                    area: "$_id.area"
+                },
+                ingresos_totales_area: { $sum: "$ingresos_tratamiento" },
+                total_aplicaciones_area: { $sum: "$total_aplicaciones" },
+                tratamientos_diferentes: { $addToSet: "$_id.tratamiento_nombre" },
+                detalle_tratamientos: {
+                    $push: {
+                        tratamiento: "$_id.tratamiento_nombre",
+                        aplicaciones: "$total_aplicaciones",
+                        ingresos: "$ingresos_tratamiento",
+                        pacientes_unicos: { $size: "$pacientes_diferentes" },
+                        medicos_involucrados: { $size: "$medicos_aplicadores" }
+                    }
+                }
+            }
+        },
+        {
+            $project: {
+                periodo: { $concat: [{ $toString: "$_id.mes" }, "/", { $toString: "$_id.año" }] },
+                area: "$_id.area",
+                resumen_financiero: {
+                    ingresos_totales: { $round: ["$ingresos_totales_area", 2] },
+                    total_procedimientos: "$total_aplicaciones_area",
+                    tipos_tratamientos: { $size: "$tratamientos_diferentes" },
+                    ingreso_promedio_por_procedimiento: {
+                        $round: [{ $divide: ["$ingresos_totales_area", "$total_aplicaciones_area"] }, 2]
+                    }
+                },
+                detalle_por_tratamiento: "$detalle_tratamientos"
+            }
+        },
+        { $sort: { "_id.año": -1, "_id.mes": -1, "resumen_financiero.ingresos_totales": -1 } }
+    ]).toArray();
+}
+
+// 18. GESTIÓN AVANZADA DE INVENTARIO CON ALERTAS
+function gestionInventarioAvanzada(hospitalId) {
+    return db.Inventario.aggregate([
+        { $match: { id_hospital: ObjectId(hospitalId) } },
+        {
+            $lookup: {
+                from: "Medicamentos",
+                localField: "id_medicamento",
+                foreignField: "_id",
+                as: "medicamento_info"
+            }
+        },
+        { $unwind: "$medicamento_info" },
+        {
+            $lookup: {
+                from: "Proveedores",
+                let: { fabricante: "$medicamento_info.fabricante" },
+                pipeline: [
+                    { $match: { $expr: { $eq: ["$nombre_empresa", "$$fabricante"] } } }
+                ],
+                as: "proveedor_info"
+            }
+        },
+        {
+            $addFields: {
+                nivel_stock: {
+                    $switch: {
+                        branches: [
+                            { case: { $lte: ["$stock", 5] }, then: "CRÍTICO" },
+                            { case: { $lte: ["$stock", 20] }, then: "BAJO" },
+                            { case: { $lte: ["$stock", 50] }, then: "MEDIO" },
+                            { case: { $gt: ["$stock", 50] }, then: "ALTO" }
+                        ],
+                        default: "DESCONOCIDO"
+                    }
+                },
+                dias_desde_actualizacion: {
+                    $floor: {
+                        $divide: [
+                            { $subtract: [new Date(), "$fecha_ultima_actualizacion"] },
+                            1000 * 60 * 60 * 24
+                        ]
+                    }
+                },
+                requiere_atencion: {
+                    $or: [
+                        { $lte: ["$stock", 10] },
+                        { $gt: [{ $floor: { $divide: [{ $subtract: [new Date(), "$fecha_ultima_actualizacion"] }, 1000 * 60 * 60 * 24] } }, 30] }
+                    ]
+                }
+            }
+        },
+        {
+            $project: {
+                medicamento: {
+                    nombre: "$medicamento_info.nombre",
+                    principio_activo: "$medicamento_info.principio_activo",
+                    concentracion: "$medicamento_info.concentracion",
+                    lote: "$medicamento_info.lote",
+                    fabricante: "$medicamento_info.fabricante"
+                },
+                inventario: {
+                    stock_actual: "$stock",
+                    nivel_stock: "$nivel_stock",
+                    fecha_ultima_actualizacion: "$fecha_ultima_actualizacion",
+                    dias_sin_actualizar: "$dias_desde_actualizacion"
+                },
+                alertas: {
+                    requiere_atencion: "$requiere_atencion",
+                    es_critico: { $lte: ["$stock", 5] },
+                    actualizacion_pendiente: { $gt: ["$dias_desde_actualizacion", 30] }
+                },
+                proveedor: {
+                    $cond: {
+                        if: { $gt: [{ $size: "$proveedor_info" }, 0] },
+                        then: {
+                            nombre: { $arrayElemAt: ["$proveedor_info.nombre_empresa", 0] },
+                            nit: { $arrayElemAt: ["$proveedor_info.nit", 0] },
+                            terminos_pago: { $arrayElemAt: ["$proveedor_info.terminos_pago", 0] }
+                        },
+                        else: "No encontrado"
+                    }
+                }
+            }
+        },
+        { $sort: { "alertas.es_critico": -1, "inventario.stock_actual": 1 } }
+    ]).toArray();
+}
+
+// 19. ANÁLISIS DE RENDIMIENTO DE MÉDICOS CON MÉTRICAS DETALLADAS
+function analisisRendimientoMedicos(hospitalId, fechaInicio, fechaFin) {
+    return db.Medicos.aggregate([
+        { $match: { hospital_id: ObjectId(hospitalId), estado: "ACTIVO" } },
+        {
+            $lookup: {
+                from: "VisitasMedicas",
+                let: { medicoId: "$_id" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: { $eq: ["$id_medico", "$$medicoId"] },
+                            fecha_visita: {
+                                $gte: new Date(fechaInicio),
+                                $lte: new Date(fechaFin)
+                            }
+                        }
+                    }
+                ],
+                as: "visitas"
+            }
+        },
+        {
+            $lookup: {
+                from: "Tratamientos",
+                localField: "visitas.id_tratamiento",
+                foreignField: "_id",
+                as: "tratamientos_aplicados"
+            }
+        },
+        {
+            $lookup: {
+                from: "Horario",
+                localField: "id_horario",
+                foreignField: "_id",
+                as: "horario_info"
+            }
+        },
+        {
+            $addFields: {
+                visitas_completadas: {
+                    $size: {
+                        $filter: {
+                            input: "$visitas",
+                            cond: { $eq: ["$$this.estado_visita", "COMPLETADA"] }
+                        }
+                    }
+                },
+                visitas_pendientes: {
+                    $size: {
+                        $filter: {
+                            input: "$visitas",
+                            cond: { $eq: ["$$this.estado_visita", "PENDIENTE"] }
+                        }
+                    }
+                },
+                pacientes_unicos: {
+                    $size: { $setUnion: ["$visitas.id_paciente", []] }
+                },
+                ingresos_generados: {
+                    $sum: "$tratamientos_aplicados.costo"
+                }
+            }
+        },
+        {
+            $project: {
+                medico_info: {
+                    nombre: "$nombre",
+                    colegiatura: "$numero_colegiatura",
+                    area_asignada: "$area_asignada",
+                    fecha_ingreso: "$fecha_ingreso",
+                    correo: "$correo",
+                    telefono: "$telefono"
+                },
+                estadisticas_periodo: {
+                    total_visitas: { $size: "$visitas" },
+                    visitas_completadas: "$visitas_completadas",
+                    visitas_pendientes: "$visitas_pendientes",
+                    pacientes_atendidos: "$pacientes_unicos",
+                    tratamientos_diferentes: { $size: "$tratamientos_aplicados" }
+                },
+                metricas_rendimiento: {
+                    tasa_completacion: {
+                        $cond: {
+                            if: { $eq: [{ $size: "$visitas" }, 0] },
+                            then: 0,
+                            else: {
+                                $round: [
+                                    { $multiply: [{ $divide: ["$visitas_completadas", { $size: "$visitas" }] }, 100] },
+                                    2
+                                ]
+                            }
+                        }
+                    },
+                    promedio_visitas_por_paciente: {
+                        $cond: {
+                            if: { $eq: ["$pacientes_unicos", 0] },
+                            then: 0,
+                            else: { $round: [{ $divide: [{ $size: "$visitas" }, "$pacientes_unicos"] }, 2] }
+                        }
+                    },
+                    ingresos_generados: { $round: ["$ingresos_generados", 2] },
+                    ingreso_promedio_por_visita: {
+                        $cond: {
+                            if: { $eq: [{ $size: "$visitas" }, 0] },
+                            then: 0,
+                            else: { $round: [{ $divide: ["$ingresos_generados", { $size: "$visitas" }] }, 2] }
+                        }
+                    }
+                },
+                horario: {
+                    $cond: {
+                        if: { $gt: [{ $size: "$horario_info" }, 0] },
+                        then: {
+                            tipo: { $arrayElemAt: ["$horario_info.horario_tipo", 0] },
+                            dias: { $arrayElemAt: ["$horario_info.dias", 0] }
+                        },
+                        else: "No asignado"
+                    }
+                }
+            }
+        },
+        { $sort: { "metricas_rendimiento.tasa_completacion": -1, "estadisticas_periodo.total_visitas": -1 } }
+    ]).toArray();
+}
+
+// 20. REPORTE INTEGRAL DE PACIENTES CON SEGUIMIENTO
+function reporteIntegralPacientes(hospitalId, tipoFiltro = "TODOS") {
+    let matchCondition = { hospital_registro_id: ObjectId(hospitalId) };
+    
+    if (tipoFiltro !== "TODOS") {
+        matchCondition.estado_paciente = tipoFiltro;
+    }
+
+    return db.Pacientes.aggregate([
+        { $match: matchCondition },
+        {
+            $lookup: {
+                from: "HistoriaClinica",
+                localField: "_id",
+                foreignField: "paciente",
+                as: "historias_clinicas"
+            }
+        },
+        {
+            $lookup: {
+                from: "VisitasMedicas",
+                localField: "_id",
+                foreignField: "id_paciente",
+                as: "visitas_medicas"
+            }
+        },
+        {
+            $lookup: {
+                from: "EPS",
+                localField: "id_eps",
+                foreignField: "_id",
+                as: "eps_info"
+            }
+        },
+        {
+            $lookup: {
+                from: "Seguros",
+                localField: "id_seguro",
+                foreignField: "_id",
+                as: "seguro_info"
+            }
+        },
+        {
+            $lookup: {
+                from: "Tratamientos",
+                localField: "historias_clinicas.tratamiento",
+                foreignField: "_id",
+                as: "tratamientos_recibidos"
+            }
+        },
+        {
+            $addFields: {
+                edad_actual: {
+                    $floor: {
+                        $divide: [
+                            { $subtract: [new Date(), "$fecha_nacimiento"] },
+                            365.25 * 24 * 60 * 60 * 1000
+                        ]
+                    }
+                },
+                ultima_visita: { $max: "$visitas_medicas.fecha_visita" },
+                dias_desde_ultima_visita: {
+                    $floor: {
+                        $divide: [
+                            { $subtract: [new Date(), { $max: "$visitas_medicas.fecha_visita" }] },
+                            1000 * 60 * 60 * 24
+                        ]
+                    }
+                },
+                costo_total_tratamientos: { $sum: "$tratamientos_recibidos.costo" }
+            }
+        },
+        {
+            $project: {
+                informacion_personal: {
+                    nombre: "$nombre",
+                    tipo_identificacion: "$tipo_identificacion",
+                    numero_identificacion: "$numero_identificacion",
+                    edad: "$edad_actual",
+                    genero: "$genero",
+                    direccion: "$direccion",
+                    telefono_contacto: "$telefono_contacto"
+                },
+                estado_medico: {
+                    estado_actual: "$estado_paciente",
+                    nivel_atencion: "$nivel_atencion",
+                    fecha_registro: "$fecha_registro",
+                    ultima_visita: "$ultima_visita",
+                    dias_sin_visita: "$dias_desde_ultima_visita"
+                },
+                cobertura_medica: {
+                    eps: {
+                        $cond: {
+                            if: { $gt: [{ $size: "$eps_info" }, 0] },
+                            then: {
+                                nombre: { $arrayElemAt: ["$eps_info.nombre", 0] },
+                                tipo: { $arrayElemAt: ["$eps_info.tipo", 0] },
+                                nivel: { $arrayElemAt: ["$eps_info.nivel", 0] }
+                            },
+                            else: "Sin EPS"
+                        }
+                    },
+                    seguro: {
+                        $cond: {
+                            if: { $gt: [{ $size: "$seguro_info" }, 0] },
+                            then: {
+                                nombre: { $arrayElemAt: ["$seguro_info.nombre", 0] },
+                                nivel_cobertura: { $arrayElemAt: ["$seguro_info.nivel_cobertura", 0] },
+                                plan: { $arrayElemAt: ["$seguro_info.plan", 0] }
+                            },
+                            else: "Sin seguro"
+                        }
+                    }
+                },
+                historial_medico: {
+                    total_historias_clinicas: { $size: "$historias_clinicas" },
+                    total_visitas: { $size: "$visitas_medicas" },
+                    tratamientos_diferentes: { $size: "$tratamientos_recibidos" },
+                    costo_total_atencion: { $round: ["$costo_total_tratamientos", 2] }
+                },
+                alertas: {
+                    requiere_seguimiento: { $gt: ["$dias_desde_ultima_visita", 90] },
+                    paciente_frecuente: { $gt: [{ $size: "$visitas_medicas" }, 10] },
+                    sin_visitas_recientes: {
+                        $or: [
+                            { $eq: [{ $size: "$visitas_medicas" }, 0] },
+                            { $gt: ["$dias_desde_ultima_visita", 180] }
+                        ]
+                    }
+                }
+            }
+        },
+        { $sort: { ultima_visita: -1, "historial_medico.total_visitas": -1 } }
+    ]).toArray();
+}
+
+
+// Funciones Estratégicas para la Gestión Hospitalaria
+
+Estas 20 funciones cubren los aspectos más críticos de la operación hospitalaria:
