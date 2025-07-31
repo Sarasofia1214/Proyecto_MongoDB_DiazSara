@@ -97,6 +97,7 @@ Finalmente, el **modelo físico** para la implementación de una base de datos e
 
 El plasmar estos datos tiene como objetivo para esta documentación la **representación visual** que define los sistemas de recopilación y administración de información del Sistema Hospitalario, logrando ayudar a las diferentes partes interesadas, como analistas e ingenieros, para interpretar de manera efectiva los datos.
 
+## Para ver la sustentación del video, ingrese aqui: [Video](https://www.canva.com/design/DAGus5gw_NQ/jp7sI99Q_f87O3k68dvEOA/watch?utm_content=DAGus5gw_NQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdbe96b02f3)
 
 
 ## Caso de Estudio
