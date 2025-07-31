@@ -86,7 +86,6 @@
 </div>
 En este documento se halla la especificación del desarrollo de la base de datos realizada para un sistema hospitalario de Colombia, el cual busca permitir la gestión eficiente de todas las operaciones relacionadas con la administración de este sistema.
 
-Entre los problemas más destacados se encuentran la gestión deficiente de clientes y repuestos, la ineficiencia en la cadena de suministro y las dificultades en el análisis de ventas y compras.
 
 Aquí se muestra de forma esquematizada la creación de una base de datos para una gestión de la información, almacenamiento y manipulación de datos eficiente y asequible para el sistema. Para lograr esto, se realizaron los tipos de modelos necesarios para la base de datos: **modelo conceptual**, **lógico** y **físico**.
 
@@ -193,7 +192,7 @@ Cada hospital tiene mas de 40 médicos, 70 enfermeros y 7 administrativos
 
 * Los hospitales deben contar con un **historial detallado de pacientes y tratamientos realizados**.
 
-Registrado en hospital clinico y tratamientos.
+Registrado en historial clinico y tratamientos.
 
 ### Pacientes
 
